@@ -51,8 +51,11 @@ def assert_released(label):
 
 assert '1080x2400' in adb('shell', 'wm', 'size'), 'Use the documented Pixel 7 emulator.'
 adb('shell', 'pm', 'clear', 'com.tomtune.app')
+adb('shell', 'cmd', 'locale', 'set-app-locales', 'com.tomtune.app', '--locales', 'en')
 adb('shell', 'am', 'start', '-W', '-n', 'com.tomtune.app/.MainActivity')
 wait_text('Enable microphone')
+tap_text('Lug 2')
+wait_text('Selected lug: 2')
 # Native cap coordinates for the fixed camera and the documented Pixel 7 scene bounds.
 for index, (x, y) in enumerate([(628,646),(764,749),(777,914),(642,1044),(437,1044),(303,914),(316,749),(451,646)]):
     adb('shell', 'input', 'tap', str(x), str(y))
@@ -85,5 +88,12 @@ wait_text('This screen is closed. The microphone has been released.')
 assert_released('closed screen')
 tap_text('Return to feasibility')
 wait_text('Microphone stopped')
-print('reopened: native scene recreated and capture requires explicit activation', flush=True)
+end = time.monotonic() + 30
+while True:
+    adb('shell', 'input', 'tap', '628', '646')
+    if any(n.get('text') == 'Selected lug: 1' for n in ui().iter('node')):
+        break
+    assert time.monotonic() < end, 'Reopened native scene did not select lug 1'
+    time.sleep(.5)
+print('reopened: native scene recreated, lug 1 selected from lug 2, capture requires explicit activation', flush=True)
 print('PASS — emulator simulation only; no real strike or hardware latency measured.', flush=True)

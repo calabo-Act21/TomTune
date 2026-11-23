@@ -7,12 +7,12 @@ native picking: lug 6/8 correct
 native picking: lug 7/8 correct
 native picking: lug 8/8 correct
 permission denied: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: ignore
-RECORD_AUDIO: allow; time=+1m19s895ms ago; duration=+3s865ms
+RECORD_AUDIO: allow; time=+3m9s303ms ago; duration=+7s30ms
 permission granted: native AudioRecord active with Filament visible; Uid mode: RECORD_AUDIO: foreground
-RECORD_AUDIO: allow; time=+2s603ms ago (running)
+RECORD_AUDIO: allow; time=+2s580ms ago (running)
 background: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: foreground
-RECORD_AUDIO: allow; time=+4s424ms ago; duration=+4s304ms
+RECORD_AUDIO: allow; time=+4s186ms ago; duration=+4s36ms
 closed screen: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: foreground
-RECORD_AUDIO: allow; time=+9s235ms ago; duration=+7s30ms
-reopened: native scene recreated and capture requires explicit activation
+RECORD_AUDIO: allow; time=+9s286ms ago; duration=+7s82ms
+reopened: native scene recreated, lug 1 selected from lug 2, capture requires explicit activation
 PASS — emulator simulation only; no real strike or hardware latency measured.

@@ -4,6 +4,7 @@ import Shared
 
 /// AVAudioEngine owns capture; only a copied mono buffer leaves its tap.
 /// Kotlin analysis is dispatched by the shared screen, away from UIKit/RealityKit.
+// Kotlin/Native ObjC export lowercases PascalCase enum entries (permissiondenied, routechanged).
 final class IOSPcmSource: NSObject, PcmSource {
     private let lock = NSRecursiveLock()
     private let queue = DispatchQueue(label: "com.tomtune.pcm", qos: .userInitiated)
@@ -36,7 +37,7 @@ final class IOSPcmSource: NSObject, PcmSource {
         lock.unlock()
         let session = AVAudioSession.sharedInstance()
         guard session.recordPermission == .granted else {
-            fail(token: token, issue: .permissionDenied)
+            fail(token: token, issue: .permissiondenied)
             return
         }
         do {
@@ -94,7 +95,7 @@ final class IOSPcmSource: NSObject, PcmSource {
                     self?.queue.async { self?.fail(token: token, issue: .interrupted) }
                 },
                 center.addObserver(forName: AVAudioSession.routeChangeNotification, object: session, queue: nil) { [weak self] _ in
-                    self?.queue.async { self?.fail(token: token, issue: .routeChanged) }
+                    self?.queue.async { self?.fail(token: token, issue: .routechanged) }
                 },
                 center.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { [weak self] _ in
                     self?.queue.async { self?.fail(token: token, issue: .interrupted) }

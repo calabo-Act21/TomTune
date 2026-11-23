@@ -19,16 +19,17 @@ Les contrats ont été écrits avant les délégations. Audio et rendu ont trava
 | WAV synthétique fourni | **8 détections, 8 estimations, 0 rejet, 0 frappe manquée, 0 doublon** ; erreur absolue maximale ≈ **0,014 cent**, tolérance ±12 cents. |
 | Délais WAV | Détection à impact +5 ms, résultat +320 ms en **temps du signal injecté**. Ne mesure ni latence matérielle, ni affichage UI, ni charge du GPU. |
 | Cas déterministes | Secondaire dominant inharmonique et proche octave, octave exacte, ambiguïté persistante rejetée, fréquence 317 Hz indépendante de la cible 185 Hz, silence, bruit, saturation, décroissance, 44,1 kHz et repliement spectral. |
-| Modèles 3D | 4 GLB reproductibles ; buffers, indices, angles et identités contrôlés. Tests du repère pour N=5,6,8,10 réussis. Aucune image GPU observée localement. |
+| Modèles 3D | 4 GLB reproductibles ; buffers, indices, angles et identités contrôlés. Tests du repère pour N=5,6,8,10 réussis. Scène observée dans l’émulateur Android 35 ARM64 / SwiftShader : coque, cercle bas, logo et halo visibles. Voir `preuves/android-emulateur.png`. |
 | Build iOS local | **Bloqué** : seul CommandLineTools est installé ; `xcodebuild` exige Xcode complet. `plutil` valide le projet/plist ; `swiftc -frontend -parse` valide la syntaxe Swift, sans vérifier les types UIKit/RealityKit ou le pont Kotlin. |
 | CI iOS | Workflow macOS/Xcode 16.4 fourni ; son résultat est à consigner après publication de la branche. |
+| Simulation Android | **Réussie** sur Pixel 7 virtuel Android 35 ARM64 / SwiftShader : sélection native des huit vis, refus puis accord micro, capture AudioRecord et scène simultanées, libération après arrière-plan et fermeture, reprise explicite et picking après réouverture. Ressources/format numérique FR/EN/ES/DE vérifiés. Voir `preuves/android-smoke.log` et `preuves/android-langues.log`. Aucun signal de vrai tom injecté par le micro virtuel. |
 | Téléphones physiques et vrai tom | **Non exécutés**. `adb devices -l` ne liste aucun appareil. Pas de Xcode pour inventorier un iPhone. Aucun test micro, permission réelle, interruption réelle, rendu ou latence physique revendiqué. |
 
 Les seuils sont des paramètres de faisabilité à calibrer sur de vrais toms, pas des garanties produit. Les essais instrumentés ci-dessous restent nécessaires pour conclure sur Kotlin/Compose pour TomTune.
 
 ## Commandes exécutées
 
-La machine ne possédait initialement ni JDK fonctionnel, ni Gradle, SDK Android, Xcode complet ou `gh`. Le JDK Temurin 17.0.21.1 et Gradle 8.14.3 ont été téléchargés dans `/private/tmp/tomtune-tools`, le cache Gradle dans `/private/tmp/tomtune-gradle`. Distribution Gradle vérifiée par SHA-256 officiel, empreinte épinglée dans le wrapper. SDK Android temporaire installé au même endroit via sdkmanager. Les chemins temporaires ne sont pas des prérequis du dépôt.
+La machine ne possédait initialement ni JDK fonctionnel, ni Gradle, SDK Android, Xcode complet ou `gh`. Le JDK Temurin 17.0.21.1 et Gradle 8.14.3 ont été téléchargés dans `/private/tmp/tomtune-tools`, le cache Gradle dans `/private/tmp/tomtune-gradle`. Distribution Gradle vérifiée par SHA-256 officiel, empreinte épinglée dans le wrapper. SDK Android temporaire, émulateur et image Google APIs Android 35 ARM64 installés au même endroit via sdkmanager. GitHub CLI temporaire installé pour créer la PR après le refus 403 du connecteur. Les chemins temporaires ne sont pas des prérequis du dépôt.
 
 Pour les commandes Gradle locales, variables utilisées :
 
@@ -55,6 +56,12 @@ export ANDROID_HOME=/private/tmp/tomtune-tools/android-sdk
 | `plutil -lint iosApp/TomTune.xcodeproj/project.pbxproj iosApp/TomTune/Info.plist` | Réussi. |
 | `xcodebuild -project iosApp/TomTune.xcodeproj -scheme TomTune -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build` | Bloqué par Xcode absent, voir `preuves/ios-build.log`. |
 | `ANDROID_USER_HOME=… adb devices -l` | Serveur démarré, liste vide. |
+| `sdkmanager 'emulator' 'system-images;android-35;google_apis;arm64-v8a'`, `avdmanager create avd --name tomtune_lot0 …` | Réussis après acceptation de la licence de l’image ; émulateur headless SwiftShader lancé. |
+| `python3 tools/android_smoke.py --adb …/platform-tools/adb --serial emulator-5554` | Réussi sur l’appareil virtuel documenté ; aucun essai physique. |
+| `adb shell cmd locale set-app-locales com.tomtune.app --locales fr` (puis es/de/en) et inspection XML UI | Quatre langues et séparateurs numériques vérifiés. |
+| `git push -u origin codex/lot0-faisabilite`, `gh pr create --draft …` | Branche publiée ; [PR brouillon #1 et diff](https://github.com/calabo-Act21/TomTune/pull/1/files). |
+| Première CI Linux | Détecte différence de derniers bits libm dans les GLB et ancien défaut setup-android demandant le package `tools` retiré. Normalisation à 8 décimales et demande explicite `platform-tools` corrigent ; jobs signaux et Android suivants réussis. |
+| Première CI Xcode | Code Kotlin et framework ARM64 compilés ; sync des ressources échouée avec ARCHS générique incluant x86_64. Projet Xcode explicitement aligné ARM64 ; copie des ressources et scène RealityKit compilées au second passage. Deux noms d’enum PascalCase exportés en minuscules par Kotlin/Native ont ensuite nécessité une correction Swift ; vérification suivante en cours. |
 | `git diff --check` | Aucun défaut d’espacement. |
 
 ## Reproduire les builds
@@ -68,7 +75,7 @@ python3 tools/generate_tom.py --check
 adb install -r composeApp/build/outputs/apk/debug/composeApp-debug.apk
 ```
 
-Mac avec Xcode 16.4 et composants iOS installés (la toolchain Kotlin 2.2.20 est épinglée) :
+Mac Apple Silicon avec Xcode 16.4 et composants iOS installés (la toolchain Kotlin 2.2.20 est épinglée) :
 
 ```sh
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
@@ -78,7 +85,7 @@ xcodebuild -project iosApp/TomTune.xcodeproj -scheme TomTune \
 ./gradlew :shared:iosSimulatorArm64Test
 ```
 
-Pour un iPhone : ouvrir `iosApp/TomTune.xcodeproj`, sélectionner l’équipe de signature et l’appareil, lancer le scheme TomTune. Le script Xcode construit le framework `Shared` avec `embedAndSignAppleFrameworkForXcode`. Un simulateur ne valide pas le micro d’un iPhone ni le rendu réel d’un téléphone. La source de test `WavPcmSource(bytes, scope)` peut être substituée au `PcmSource` ; son PCM traverse le même analyseur, sans playback.
+Pour un iPhone : ouvrir `iosApp/TomTune.xcodeproj`, sélectionner l’équipe de signature et l’appareil, lancer le scheme TomTune. Le script Xcode construit le framework `Shared` avec `embedAndSignAppleFrameworkForXcode`. Les cibles iOS sont ARM64 (téléphones et simulateur Apple Silicon). Un simulateur ne valide pas le micro d’un iPhone ni le rendu réel d’un téléphone. La source de test `WavPcmSource(bytes, scope)` peut être substituée au `PcmSource` ; son PCM traverse le même analyseur, sans playback.
 
 ## Protocole restant sur téléphones physiques
 

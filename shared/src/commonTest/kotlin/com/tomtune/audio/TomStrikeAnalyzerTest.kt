@@ -48,8 +48,16 @@ class TomStrikeAnalyzerTest {
     @Test fun silenceNeverDetected() { assertTrue(analyze(FloatArray(rate)).isEmpty()) }
     @Test fun deterministicBroadbandNoiseNeverAccepted() {
         var state = 1234567
-        val samples = FloatArray(rate) { state = state * 1664525 + 1013904223; ((state ushr 8) / 16777216.0 * 0.3 - 0.15).toFloat() }
-        assertTrue(analyze(samples).none { it is StrikeEvent.Estimate })
+        val samples = FloatArray(rate + rate / 5) { index ->
+            if (index < rate / 5) 0f else {
+                state = state * 1664525 + 1013904223
+                ((state ushr 8) / 16777216.0 * 0.3 - 0.15).toFloat()
+            }
+        }
+        val events = analyze(samples)
+        assertEquals(1, events.filterIsInstance<StrikeEvent.Detected>().size)
+        assertEquals(RejectionReason.Noise, events.filterIsInstance<StrikeEvent.Rejected>().single().reason)
+        assertTrue(events.none { it is StrikeEvent.Estimate })
     }
     @Test fun clippingRejected() {
         val events = analyze(signal(185.0, clip = true))

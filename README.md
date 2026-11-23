@@ -6,7 +6,7 @@ Prototype du lot 0 en Kotlin Multiplatform et Compose Multiplatform pour Android
 - [Résultats, commandes et protocole sur téléphone](docs/lot0/RESULTATS.md)
 - [Paramètres audio et limites](docs/lot0/AUDIO.md), [rendu](docs/lot0/RENDU.md), [contrats](docs/lot0/CONTRATS.md)
 
-JDK 17 requis ; SDK Android API 36 pour Android, Xcode 16.4 sur Mac pour iOS.
+JDK 17 requis ; SDK Android API 36 pour Android, Xcode 16.4 sur Mac Apple Silicon pour iOS.
 
 ```sh
 ./gradlew -Pmobile=false :shared:jvmTest

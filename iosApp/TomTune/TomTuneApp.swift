@@ -42,7 +42,7 @@ private final class PermissionPcmSource: NSObject, PcmSource {
                     return
                 }
                 if granted { self.capture.start(sink: sink) }
-                else { sink.onIssue(issue: .permissionDenied) }
+                else { sink.onIssue(issue: .permissiondenied) }
             }
         }
     }

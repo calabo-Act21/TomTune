@@ -18,6 +18,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
       - run: ./gradlew -Pmobile=false :shared:jvmTest --console=plain
       - run: python3 tools/generate_tom.py --check
       - uses: actions/upload-artifact@v4
@@ -37,6 +39,8 @@ jobs:
         with:
           packages: platform-tools
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
       - run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
       - run: ./gradlew :composeApp:assembleDebug :shared:testDebugUnitTest --console=plain
       - uses: actions/upload-artifact@v4
@@ -52,7 +56,10 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - uses: actions/cache@v4
+        with:
+          cache-read-only: false
+      - uses: actions/cache/restore@v4
+        id: konan
         with:
           path: ~/.konan
           key: konan-${{ runner.os }}-${{ runner.arch }}-2.2.20-xcode16.4
@@ -78,3 +85,8 @@ jobs:
         with:
           name: ios-smoke
           path: build/ios-ci/smoke.png
+      - uses: actions/cache/save@v4
+        if: ${{ always() && steps.konan.outputs.cache-hit != 'true' }}
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ runner.arch }}-2.2.20-xcode16.4

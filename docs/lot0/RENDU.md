@@ -1,6 +1,6 @@
 # Rendu 3D — lot 0
 
-Implémentation initiale, sans essai graphique sur appareil dans cette session.
+Scène observée dans un émulateur Android 35 ARM64 / SwiftShader (capture et smoke dans `preuves/`). Aucun essai sur téléphone physique dans cette session.
 
 ## Géométrie et intégration
 
@@ -15,10 +15,10 @@ Implémentation initiale, sans essai graphique sur appareil dans cette session.
 
 ## Commandes et résultats
 
-- `python3 tools/generate_tom.py` : succès, quatre fichiers GLB autonomes créés (environ 166 Ko chacun). Générateur Python standard uniquement, aucune ressource distante/licence tierce.
+- `python3 tools/generate_tom.py` : succès, quatre fichiers GLB autonomes créés (environ 164 Ko chacun). Générateur Python standard uniquement, aucune ressource distante/licence tierce.
 - `swiftc -parse iosApp/TomTune/TomSceneViewController.swift` : succès (syntaxe seulement, pas un build RealityKit/iOS).
 - `LugLayoutTest` : nombre, rayon, espacement, symétrie, indices et logo entre les vis supérieures pour 5,6,8,10 ; sélections invalides refusées. Exécution intégrée par l’agent principal.
-- `python3 tools/generate_tom.py --check` : succès pour N=5,6,8,10 ; noms/nombre/angles des vis et halos, indices de triangles, accessors/buffers et octets reproductibles. Ce contrôle structurel ne prouve pas le rendu visuel sur GPU.
+- `python3 tools/generate_tom.py --check` : succès pour N=5,6,8,10 ; noms/nombre/angles des vis et halos, indices de triangles, accessors/buffers et octets reproductibles. Ce contrôle structurel ne remplace pas la capture du rendu en émulation ni les essais sur GPU de téléphone.
 
 ## Sources consultées
 
