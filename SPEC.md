@@ -1,4 +1,4 @@
-# TomTune — Spécification v0.2
+# TomTune — Spécification v0.3
 
 Les parcours et la direction visuelle sont validés. Cette version fixe le périmètre de la V1 et retient Kotlin Multiplatform avec Compose pour le lot 0. Les paramètres d’analyse audio restent des hypothèses tant que les essais sur des batteries réelles ne les ont pas validés.
 
@@ -47,14 +47,26 @@ Pour démarrer, je propose iOS et Android, une interface portrait et un traiteme
 
 ## 3. Audio et accordage
 
-### Capture et stabilité
+### Capture, choix de fréquence et stabilité
 
-Deux modes réutilisent le même flux PCM et la même machine d’états. Le mode proche d’une vis cherche une résonance locale après la frappe, avec l’autre peau étouffée. Le mode fût entier cherche une hauteur globale après une frappe centrale, peaux libres. La plage d’analyse et le traitement des modes concurrents sont configurables, notamment pour les fréquences basses de grosse caisse et la caisse claire.
+Un tom peut produire plusieurs résonances, dont certaines ne sont pas des multiples entiers de la fréquence recherchée. Le pic le plus fort peut changer entre l’impact et la décroissance. TomTune recherche la fréquence pertinente pour le geste demandé, puis vérifie qu’elle est reproductible entre frappes. Une série de frappes cohérentes ne suffit pas si l’estimateur a choisi une mauvaise résonance.
 
-1. Demander le micro à la première mesure. Ouvrir une seule capture au premier plan. En cas de refus, d’interruption ou de changement de route audio, afficher la cause et offrir une reprise ou une sortie. Fermer la capture à la sortie du parcours ou au passage en arrière-plan. Les événements tardifs d’une étape quittée ne peuvent pas valider l’étape courante.
-2. Détecter une attaque et produire au plus une mesure par frappe. Partir du flux PCM mono avec le taux d’échantillonnage fourni par le système. Analyser la décroissance après le transitoire. Une candidature doit avoir un niveau et une cohérence suffisants. Identifier silence, saturation, réattaques et candidats ambigus. Vérifier l’estimation sur des signaux amortis avec modes concurrents et bruit. La qualité d’une mesure est indépendante de son écart à la cible. Si aucune hauteur n’est exploitable, offrir de réessayer ou de passer. En première approche, comparer un estimateur périodique à des candidats spectraux sur plusieurs fenêtres.
-3. Afficher le signal de frappe et la candidature disponible. Accumuler des frappes consécutives de confiance suffisante. Comparer leur dispersion en cents. Une incohérence redémarre la série. Une série très cohérente peut être validée plus vite qu’une série marginale. Agréger les fréquences stables avec une médiane. Émettre une seule validation par étape puis réarmer après le déclin de la frappe.
-4. Pour le prototype, tester une branche courte de trois frappes cohérentes et une branche plus longue jusqu’à cinq. La stabilité est la condition de validation et des frappes invalides peuvent prolonger la mesure. Les tolérances en cents, la confiance, le délai et les plages sont des paramètres à calibrer séparément pour la vis, le tom entier, la caisse claire et la grosse caisse.
+| Mode de mesure | Geste | Fréquence recherchée et affichage |
+|---|---|---|
+| Près d’une vis | Frapper doucement près de la vis sur la peau active et étouffer la peau opposée | Résonance locale pertinente pour comparer les vis de cette peau. Afficher des Hz |
+| Fût entier | Frapper au centre avec les deux peaux libres | Hauteur globale du fût. Afficher la note, les Hz et l’écart à la cible si elle existe |
+
+1. **Ouvrir la capture.** Demander le micro à la première mesure et ouvrir une seule capture au premier plan. En cas de refus, d’interruption ou de changement de route audio, afficher la cause et offrir une reprise ou une sortie. Fermer la capture en quittant le parcours ou en passant en arrière-plan. Ignorer les événements tardifs d’une étape quittée.
+2. **Détecter l’impact.** Utiliser le PCM mono et le taux d’échantillonnage fourni par le système. Afficher « Frappe captée » dès qu’un impact est détecté, même si sa hauteur est encore inconnue. Associer au plus une estimation à chaque frappe. Séparer les attaques rapprochées lorsqu’elles correspondent réellement à deux frappes et ignorer l’écho ou la décroissance qui ne représentent pas un nouvel impact.
+3. **Estimer la hauteur d’une frappe.** Analyser plusieurs fenêtres de la décroissance après le transitoire initial, tant que le signal reste au-dessus du bruit. Comparer des candidats spectraux et, lorsque pertinent, des indices de périodicité. Évaluer la persistance de la fréquence, sa qualité et les modes concurrents. Détecter les erreurs d’octave plausibles. La bande de recherche dépend du mode de mesure et du fût. La cible peut aider à orienter la recherche, mais ni la proximité de la cible ni l’amplitude maximale d’un pic ne suffisent à valider une lecture.
+4. **Afficher le résultat de la frappe.** Si une fréquence est suffisamment étayée, l’afficher comme provisoire. Si le signal est saturé, trop bruité ou comporte plusieurs résonances impossibles à départager avec assez de confiance, afficher une mesure non concluante et proposer de refrapper. Ne pas présenter un candidat incertain comme une note ni l’ajouter à une série de validation.
+5. **Valider entre frappes.** Accumuler uniquement des estimations individuelles exploitables. Comparer leur dispersion en cents. Une incohérence redémarre la série. Une série très cohérente peut être validée plus vite qu’une série marginale. Agréger les fréquences stables avec une médiane, émettre une seule validation par étape et réinitialiser la série au changement de vis, de peau ou de fût. La validation ne modifie jamais une référence enregistrée sans action explicite.
+
+Le lot 0 s’arrête à l’estimation d’une frappe. La stabilité entre frappes vient ensuite. Pour cette étape ultérieure, on pourra tester une série courte et une série plus longue, la stabilité déterminant la validation. Calibrer la confiance, les bandes et les tolérances en cents séparément pour la vis, le tom entier, la caisse claire et la grosse caisse. Les seuils de qualité du signal et ceux des conseils d’accordage doivent rester indépendants.
+
+### Vérification de la sélection de fréquence
+
+Les tests couvrent une frappe simple, une résonance secondaire plus forte, un piège d’octave avec des indices suffisants pour déterminer la bonne fréquence, et deux modes réellement ambigus. Une lecture doit rester fiable quand la fréquence réelle s’éloigne de la cible. Le silence, le bruit et la saturation ne doivent pas produire une fréquence acceptée. Confirmer le résultat près d’une vis sur un vrai tom avant de calibrer la validation entre frappes. Les essais du lot 0 et leurs données sont décrits dans [la mission du lot 0](docs/lot0/LOT-0.md).
 
 ### Cibles et conseils
 
