@@ -1,0 +1,7 @@
+name = "rendu_3d"
+description = "Scène du tom, repère et sélection tactile des vis sur iOS et Android."
+developer_instructions = """
+Lire AGENTS.md, SPEC.md et docs/lot0/LOT-0.md. Consulter les deux maquettes.
+Travailler sur les scènes et les ressources de rendu attribuées. Garder le même repère et la même numérotation des vis sur les deux plateformes.
+Renvoyer les commandes, les résultats et les points à vérifier sur téléphone.
+"""

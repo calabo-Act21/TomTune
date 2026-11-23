@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TomTune · Maquettes filaires</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#ececeb;color:#242424;font:16px system-ui,sans-serif}button,select{font:inherit;color:inherit}button{cursor:pointer;background:white;border:1px solid #747472;border-radius:7px;min-height:44px;padding:9px 12px}button:hover{background:#f0f0ef}button:focus-visible,select:focus-visible{outline:3px solid #515151;outline-offset:3px}button.primary{background:#252525;color:white;border-color:#252525}button:disabled{cursor:default;opacity:.42}select{background:white;border:1px solid #888;border-radius:6px;min-height:44px;padding:7px}header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #ccc}header strong{font-size:19px}header small{border:1px solid #aaa;border-radius:30px;padding:5px 9px}main{padding:18px}h1{font-size:27px;line-height:1.1;margin:5px 0 12px}h2{font-size:17px;margin:0 0 8px}p{margin:0 0 12px;line-height:1.45}.muted,small{color:#555}.panel{background:#f7f7f6;border:1px solid #c6c6c4;border-radius:9px;padding:12px;margin:12px 0}.shell{max-width:476px;margin:22px auto;background:#fff;min-height:90vh;border:1px solid #bbb;border-radius:16px;overflow:hidden}.actions{display:grid;gap:8px;margin-top:15px}.row{display:flex;align-items:center;gap:8px;justify-content:space-between}.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fields label,.stack{display:grid;gap:4px}.element{padding:9px 0;border-top:1px solid #ccc}.back{margin-bottom:12px}.label{display:block;margin-bottom:5px;font-size:14px;font-weight:650}.stage{position:relative;height:263px;max-width:370px;margin:12px auto;background:linear-gradient(#fff,#eee);border:1px dashed #aaa;border-radius:12px}.stage .drum{position:absolute;transform:translate(-50%,-50%);border:2px solid #676766;border-radius:50%;background:#fafafa;box-shadow:0 8px 0 -1px #c5c5c3,0 9px 0 #676766;min-height:0;padding:4px;font-size:12px;line-height:1.25;display:grid;place-content:center;text-align:center}.stage button.drum:hover{background:#dededd}.drum span{display:block}.seat{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);font-size:11px;color:#555}.head{width:min(100%,310px);aspect-ratio:1;margin:10px auto;position:relative}.skin{position:absolute;inset:11%;border:2px solid #5f5f5f;border-radius:50%;box-shadow:inset 0 -10px 0 #e5e5e3,0 5px 0 #b0b0ae;background:#f6f6f5;text-align:center}.skin strong{display:block;margin-top:12%;font-size:13px}.skin small{display:block;margin:25% auto 0;max-width:72%}.lug{position:absolute;display:grid;place-items:center;transform:translate(-50%,-50%);width:26px;height:26px;border:1px solid #666;border-radius:50%;background:white;font-size:12px}.lug.active{background:#222;color:white;outline:3px solid #aaa}.lug.done{background:#ddd}.lug.up{background:#f4dcd0;color:#702d16}.lug.down{background:#dce7fa;color:#143264}.lug.ok{background:#dcf0df;color:#154b24}.legend{display:flex;justify-content:center;gap:15px;font-size:13px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{padding:10px;border:1px solid #ccc;border-radius:7px}.metric strong{display:block;margin-top:4px}.list{display:grid;gap:8px}.list button{text-align:left}.result{border-bottom:1px solid #ddd;padding:10px 0}.result p{margin:3px 0}.result button{margin:5px 0}.status{margin-top:12px}.bar{height:7px;background:#ddd;border-radius:5px;overflow:hidden;margin:8px 0 12px}.bar span{display:block;height:100%;background:#333}.note{width:100%}.fine{font-size:13px}.footer{padding:0 18px 16px;font-size:13px}.footer summary{cursor:pointer;padding:8px 0}.footer button{margin:4px 4px 4px 0}@media(max-width:480px){.shell{margin:0;min-height:100dvh;border:0;border-radius:0}}
+
+input{font:inherit;width:100%;min-height:44px;border:1px solid #888;border-radius:6px;padding:7px}
+#screen.kit-home{display:flex;flex-direction:column;min-height:calc(96svh - 111px)}
+.kit-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;position:relative;z-index:2}
+.kit-toolbar select{width:100%;text-overflow:ellipsis}
+.kit-menu{position:relative}.kit-menu summary{display:grid;place-items:center;list-style:none;width:46px;height:44px;border:1px solid #747472;border-radius:7px;cursor:pointer;background:white;font-size:23px}.kit-menu summary::-webkit-details-marker{display:none}
+.kit-menu nav{position:absolute;right:0;top:51px;min-width:235px;display:grid;gap:5px;padding:7px;background:white;border:1px solid #888;border-radius:8px;box-shadow:0 8px 18px #0002}.kit-menu nav button{text-align:left}
+.kit-caption{margin:8px 0 0}.kit-stage{position:relative;width:100%;height:var(--stage-height);margin:10px auto 0;overflow:hidden;isolation:isolate;border-radius:11px;background:radial-gradient(ellipse at 50% 30%,#fafafa,#ddd 78%);border:1px solid #c9c9c9}
+.kit-home .kit-stage{height:auto;flex:1 0 var(--stage-height)}
+.kit-stage .drum{--depth:12px;position:absolute;display:grid;place-items:center;transform:translate(-50%,-50%);min-height:44px;padding:3px 7px;border:3px solid #858586;border-radius:50%;background:radial-gradient(ellipse at 45% 34%,#fff 0%,#efefec 61%,#d0d0ca 92%);box-shadow:inset 0 0 0 2px #f4f4f4,inset 0 0 6px #0004,0 var(--depth) 0 1px #777,0 calc(var(--depth) + 3px) 0 #4d4d4d,0 calc(var(--depth) + 12px) 13px -5px #0007;font-size:12px;text-align:center;line-height:1.14}
+.kit-stage .drum span{display:block}.kit-stage button.drum:hover{background:#f8f7d9}.kit-stage .drum[data-type="kick"]{--depth:20px;background:#d4d4d0}.kit-stage .drum[data-type="floor"]{--depth:17px}
+.seat{bottom:12px;padding:5px 12px;border-top:1px solid #777;border-radius:60%;background:#eee}
+.head{width:min(100%,350px);filter:drop-shadow(0 11px 9px #0003);margin:5px auto 12px}
+.skin{inset:7%;border:0;border-radius:50%;background:radial-gradient(circle at 36% 27%,#fffffb 0%,#efeee8 60%,#d0cec4 79%,#9a9993 86%);box-shadow:inset 0 0 0 3px #333,inset 0 0 0 5px #ddd,inset 0 0 0 8px #7f8080,inset 0 0 0 10px #e4e4df,inset 0 0 22px 11px #0004,0 4px 0 2px #515151,0 8px 0 2px #9a9a96}
+.skin strong{margin-top:10%;letter-spacing:-.04em;font-style:italic;font-size:15px;color:#353535}
+.skin small{margin:22% auto 0}
+.head .lug{width:25px;height:25px;border:2px solid #666;box-shadow:0 2px 2px #0006,inset 0 0 0 1px #fff;background:linear-gradient(145deg,#efefed,#c9c9c7);font-weight:650}
+.head .lug.active{background:#292929;border-color:#fff;outline:3px solid #353535}
+.head .lug.up{background:#f4dcd0}.head .lug.down{background:#dce7fa}.head .lug.ok{background:#dcf0df}
+.form-error{color:#8a2424;margin:5px 0 0}
+
+.kit-stage{background:radial-gradient(ellipse at 50% 12%,#f9f8f5,#e7e3db 60%,#d9d1c5);isolation:isolate}
+.stage-rug{position:absolute;inset:18% 0 0;background:repeating-linear-gradient(45deg,#d6d2c9 0 1px,#d2cec5 1px 4px);clip-path:polygon(23% 0,77% 0,100% 100%,0 100%)}
+.kit-stage .drum,.kit-stage button.drum:hover,.kit-stage .drum[data-type="kick"]{display:block;--depth:27px;overflow:visible;border:0;padding:0;background:transparent;box-shadow:none;border-radius:50%;min-height:45px}
+.kit-stage .drum:focus-visible{outline-offset:4px}
+.kit-stage .stage-shell{position:absolute;inset:32% 3% calc(-1 * var(--depth));border:1px solid #37322d;border-radius:0 0 48% 48% / 0 0 30% 30%;background:repeating-linear-gradient(93deg,#22150b16 0 2px,#eecaa019 3px 6px),linear-gradient(90deg,#51331e,#a8784f 23%,#c2996e 52%,#654128 93%);box-shadow:inset 0 -4px 0 #7c7975,inset 0 -6px 0 #393735,0 10px 12px -6px #33251888}
+.kit-stage .stage-shell::before,.kit-stage .stage-shell::after{content:"";position:absolute;top:35%;bottom:10%;width:5px;background:linear-gradient(90deg,#3d3935,#dbd7d1 44%,#65615d);border-radius:3px}
+.kit-stage .stage-shell::before{left:17%}.kit-stage .stage-shell::after{right:17%}
+.kit-stage .drum > .stage-skin{position:absolute;inset:0;display:grid;place-content:center;padding:4px 6px;border-radius:50%;border:2px solid #45413d;background:radial-gradient(ellipse at 42% 28%,#fff,#efeee7 62%,#c5c2b9 96%);box-shadow:inset 0 0 0 2px #a8a6a2,inset 0 0 0 4px #ededeb,0 2px 0 #47433e}
+.kit-stage button.drum:hover .stage-skin{filter:brightness(.92)}
+.kit-stage .drum[data-type="snare"] .stage-shell{background:linear-gradient(90deg,#4b4d49,#9b9d93 50%,#54564f)}
+.kit-stage .drum[data-type="kick"] .stage-shell{inset:3% 2% -12%;border-radius:26%;background:repeating-linear-gradient(90deg,#38221329 0 2px,#dcb08a23 3px 7px),linear-gradient(90deg,#61402a,#c29b73 55%,#6a442a)}
+.kit-stage .drum[data-type="kick"] .stage-skin{inset:43% 0 -12%;background:radial-gradient(ellipse,#dfdcd2 10%,#bcb8ad 88%);border-width:3px}
+.kit-stage .seat{z-index:30;width:80px;text-align:center;min-height:29px;background:#403d3b;border:1px solid #242321;color:#fff;box-shadow:0 5px 0 #222,0 9px 10px #0004;bottom:10px}
+.head{isolation:isolate}
+.head .head-shell{position:absolute;z-index:0;inset:19% 6% 1%;border-radius:6% 6% 48% 48% / 2% 2% 25% 25%;border:1px solid #43372c;background:repeating-linear-gradient(94deg,#44240d1a 0 2px,#efc49313 3px 6px),linear-gradient(90deg,#4c3526,#8d674b 15%,#c3a17f 46%,#9d7959 70%,#5b3c26 97%);box-shadow:inset 0 -4px 0 #55504c,inset 0 -8px 0 #bcb6af,0 4px 0 #3d3835}
+.head .head-rod{position:absolute;z-index:1;transform:translateX(-50%);width:8px;height:13%;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#4b4843,#cac7c2 40%,#817b76 70%,#403d3a);box-shadow:1px 2px 2px #331d1366}
+.head .skin{z-index:2;inset:6% 6% 20%}
+.head .lug{z-index:3}
+
+.capture-card{padding:12px;margin:12px 0;border:1px solid #97958d;border-radius:10px;background:#f8f7f3}
+.capture-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.capture-top span{font-size:13px;font-weight:650}
+.capture-value{display:block;font-size:25px;line-height:1.25;font-variant-numeric:tabular-nums}
+.capture-card p{margin:4px 0 0;font-size:13px}
+.capture-dot{flex:none;width:10px;height:10px;border:1px solid #6e6b62;border-radius:50%;background:#bcb9b0}
+.capture-card.detected .capture-dot{background:#2e60a0;border-color:#2e60a0;animation:hit-feedback .42s ease-out}
+.capture-card.unstable .capture-dot{background:#97471d;border-color:#97471d}
+.capture-card.confirmed .capture-dot{background:#287447;border-color:#287447}
+@keyframes hit-feedback{0%{box-shadow:0 0 0 0 #4678b575}100%{box-shadow:0 0 0 12px #4678b500}}
+@media(prefers-reduced-motion:reduce){.capture-dot{animation:none!important}}
+.pitch-line{height:7px;position:relative;margin:9px 6px 7px;background:#dedcd4;border-radius:5px}
+.pitch-line::before{content:"";position:absolute;left:50%;height:11px;top:-2px;width:1px;background:#555}
+.pitch-line i{position:absolute;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#252525}
+.last-capture{font-size:13px;color:#484844;margin:6px 0 10px}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><strong>TomTune</strong><small>Maquette · audio simulé</small></header>
+<main id="screen"></main>
+<aside class="footer"><details><summary>Options de démonstration</summary><button data-action="demo">Charger un kit d’exemple</button><button data-action="fresh">Voir le premier lancement</button></details></aside>
+</div>
+<script>
+const screen = document.querySelector('#screen');
+const storageKey = 'tomtune-wireframe-v1';
+const names = ['Do','Do♯','Ré','Ré♯','Mi','Fa','Fa♯','Sol','Sol♯','La','La♯','Si'];
+const sizes = {rack:[8,10,12,13,14], floor:[14,15,16,18], snare:[12,13,14,15], kick:[18,20,22,24,26]};
+const labels = {rack:'Rack tom', floor:'Floor tom', snare:'Caisse claire', kick:'Grosse caisse'};
+const kitsKey = 'tomtune-wireframe-kits-v2';
+function loadKits(){
+  try {
+    const stored = JSON.parse(localStorage.getItem(kitsKey));
+    if(stored?.kits?.length) return stored;
+    const previous = JSON.parse(localStorage.getItem(storageKey));
+    if(Array.isArray(previous)) return {current:'previous', kits:[{id:'previous',name:'Mon kit',drums:previous}]};
+  } catch {}
+  return {current:null,kits:[]};
+}
+let {current:currentKitId,kits} = loadKits();
+let kit = (kits.find(entry=>entry.id===currentKitId) ?? kits[0])?.drums ?? null;
+let draftName = '';
+let editingKitId = null;
+let draftCountCache = new Map();
+let draft, selected, setupBack, from, returnTo, target, head, pass, lugIndex, refsDraft, readDraft, checkIndex, order, checked, message;
+let view = kit ? 'home' : 'welcome';
+let sessionMeasure = null;
+let correctionRound = 0;
+let demoMode = false;
+const suggest = drum => drum.type === 'snare' ? 55 : drum.type === 'kick' ? 35 : ({8:53,10:50,12:47,13:45,14:43,15:40,16:38,18:36}[drum.diameter] ?? 43);
+const label = drum => drum.type === 'rack' || drum.type === 'floor' ? labels[drum.type]+' '+drum.diameter+'″' : labels[drum.type];
+const isTom = drum => drum.type === 'rack' || drum.type === 'floor';
+const note = midi => names[midi % 12]+' '+(Math.floor(midi/12)-1);
+const hz = midi => 440 * Math.pow(2,(midi-69)/12);
+const hertz = value => Math.round(value)+' Hz';
+const cents = (measurement, reference) => Math.round((measurement-reference)*100);
+const delta = (measurement, reference) => (cents(measurement,reference)>0?'+':'')+cents(measurement,reference)+' cents';
+const measures = (measurement, reference) => measurement == null ? 'À mesurer' : note(Math.round(measurement))+(reference == null ? '' : ' · '+delta(measurement,reference));
+const find = id => kit.find(drum=>drum.id===id);
+const save = () => {
+  if(demoMode)return false;
+  try{localStorage.setItem(kitsKey,JSON.stringify({current:currentKitId,kits}));return true}catch{return false}
+};
+const escapeText = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const btn = (action, text, primary=false, value='') => '<button type="button" data-action="'+action+'" data-value="'+value+'"'+(primary?' class="primary"':'')+'>'+text+'</button>';
+const back = (action,text='Retour') => '<div class="back">'+btn(action,'← '+text)+'</div>';
+const actions = (...buttons) => '<div class="actions">'+buttons.join('')+'</div>';
+const panel = content => '<div class="panel">'+content+'</div>';
+const title = (text, desc='') => '<h1 tabindex="-1">'+text+'</h1>'+(desc?'<p class="muted">'+desc+'</p>':'');
+const opts = (values, value, format=x=>x) => values.map(x=>'<option value="'+x+'"'+(x===value?' selected':'')+'>'+format(x)+'</option>').join('');
+const noteOptions = value => opts(Array.from({length:49},(_,index)=>index+28),value,note);
+const progress = fraction => '<div class="bar" aria-hidden="true"><span style="width:'+100*fraction+'%"></span></div>';
+function defaultLugs(diameter){return diameter<=10?5:diameter<=14?6:8}
+function makeDrum(type, index, diameter){
+  return {id:type+index,type,diameter,lugs:type==='snare'?10:defaultLugs(diameter),ref:null,last:null,tuned:false};
+}
+function initialKit(){
+  return [makeDrum('rack',1,10),makeDrum('floor',1,16),makeDrum('snare',1,14),makeDrum('kick',1,22)];
+}
+function editKit(create=false){
+  setupBack = view;
+  const entry = !create && !demoMode ? kits.find(item=>item.id===currentKitId) : null;
+  editingKitId = entry?.id ?? null;
+  draft = structuredClone(create ? initialKit() : kit ?? initialKit());
+  draftName = entry?.name ?? '';
+  draftCountCache = new Map(draft.map(drum=>[drum.id,drum]));
+  show('setup');
+}
+function setCount(type, count){
+  const retained = draft.filter(drum=>drum.type!==type);
+  const diameters = type==='rack'?[10,12,13,14]:[16,18,14,15];
+  for(let index=1;index<=count;index++){
+    const id=type+index;
+    if(!draftCountCache.has(id)) draftCountCache.set(id,makeDrum(type,index,diameters[(index-1)%diameters.length]));
+    retained.push(draftCountCache.get(id));
+  }
+  draft=retained;
+}
+function stage(drums, interactive=false, results=false){
+  const racks=drums.filter(drum=>drum.type==='rack');
+  const floors=drums.filter(drum=>drum.type==='floor');
+  const rackRows=Math.ceil(racks.length/3);
+  const front=166+Math.max(0,rackRows-1)*64;
+  const extraFloors=Math.max(0,Math.floor((floors.length-1)/2),floors.length>=2?1:0);
+  const height=Math.max(370,front+180+extraFloors*78);
+  const positions=new Map();
+  positions.set('kick1',[50,front-14,32,85,35,1]);
+  racks.forEach((drum,index)=>{
+    const row=Math.floor(index/3);
+    const count=Math.min(3,racks.length-row*3);
+    const offset=index%3-(count-1)/2;
+    positions.set(drum.id,[50+offset*26,102+row*62+Math.abs(offset)*9,21+(drum.diameter-10)*.55,49,25,2+row]);
+  });
+  positions.set('snare1',[49,front+75,26,59,23,10]);
+  floors.forEach((drum,index)=>{
+    const right=index<2 || (index>=4 && index%2===0);
+    const row=index<2?index:index===2?0:Math.floor(index/2);
+    const x=right?(row%2===0?82:79):(row%2===0?19:21);
+    positions.set(drum.id,[x,front+62+row*78,27+(drum.diameter-16)*.7,61,42,11+row]);
+  });
+  return '<div class="kit-stage" style="--stage-height:'+height+'px" aria-label="Kit en perspective depuis le tabouret"><div class="stage-rug" aria-hidden="true"></div>'+
+    drums.map(drum=>{
+      const [x,y,w,h,depth,layer]=positions.get(drum.id);
+      const tag=interactive?'button':'div';
+      const style='left:'+x+'%;top:'+100*y/height+'%;width:'+w+'%;height:'+h+'px;--depth:'+depth+'px;z-index:'+layer;
+      const short=drum.type==='snare'?'Caisse claire':drum.type==='kick'?'Grosse caisse':drum.diameter+'″';
+      const result=results?' · Référence '+(drum.ref==null?'—':note(drum.ref))+' · Mesure '+(checked[drum.id]==null?'—':note(Math.round(checked[drum.id]))):'';
+      const caption='<span class="stage-skin"><strong>'+short+'</strong>'+(results?'<span>'+ (drum.ref==null?'—':note(drum.ref))+' / '+(checked[drum.id]==null?'—':note(Math.round(checked[drum.id])))+'</span>':'')+'</span>';
+      return '<'+tag+' class="drum" data-type="'+drum.type+'" style="'+style+'"'+(interactive?' data-action="open-drum" data-value="'+drum.id+'" aria-label="'+label(drum)+result+'"':'')+'><span class="stage-shell" aria-hidden="true"></span>'+caption+'</'+tag+'>';
+    }).join('')+'<span class="seat" aria-hidden="true"></span></div>';
+}
+function kitToolbar(){
+  const options = kits.map(entry=>'<option value="'+escapeText(entry.id)+'"'+(!demoMode && entry.id===currentKitId?' selected':'')+'>'+escapeText(entry.name)+'</option>').join('');
+  return '<div class="kit-toolbar"><label class="stack">Kit courant<select data-kit>'+
+    (demoMode?'<option value="" selected>Kit d’exemple</option>':'')+options+
+    '</select></label><details class="kit-menu"><summary aria-label="Menu du kit">☰</summary><nav aria-label="Actions du kit">'+
+    btn('check','Contrôle de l’accordage')+btn('references','Notes de référence')+btn('edit','Modifier le kit')+btn('new-kit','Créer un kit')+
+    '</nav></details></div>';
+}
+let samples=[];
+let simulatedHits=0;
+let unstable=false;
+let lastHit=null;
+let captureMeasure=null;
+let previousCheck=null;
+let lugMeasurements=[];
+const stepsForHead = () => target+12*Math.log2(head===0?1.5:1.85);
+const headFrequency = () => hertz(hz(stepsForHead()));
+const sampleSpread = values => Math.max(...values)-Math.min(...values);
+function resetMeasurement(){
+  samples=[];
+  lastHit=null;
+  simulatedHits=0;
+  unstable=false;
+}
+function acceptHit(pitch){
+  lastHit=pitch;
+  // Pitches use semitones so distances are comparable across the kit.
+  const next=[...samples,pitch];
+  unstable=sampleSpread(next)>.180001;
+  samples=unstable?[pitch]:next.slice(-5);
+  const clear=samples.length>=3 && sampleSpread(samples)<=.080001;
+  const consistent=samples.length===5;
+  return clear||consistent?samples.reduce((sum,value)=>sum+value,0)/samples.length:null;
+}
+function simulateHit(base, pattern=0){
+  const offsets=[[0,.02,-.02],[.43,0,.025,-.02],[-.07,.06,-.05,.07,0]][pattern%3];
+  const offset=offsets[simulatedHits++]??0;
+  return acceptHit(base+offset);
+}
+function measurementStatus(){
+  if(unstable) return 'Frappes trop éloignées. Continue à frapper au même endroit.';
+  if(samples.length) return 'Stabilité en cours. Continue à frapper au même endroit.';
+  return 'En attente de frappes.';
+}
+function formatPitch(pitch, mode){
+  return mode==='lug'?hertz(hz(pitch)):note(Math.round(pitch))+' · '+hertz(hz(pitch));
+}
+function feedbackCard({reference=null, measured=null, mode='drum'}={}){
+  const pitch=measured??lastHit;
+  const confirmed=measured!=null;
+  const state=confirmed?'Mesure validée':unstable?'Frappe captée · série instable':pitch==null?'En attente de frappe':'Frappe captée · mesure provisoire';
+  const style=confirmed?'confirmed':unstable?'unstable detected':pitch==null?'':'detected';
+  const offset=pitch!=null && reference!=null?cents(pitch,reference):null;
+  const gauge=offset==null?'':'<div class="pitch-line" aria-hidden="true"><i style="left:'+Math.min(100,Math.max(0,50+offset/2))+'%"></i></div><p>'+delta(pitch,reference)+' par rapport à la cible</p>';
+  return '<div class="capture-card '+style+'" role="status"><div class="capture-top"><span>'+state+'</span><i class="capture-dot" aria-hidden="true"></i></div>'+
+    (pitch==null?'':'<strong class="capture-value">'+formatPitch(pitch,mode)+'</strong>')+gauge+
+    (confirmed||pitch==null?'':'<p>'+measurementStatus()+'</p>')+'</div>';
+}
+function lastLugFeedback(){
+  if(!lugMeasurements.length)return '';
+  return '<p class="last-capture">Vis '+lugMeasurements.length+' validée · '+formatPitch(lugMeasurements.at(-1),'lug')+'</p>';
+}
+function redrawMeasurement(action){
+  show(view,false);
+  screen.querySelector('[data-action="'+action+'"]')?.focus({preventScroll:true});
+}
+function lugStatus(index){
+  const offset=cents(lugMeasurements[index],stepsForHead());
+  if(offset < -12) return {kind:'up',symbol:'+'};
+  if(offset > 12) return {kind:'down',symbol:'−'};
+  return {kind:'ok',symbol:'✓'};
+}
+function recordLug(){
+  const deviation=pass>=2?0:[-.29,0,.28][(lugIndex+pass+head)%3];
+  const measured=simulateHit(stepsForHead()+deviation,lugIndex);
+  if(measured==null) return false;
+  lugMeasurements.push(measured);
+  lugIndex++;
+  resetMeasurement();
+  return true;
+}
+function headView(mode){
+  const drum=find(selected);
+  const lugs=Array.from({length:drum.lugs},(_,index)=>{
+    const angle=2*Math.PI*(index+.5)/drum.lugs-Math.PI/2;
+    const x=50+44*Math.cos(angle);
+    const y=43+37*Math.sin(angle);
+    return {index,x,y,front:Math.sin(angle)>.22};
+  });
+  const rods=lugs.filter(lug=>lug.front).map(lug=>
+    '<span class="head-rod" style="left:'+lug.x+'%;top:'+lug.y+'%" aria-hidden="true"></span>'
+  ).join('');
+  const markers=lugs.map(lug=>{
+    const index=lug.index;
+    const mark=mode==='result'?lugStatus(index):{kind:mode==='scan'?(index===lugIndex?'active':index<lugIndex?'done':''):'',symbol:index+1};
+    return '<span class="lug '+mark.kind+'" style="left:'+lug.x+'%;top:'+lug.y+'%" aria-label="Vis '+(index+1)+', '+mark.symbol+'">'+mark.symbol+'</span>';
+  }).join('');
+  const caption=mode==='scan'?'Vis '+(lugIndex+1)+' sur '+drum.lugs:mode==='result'?'Réglages près des vis':'Peau vue du dessus';
+  return '<div class="head"><div class="head-shell" aria-hidden="true"></div>'+rods+'<div class="skin"><strong>TomTune</strong><small>'+caption+'</small></div>'+markers+'</div>';
+}
+function metrics(ref, measured){
+  return '<div class="metrics"><div class="metric"><small>Note de référence</small><strong>'+(ref==null?'À définir':note(ref))+'</strong></div><div class="metric"><small>Note mesurée</small><strong>'+measures(measured,ref)+'</strong></div></div>';
+}
+function drillName(){return head===0?'Peau de frappe':'Peau de résonance'}
+function show(next, focus=true){
+  view=next;
+  screen.classList.toggle('kit-home',view==='home');
+  screen.innerHTML=pages[view]();
+  if(focus){window.scrollTo(0,0);screen.querySelector('h1, [data-kit]')?.focus({preventScroll:true})}
+}
+function startScan(nextHead, repeat=false){
+  head=nextHead;
+  pass=repeat?pass+1:0;
+  lugIndex=0;
+  resetMeasurement();
+  lugMeasurements=[];
+  show('scan');
+}
+const pages = {
+  welcome:()=>title('Configure ton kit','Ajoute tes toms pour retrouver ta batterie sur ton téléphone.')+actions(btn('edit','Définir mon kit',true)),
+  setup:()=>back('setup-back')+title('Configurer mon kit')+
+    '<div class="fields">'+['rack','floor'].map(type=>'<label>'+labels[type]+'s<input type="number" min="0" step="1" inputmode="numeric" required data-count="'+type+'" value="'+draft.filter(d=>d.type===type).length+'"></label>').join('')+'</div>'+
+    panel('<p class="fine">Les vis sont préremplies. Vérifie leur nombre sur chaque tom.</p>'+
+    ['rack','floor','snare','kick'].flatMap(type=>draft.filter(d=>d.type===type).map(drum=>'<div class="element"><h2>'+label(drum)+'</h2><div class="fields"><label>Diamètre<select data-diameter="'+drum.id+'">'+opts(sizes[type],drum.diameter,x=>x+'″')+'</select></label>'+
+    (isTom(drum)?'<label>Vis par peau<select data-lugs="'+drum.id+'">'+opts(Array.from({length:10},(_,index)=>index+3),drum.lugs)+'</select></label>':'')+'</div></div>')).join(''))+
+    actions(btn('preview','Voir mon kit',true)),
+  preview:()=>back('back-setup','Configuration')+title('Aperçu du kit')+stage(draft)+
+    '<div id="name-kit" class="actions"><label class="stack">Nom du kit<input name="kitName" value="'+escapeText(draftName)+'" placeholder="Ex. Kit de répétition" required maxlength="60" enterkeyhint="done"></label><p class="form-error" role="alert" hidden></p>'+
+    btn('save-kit','Enregistrer sur cet appareil',true)+'</div>',
+  home:()=>kitToolbar()+stage(kit,true)+
+    '<p class="fine muted kit-caption">Sélectionne un fût pour l’ouvrir.</p>'+
+    (message?'<p class="fine" role="status">'+message+'</p>':''),
+  drum:()=>{
+    const drum=find(selected);
+    return back('return',returnTo==='results'?'Bilan du contrôle':'Mon kit')+
+      title(label(drum),isTom(drum)?(drum.tuned?'Accordage déjà effectué':'Aucun accordage guidé enregistré'):'Mesure du fût entier')+
+      (isTom(drum)?headView('plain'):'')+metrics(drum.ref,drum.last)+
+      (drum.lastTarget!=null && drum.lastTarget!==drum.ref ? '<p class="status">Cible du dernier accordage · '+note(drum.lastTarget)+'</p>' : '')+
+      actions(isTom(drum)?btn('tune','Commencer l’accordage',true):'',btn('compare','Mesurer le fût entier'),btn('edit-ref','Modifier la note de référence'));
+  },
+  tuning:()=>back('drum')+title('Accorder · '+label(find(selected)))+
+    panel('<label class="stack">Note cible du fût entier<select class="note" data-target>'+noteOptions(target)+'</select></label><p class="fine status">'+(find(selected).ref==null?'Suggestion pour ce tom.':'Référence enregistrée chargée.')+'</p>')+
+    '<p>On commence par la peau de frappe. Aligne le repère TomTune avec le logo de ta peau, entre les deux vis du haut.</p>'+
+    actions(btn('scan-start','Commencer par la peau de frappe',true)),
+  scan:()=>back('drum',label(find(selected)))+title(drillName(),'Étape '+(head+1)+' sur 2 · Tour '+(pass+1))+
+    '<p class="row"><span>Cible près des vis</span><strong>'+headFrequency()+'</strong></p>'+
+    headView('scan')+
+    '<p>Étouffe l’autre peau. Frappe doucement près de la vis en surbrillance, avec une baguette ou ton doigt.</p>'+
+    feedbackCard({reference:stepsForHead(),mode:'lug'})+lastLugFeedback()+progress(lugIndex/find(selected).lugs)+
+    actions(btn('lug-hit','Simuler une frappe',true),btn('lug-fast','Simuler les vis restantes')),
+  adjustments:()=>back('drum',label(find(selected)))+title('Réglages · '+drillName(),'Cible près des vis · '+headFrequency())+
+    headView('result')+lastLugFeedback()+'<p class="legend"><span>+ Serrer</span><span>− Desserrer</span><span>✓ Laisser</span></p>'+
+    (pass<2?'<p>Si plusieurs vis sont à régler, procède par petits ajustements en alternant les vis opposées.</p>':'<p>Les mesures sont stables sur cette peau.</p>')+
+    actions(btn('repeat','Vérifier cette peau',true),btn('next-head',head===0?'Passer à la peau de résonance':'Vérifier le fût entier')),
+  whole:()=>{
+    const drum=find(selected);
+    return back('drum',label(drum))+title('Vérifier le fût entier','Frappe au centre et laisse les deux peaux résonner. Cible · '+note(target))+
+    feedbackCard({reference:target,measured:sessionMeasure})+
+    (sessionMeasure==null?'':('<p class="status">'+(Math.abs(cents(sessionMeasure,target))>=20?'Écart significatif. Tu peux refaire une passe.':'Mesure stable proche de la cible.')+'</p>'))+
+    actions(sessionMeasure==null?btn('whole-hit','Simuler une frappe',true):btn('finish','Terminer l’accordage',true),
+      sessionMeasure!=null?btn('correction','Refaire une passe de correction'):'',
+      sessionMeasure!=null && target!==drum.ref?btn('finish-reference','Terminer et enregistrer la cible comme référence'):'');
+  },
+  compare:()=>{
+    const drum=find(selected);
+    return back('drum',label(drum))+title('Mesurer · '+label(drum),'Frappe au centre et laisse les deux peaux résonner.'+(drum.ref==null?'':' Cible · '+note(drum.ref)))+
+    feedbackCard({reference:drum.ref,measured:sessionMeasure})+
+    actions(btn('compare-hit',sessionMeasure==null?'Simuler une frappe':'Refaire une mesure',true));
+  },
+  references:()=>back('home','Mon kit')+title('Notes de référence','Les notes de tes fûts joués avec les deux peaux libres.')+
+    '<div class="list">'+kit.map(drum=>btn('reference',label(drum)+' · '+(drum.ref==null?'À définir':note(drum.ref)),false,drum.id)).join('')+'</div>',
+  reference:()=>{
+    const drum=find(selected);
+    return back('reference-back')+title('Référence · '+label(drum))+
+    '<label class="stack">Choisir une note<select data-ref class="note">'+noteOptions(refsDraft)+'</select></label>'+
+    actions(btn('suggest','Utiliser la suggestion · '+note(suggest(drum))),btn('record-ref','Mesurer le fût entier'))+
+    panel('<h2>Note à enregistrer</h2><strong>'+note(refsDraft)+'</strong>')+
+    actions(btn('save-ref','Enregistrer la référence',true));
+  },
+  capture:()=>back('back-ref')+title('Capturer une note','Frappe au centre et laisse les deux peaux résonner.')+
+    feedbackCard({measured:captureMeasure})+
+    actions(readDraft==null?btn('capture-hit','Simuler une frappe',true):btn('capture-use','Utiliser cette note',true)),
+  check:()=>{
+    const drum=order[checkIndex];
+    return back('home','Mon kit')+title('Contrôle de l’accordage')+
+      '<p>Fût '+(checkIndex+1)+' sur '+order.length+'</p>'+progress(checkIndex/order.length)+
+      panel('<h2>'+label(drum)+'</h2><p>Frappe au centre et laisse le fût résonner.</p><p>Référence · '+(drum.ref==null?'À définir':note(drum.ref))+'</p>')+feedbackCard({reference:drum.ref})+
+      (previousCheck?'<p class="last-capture">'+previousCheck.label+' validé · '+formatPitch(previousCheck.pitch,'drum')+'</p>':'')+
+      actions(btn('check-hit','Simuler une frappe',true),btn('check-skip','Passer ce fût'));
+  },
+  results:()=>back('home','Mon kit')+title('Bilan du contrôle','Dans la vue du kit, chaque paire indique la référence puis la note mesurée.')+stage(kit,true,true)+
+    order.map(drum=>{
+      const current=find(drum.id);
+      const measured=checked[current.id];
+      const needsTuning=measured!=null && current.ref!=null && Math.abs(cents(measured,current.ref))>=20;
+      return '<div class="result"><strong>'+label(current)+'</strong><p>Référence · '+(current.ref==null?'À définir':note(current.ref))+
+        '</p><p>Mesure · '+(measured==null?'Fût passé':measures(measured,current.ref))+'</p>'+
+        (needsTuning&&isTom(current)?btn('tune-from-results','Accorder ce tom',false,current.id):'')+'</div>';
+    }).join('')+actions(btn('check','Refaire le contrôle',true))
+};
+function openDrum(id, origin){
+  selected=id;
+  returnTo=origin;
+  show('drum');
+}
+function newReference(origin){
+  from=origin;
+  const drum=find(selected);
+  refsDraft=drum.ref??suggest(drum);
+  show('reference');
+}
+function finish(updateReference){
+  const drum=find(selected);
+  drum.tuned=true;
+  drum.last=sessionMeasure;
+  drum.lastTarget=target;
+  if(updateReference) drum.ref=target;
+  if(returnTo==='results') checked[selected]=sessionMeasure;
+  save();
+  show('drum');
+}
+function advanceCheck(measured){
+  const drum=order[checkIndex];
+  checked[drum.id]=measured;
+  previousCheck=measured==null?null:{label:label(drum),pitch:measured};
+  if(measured!=null){find(drum.id).last=measured;save()}
+  checkIndex++;
+  resetMeasurement();
+  show(checkIndex===order.length?'results':'check');
+}
+const handlers={
+  fresh:()=>{kit=null;currentKitId=null;demoMode=false;message='';show('welcome')},
+  demo:()=>{
+    kit=initialKit();
+    kit.splice(1,0,makeDrum('rack',2,12));
+    demoMode=true;
+    kit.forEach((drum,index)=>{drum.ref=suggest(drum);drum.last=drum.ref+(index%2?.31:-.11);drum.tuned=isTom(drum)});
+    message='Kit d’exemple chargé.';
+    show('home');
+  },
+  edit:()=>editKit(),
+  'new-kit':()=>editKit(true),
+  'setup-back':()=>show(setupBack),
+  'back-setup':()=>show('setup'),
+  'save-kit':saveNamedKit,
+  preview:()=>{
+    const invalid=screen.querySelector('[data-count]:invalid');
+    if(invalid){invalid.reportValidity();return}
+    show('preview');
+  },
+  home:()=>{message='';show('home')},
+  'open-drum':id=>openDrum(id,view==='results'?'results':'home'),
+  return:()=>show(returnTo),
+  drum:()=>show('drum'),
+  tune:()=>{const drum=find(selected);target=drum.ref??suggest(drum);correctionRound=0;show('tuning')},
+  'scan-start':()=>startScan(0),
+  'lug-hit':()=>{
+    if(!recordLug()){redrawMeasurement('lug-hit');return}
+    if(lugIndex===find(selected).lugs)show('adjustments');
+    else redrawMeasurement('lug-hit');
+  },
+  'lug-fast':()=>{
+    while(lugIndex<find(selected).lugs) recordLug();
+    show('adjustments');
+  },
+  repeat:()=>startScan(head,true),
+  'next-head':()=>{
+    if(head===0){startScan(1);return}
+    resetMeasurement();
+    sessionMeasure=null;
+    show('whole');
+  },
+  'whole-hit':()=>{
+    const base=target+(pass<2 && correctionRound===0 ? .24 : .08);
+    sessionMeasure=simulateHit(base,1);
+    if(sessionMeasure==null)redrawMeasurement('whole-hit');
+    else show('whole');
+  },
+  correction:()=>{correctionRound++;startScan(0)},
+  finish:()=>finish(false),
+  'finish-reference':()=>finish(true),
+  compare:()=>{resetMeasurement();sessionMeasure=null;show('compare')},
+  'compare-hit':()=>{
+    if(sessionMeasure!=null){handlers.compare();return}
+    const drum=find(selected);
+    sessionMeasure=simulateHit((drum.ref??suggest(drum))+.12,2);
+    if(sessionMeasure==null){redrawMeasurement('compare-hit');return}
+    drum.last=sessionMeasure;
+    if(returnTo==='results') checked[selected]=sessionMeasure;
+    save();
+    show('compare');
+  },
+  references:()=>show('references'),
+  reference:id=>{selected=id;newReference('references')},
+  'edit-ref':()=>newReference('drum'),
+  'reference-back':()=>show(from),
+  'back-ref':()=>show('reference'),
+  suggest:()=>{refsDraft=suggest(find(selected));show('reference')},
+  'record-ref':()=>{resetMeasurement();readDraft=null;captureMeasure=null;show('capture')},
+  'capture-hit':()=>{
+    const measured=simulateHit(suggest(find(selected))-1,2);
+    if(measured==null){redrawMeasurement('capture-hit');return}
+    captureMeasure=measured;
+    readDraft=Math.round(measured);
+    show('capture');
+  },
+  'capture-use':()=>{refsDraft=readDraft;show('reference')},
+  'save-ref':()=>{find(selected).ref=refsDraft;save();show(from)},
+  check:()=>{
+    order=[...kit].sort((a,b)=>{
+      const rank={snare:0,rack:1,floor:1,kick:2};
+      return rank[a.type]-rank[b.type] || a.diameter-b.diameter;
+    });
+    checked={};previousCheck=null;checkIndex=0;resetMeasurement();show('check');
+  },
+  'check-hit':()=>{
+    const drum=order[checkIndex];
+    const deviations=[.08,.32,-.12,-.39,.06,.23];
+    const base=(drum.ref??suggest(drum))+deviations[checkIndex%deviations.length];
+    const measured=simulateHit(base,checkIndex);
+    if(measured==null)redrawMeasurement('check-hit');
+    else advanceCheck(measured);
+  },
+  'check-skip':()=>advanceCheck(null),
+  'tune-from-results':id=>{selected=id;returnTo='results';handlers.tune()}
+};
+document.addEventListener('click',event=>{
+  const button=event.target.closest('[data-action]');
+  if(button)handlers[button.dataset.action](button.dataset.value);
+});
+screen.addEventListener('change',event=>{
+  const field=event.target;
+  const val=Number(field.value);
+  if(field.dataset.count && field.checkValidity() && Number.isSafeInteger(val)){
+    setCount(field.dataset.count,val);
+    // Refresh the configuration rows with the live input left in place.
+    const updated=document.createElement('template');
+    updated.innerHTML=pages.setup();
+    screen.querySelector('.panel').replaceWith(updated.content.querySelector('.panel'));
+  }
+  if(field.hasAttribute('data-kit')){
+    const entry=kits.find(item=>item.id===field.value);
+    if(entry){
+      currentKitId=entry.id;
+      kit=entry.drums;
+      demoMode=false;
+      message='';
+      save();
+      show('home');
+    }
+  }
+  if(field.dataset.diameter){
+    const drum=draft.find(item=>item.id===field.dataset.diameter);
+    drum.diameter=val;drum.lugs=defaultLugs(val);drum.ref=null;drum.last=null;drum.lastTarget=null;drum.tuned=false;
+    show('setup',false);
+  }
+  if(field.dataset.lugs)draft.find(item=>item.id===field.dataset.lugs).lugs=val;
+  if(field.hasAttribute('data-target'))target=val;
+  if(field.hasAttribute('data-ref')){refsDraft=val;show('reference',false);screen.querySelector('[data-ref]').focus()}
+});
+screen.addEventListener('input',event=>{
+  if(event.target.name==='kitName')draftName=event.target.value;
+});
+function saveNamedKit(){
+  const field=screen.querySelector('input[name="kitName"]');
+  const error=screen.querySelector('#name-kit .form-error');
+  const name=field.value.trim();
+  const duplicate=kits.some(entry=>entry.id!==editingKitId && entry.name.toLocaleLowerCase('fr')===name.toLocaleLowerCase('fr'));
+  if(!name || duplicate){
+    error.textContent=duplicate?'Un kit porte déjà ce nom.':'Saisis un nom pour ce kit.';
+    error.hidden=false;
+    field.focus();
+    return;
+  }
+  currentKitId=editingKitId??'kit-'+(kits.length+1);
+  const entry={id:currentKitId,name,drums:draft};
+  const index=kits.findIndex(item=>item.id===currentKitId);
+  if(index===-1)kits.push(entry);
+  else kits[index]=entry;
+  kit=entry.drums;
+  demoMode=false;
+  message=save()?'Kit enregistré sur cet appareil.':'Kit ajouté. Il sera disponible pendant cette session.';
+  show('home');
+}
+screen.addEventListener('keydown',event=>{
+  if(event.key==='Enter' && !event.isComposing && event.target.name==='kitName'){
+    event.preventDefault();
+    saveNamedKit();
+  }
+});
+show(view,false);
+</script>
+</body>
+</html>
