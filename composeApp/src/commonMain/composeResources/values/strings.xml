@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="prototype">Feasibility · near a lug</string>
+  <string name="head">Batter head</string>
+  <string name="target">Local session target: %1$s Hz</string>
+  <string name="instruction">Mute the opposite head and strike gently near the selected lug.</string>
+  <string name="enable">Enable microphone</string>
+  <string name="stop">Stop microphone</string>
+  <string name="waiting">Waiting for a strike</string>
+  <string name="detected">Strike detected</string>
+  <string name="provisional">Provisional measurement</string>
+  <string name="rejected">Inconclusive measurement · strike again</string>
+  <string name="denied">Microphone permission denied · enable it in Settings</string>
+  <string name="interrupted">Capture interrupted · tap to resume</string>
+  <string name="route">Audio route changed · tap to resume</string>
+  <string name="unavailable">Microphone unavailable · retry</string>
+  <string name="overrun">Audio processing overloaded · retry</string>
+  <string name="lug">Lug %1$d</string>
+  <string name="selected">Selected lug: %1$d</string>
+  <string name="reference">No saved reference</string>
+  <string name="stopped">Microphone stopped</string>
+  <string name="close">Close screen</string>
+  <string name="reopen">Return to feasibility</string>
+  <string name="closed">This screen is closed. The microphone has been released.</string>
+</resources>
