@@ -1,6 +1,6 @@
 # Rendu 3D — lot 0
 
-Scène observée dans un émulateur Android 35 ARM64 / SwiftShader (capture et smoke dans `preuves/`). Aucun essai sur téléphone physique dans cette session.
+Scène observée dans un émulateur Android 35 ARM64 / SwiftShader, sur Pixel 9 Pro XL / Android 17 et sur simulateur iOS 18.5 / RealityKit (captures dans `preuves/`). Huit vis sélectionnées nativement sur Android physique ; picking iOS et GPU iPhone physique restent à vérifier.
 
 ## Géométrie et intégration
 

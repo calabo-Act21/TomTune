@@ -21,9 +21,10 @@ Les contrats ont été écrits avant les délégations. Audio et rendu ont trava
 | Cas déterministes | Secondaire dominant inharmonique et proche octave, octave exacte, ambiguïté persistante rejetée, fréquence 317 Hz indépendante de la cible 185 Hz, silence, bruit, saturation, décroissance, 44,1 kHz et repliement spectral. |
 | Modèles 3D | 4 GLB reproductibles ; buffers, indices, angles et identités contrôlés. Tests du repère pour N=5,6,8,10 réussis. Scène observée dans l’émulateur Android 35 ARM64 / SwiftShader : coque, cercle bas, logo et halo visibles. Voir `preuves/android-emulateur.png`. |
 | Build iOS local | **Bloqué** : seul CommandLineTools est installé ; `xcodebuild` exige Xcode complet. `plutil` valide le projet/plist ; `swiftc -frontend -parse` valide la syntaxe Swift, sans vérifier les types UIKit/RealityKit ou le pont Kotlin. |
-| CI iOS | Workflow macOS/Xcode 16.4 fourni ; son résultat est à consigner après publication de la branche. |
+| CI iOS | **Build, lancement et tests Kotlin natifs réussis** sur Mac ARM64 / Xcode 16.4 / simulateur iOS 18.5 : [run vérifié](https://github.com/calabo-Act21/TomTune/actions/runs/45242956714). Capture `preuves/ios-smoke/smoke.png`, journal `preuves/ios-tests-ci.log`. Aucun micro d’iPhone physique testé. |
 | Simulation Android | **Réussie** sur Pixel 7 virtuel Android 35 ARM64 / SwiftShader : sélection native des huit vis, refus puis accord micro, capture AudioRecord et scène simultanées, libération après arrière-plan et fermeture, reprise explicite et picking après réouverture. Ressources/format numérique FR/EN/ES/DE vérifiés. Voir `preuves/android-smoke.log` et `preuves/android-langues.log`. Aucun signal de vrai tom injecté par le micro virtuel. |
-| Téléphones physiques et vrai tom | **Non exécutés**. `adb devices -l` ne liste aucun appareil. Pas de Xcode pour inventorier un iPhone. Aucun test micro, permission réelle, interruption réelle, rendu ou latence physique revendiqué. |
+| Android physique | **Pixel 9 Pro XL / Android 17**, Filament + AudioRecord simultanés, huit sélections natives, permission refusée/accordée, arrière-plan, fermeture/réouverture et libération vérifiés. Sur caisse claire 14″ timbre débrayé : série exploratoire non comptée (28 détections, 20 estimations, 8 rejets), puis **10 frappes annoncées près d’une même vis → 10 estimations 270,79–271,11 Hz**, plus une détection tardive rejetée `Noise`. [Compte rendu physique](ESSAI-ANDROID.md). |
+| Vrai tom et iPhone physique | **Restent à tester**. Les essais physiques disponibles ont utilisé une caisse claire ; pas de référence de fréquence indépendante, ni vidéo impact/écran, ni mesure FPS. Les appels et changements de route audio physiques restent à tester. |
 
 Les seuils sont des paramètres de faisabilité à calibrer sur de vrais toms, pas des garanties produit. Les essais instrumentés ci-dessous restent nécessaires pour conclure sur Kotlin/Compose pour TomTune.
 
@@ -61,7 +62,10 @@ export ANDROID_HOME=/private/tmp/tomtune-tools/android-sdk
 | `adb shell cmd locale set-app-locales com.tomtune.app --locales fr` (puis es/de/en) et inspection XML UI | Quatre langues et séparateurs numériques vérifiés. |
 | `git push -u origin codex/lot0-faisabilite`, `gh pr create --draft …` | Branche publiée ; [PR brouillon #1 et diff](https://github.com/calabo-Act21/TomTune/pull/1/files). |
 | Première CI Linux | Détecte différence de derniers bits libm dans les GLB et ancien défaut setup-android demandant le package `tools` retiré. Normalisation à 8 décimales et demande explicite `platform-tools` corrigent ; jobs signaux et Android suivants réussis. |
-| Première CI Xcode | Code Kotlin et framework ARM64 compilés ; sync des ressources échouée avec ARCHS générique incluant x86_64. Projet Xcode explicitement aligné ARM64 ; copie des ressources et scène RealityKit compilées au second passage. Deux noms d’enum PascalCase exportés en minuscules par Kotlin/Native ont ensuite nécessité une correction Swift ; vérification suivante en cours. |
+| Première CI Xcode | Code Kotlin/framework ARM64 compilés ; sync des ressources initialement échouée avec ARCHS générique x86_64. Projet aligné ARM64 puis noms d’enum Swift corrigés ; build, lancement et tests natifs suivants réussis. |
+| `./gradlew :shared:iosSimulatorArm64Test --console=plain` sur CI Xcode 16.4 | Réussi ; lancement réel de l’app sur simulateur et capture RealityKit vérifiés. |
+| Installation ADB, picking, permissions et cycle de vie sur Pixel 9 Pro XL / Android 17 | Vérifiés sur téléphone ; commandes et valeurs dans [ESSAI-ANDROID.md](ESSAI-ANDROID.md) et les journaux `pixel-*`. |
+| `python3 tools/summarize_strikes.py … --session 38 --played 10` | 10 estimations, 1 rejet tardif ; temps de diagnostic étiquetés séparément de la latence impact/écran. |
 | `git diff --check` | Aucun défaut d’espacement. |
 
 ## Reproduire les builds
@@ -106,4 +110,4 @@ Feuille de relevé (laisser vide tant que non mesuré) :
 | À mesurer Android | | | | | | | | | | |
 | À mesurer iPhone | | | | | | | | | | |
 
-**État de faisabilité :** analyse partagée vérifiée sur signaux synthétiques et intégration Android compilée. La faisabilité complète de la stack reste ouverte tant que le build iOS et les essais simultanés sur de vrais téléphones/toms ne sont pas établis.
+**État de faisabilité :** aucun blocage de compilation KMP/Compose observé sur Android ou iOS ; rendu iOS observé sur simulateur, rendu/capture simultanés et mesures par frappe observés sur Android physique. La sélection de la bonne résonance sur un vrai tom, son erreur face à une référence indépendante, les latences physiques et les essais sur iPhone restent nécessaires avant de conclure la faisabilité acoustique et matérielle complète. La cohérence des dix mesures de caisse claire ne valide pas à elle seule le choix du mode.

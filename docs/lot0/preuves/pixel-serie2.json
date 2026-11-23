@@ -1,0 +1,132 @@
+{
+  "scope": "Device debug metadata: start of triggering RMS hop to Compose frame-clock tick after state composition. Neither physical attack nor screen presentation is measured; film both for end-to-end latency.",
+  "playedByOperator": 10,
+  "detected": 11,
+  "estimates": 10,
+  "rejected": 1,
+  "countDifference": 1,
+  "warning": "A count difference alone does not identify missed versus double detections; compare the filmed strike sequence.",
+  "strikes": [
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 1,
+      "hz": 270.9950579964976,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 48.71,
+      "rmsTriggerHopStartToHzFrameTickMs": 406.9,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 2,
+      "hz": 270.94414989210816,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 35.85,
+      "rmsTriggerHopStartToHzFrameTickMs": 393.97,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 3,
+      "hz": 270.8422825590554,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 41.36,
+      "rmsTriggerHopStartToHzFrameTickMs": 399.49,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 4,
+      "hz": 271.01599399589236,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 40.19,
+      "rmsTriggerHopStartToHzFrameTickMs": 389.98,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 5,
+      "hz": 270.87945849444907,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 23.99,
+      "rmsTriggerHopStartToHzFrameTickMs": 390.5,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 6,
+      "hz": 270.8122760250192,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 32.88,
+      "rmsTriggerHopStartToHzFrameTickMs": 390.96,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 7,
+      "hz": 270.9451746884267,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 27.28,
+      "rmsTriggerHopStartToHzFrameTickMs": 391.51,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 8,
+      "hz": 270.7935091950934,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 47.23,
+      "rmsTriggerHopStartToHzFrameTickMs": 405.3,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 9,
+      "hz": 270.88460779907064,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 42.79,
+      "rmsTriggerHopStartToHzFrameTickMs": 400.89,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 10,
+      "hz": 271.10571727261464,
+      "rejected": null,
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 43.21,
+      "rmsTriggerHopStartToHzFrameTickMs": 401.38,
+      "detectionFrameClockTickObservedSeparately": true
+    },
+    {
+      "run": "193932837135545",
+      "session": 38,
+      "strike": 11,
+      "hz": null,
+      "rejected": "Noise",
+      "errorCents": null,
+      "rmsTriggerHopStartToDetectionFrameTickMs": 51.82,
+      "rmsTriggerHopStartToHzFrameTickMs": null,
+      "detectionFrameClockTickObservedSeparately": true
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package com.tomtune.app
 
 import com.tomtune.session.MeasurementController
+import com.tomtune.session.MeasurementState
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -24,7 +25,8 @@ expect fun NativeTomScene(state: TomSceneState, onSelect: (Int) -> Unit, modifie
 expect fun formatHz(value: Double): String
 
 @Composable
-fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
+fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit,
+        onFrame: ((MeasurementState, Long, Int) -> Unit)? = null) {
     val measurement by controller.state.collectAsState()
     var selected by remember { mutableStateOf(0) }
     var closed by remember { mutableStateOf(false) }
@@ -33,6 +35,11 @@ fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
         selected = index
         // A strike belongs to the selected lug/session; discard any former result or pending PCM.
         if (measurement.listening) controller.start(startCapture) else controller.stop()
+    }
+    LaunchedEffect(measurement.generation, measurement.event) {
+        if (measurement.event != null && onFrame != null) {
+            withFrameNanos { frameTime -> onFrame(measurement, frameTime, selected) }
+        }
     }
     DisposableEffect(controller) { onDispose { controller.dispose() } }
     LaunchedEffect(measurement.issue) { if (measurement.issue != null) controller.releaseAfterIssue() }

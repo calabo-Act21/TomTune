@@ -85,6 +85,13 @@ jobs:
         with:
           name: ios-smoke
           path: build/ios-ci/smoke.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-test-reports
+          path: |
+            shared/build/reports/tests/iosSimulatorArm64Test
+            shared/build/test-results/iosSimulatorArm64Test
       - uses: actions/cache/save@v4
         if: ${{ always() && steps.konan.outputs.cache-hit != 'true' }}
         with:

@@ -13,7 +13,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.atomic.AtomicLong
 
 /** AudioRecord reads on a dedicated audio worker. PCM exists only in memory. */
-class AndroidPcmSource(context: Context) : PcmSource {
+class AndroidPcmSource(context: Context, private val onClock: (Int, Long) -> Unit = { _, _ -> }) : PcmSource {
     private val app = context.applicationContext
     private val lock = Any()
     private val generation = AtomicLong()
@@ -69,9 +69,18 @@ class AndroidPcmSource(context: Context) : PcmSource {
                 }
                 val buffer = ShortArray(480)
                 var position = 0L
+                var clockReported = false
+                val timestamp = AudioTimestamp()
                 while (generation.get() == token) {
                     val count = active.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING)
                     if (count <= 0) { issue(token, sink, CaptureIssue.Interrupted); break }
+                    if (!clockReported && active.getTimestamp(timestamp, AudioTimestamp.TIMEBASE_MONOTONIC) == AudioRecord.SUCCESS) {
+                        val origin = timestamp.nanoTime - (timestamp.framePosition * 1_000_000_000.0 / active.sampleRate).toLong()
+                        synchronized(lock) {
+                            if (generation.get() == token) onClock(active.sampleRate, origin)
+                        }
+                        clockReported = true
+                    }
                     val copy = FloatArray(count) { buffer[it] / 32768f }
                     synchronized(lock) {
                         if (generation.get() == token) sink.onPcm(PcmBlock(copy, active.sampleRate, position))

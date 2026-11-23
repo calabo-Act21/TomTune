@@ -1,0 +1,29 @@
+﻿2026-11-23T19:09:11.5704880Z ##[group]Run ./gradlew :shared:iosSimulatorArm64Test --console=plain
+2026-11-23T19:09:11.5706040Z ^[[36;1m./gradlew :shared:iosSimulatorArm64Test --console=plain^[[0m
+2026-11-23T19:09:12.7767260Z shell: /bin/bash -e {0}
+2026-11-23T19:09:12.8254880Z env:
+2026-11-23T19:09:12.8255660Z   JAVA_HOME: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/arm64/Contents/Home
+2026-11-23T19:09:12.8338200Z   JAVA_HOME_17_ARM64: /Users/runner/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/arm64/Contents/Home
+2026-11-23T19:09:12.8338870Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-11-23T19:09:12.8339540Z   GRADLE_USER_HOME: /Users/runner/.gradle
+2026-11-23T19:09:12.8340000Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-11-23T19:09:12.8340440Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-11-23T19:09:12.8340900Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-11-23T19:09:12.8341410Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-11-23T19:09:12.8343230Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-11-23T19:09:12.8343880Z ##[endgroup]
+2026-11-23T19:09:40.4349070Z > Task :shared:kmpPartiallyResolvedDependenciesChecker
+2026-11-23T19:09:40.4364280Z > Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-11-23T19:09:42.1336950Z > Task :shared:compileKotlinIosSimulatorArm64 UP-TO-DATE
+2026-11-23T19:09:42.3759810Z > Task :shared:iosSimulatorArm64ProcessResources NO-SOURCE
+2026-11-23T19:09:42.3868610Z > Task :shared:iosSimulatorArm64MainKlibrary UP-TO-DATE
+2026-11-23T19:09:47.7700560Z > Task :shared:compileTestKotlinIosSimulatorArm64
+2026-11-23T19:10:16.0992600Z
+2026-11-23T19:10:16.0995710Z w: The number of threads 4 is more than the number of processors 3
+2026-11-23T19:10:16.1041710Z > Task :shared:linkDebugTestIosSimulatorArm64
+2026-11-23T19:10:24.9011180Z
+2026-11-23T19:10:24.9089760Z > Task :shared:iosSimulatorArm64Test
+2026-11-23T19:10:24.9437190Z gradle/actions: Writing build results to /Users/runner/work/_temp/.gradle-actions/build-results/__run_4-1795460973721.json
+2026-11-23T19:10:24.9540110Z
+2026-11-23T19:10:24.9578350Z BUILD SUCCESSFUL in 1m 4s
+2026-11-23T19:10:24.9704290Z 5 actionable tasks: 4 executed, 1 up-to-date

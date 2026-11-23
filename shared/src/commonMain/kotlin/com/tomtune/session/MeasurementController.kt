@@ -13,6 +13,7 @@ data class MeasurementState(val listening: Boolean = false, val event: StrikeEve
 class MeasurementController(
     private val stopCapture: () -> Unit,
     analysisDispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val onEvent: (Long, StrikeEvent) -> Unit = { _, _ -> },
 ) {
     private data class Work(val generation: Long, val block: PcmBlock)
     private val mutableState = MutableStateFlow(MeasurementState())
@@ -27,17 +28,19 @@ class MeasurementController(
                 if (!isActiveSession(work.generation)) continue
                 if (current != work.generation) { analyzer.reset(); current = work.generation }
                 analyzer.accept(work.block).forEach { event ->
-                    publish(work.generation) { it.copy(event = event) }
+                    if (publish(work.generation) { it.copy(event = event) }) {
+                        runCatching { onEvent(work.generation, event) }
+                    }
                 }
             }
         }
     }
     private fun isActiveSession(id: Long) = mutableState.value.let { it.generation == id && it.listening }
-    private fun publish(id: Long, change: (MeasurementState) -> MeasurementState) {
+    private fun publish(id: Long, change: (MeasurementState) -> MeasurementState): Boolean {
         while (true) {
             val old = mutableState.value
-            if (old.generation != id || !old.listening) return
-            if (mutableState.compareAndSet(old, change(old))) return
+            if (old.generation != id || !old.listening) return false
+            if (mutableState.compareAndSet(old, change(old))) return true
         }
     }
     /** Called on the host UI thread, as are stop/dispose. */

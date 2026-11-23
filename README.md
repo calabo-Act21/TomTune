@@ -4,6 +4,7 @@ Prototype du lot 0 en Kotlin Multiplatform et Compose Multiplatform pour Android
 
 - [Spécification v0.3](SPEC.md) et [périmètre lot 0](docs/lot0/LOT-0.md)
 - [Résultats, commandes et protocole sur téléphone](docs/lot0/RESULTATS.md)
+- [Essai physique Android](docs/lot0/ESSAI-ANDROID.md) et [métrologie](docs/lot0/METROLOGIE.md)
 - [Paramètres audio et limites](docs/lot0/AUDIO.md), [rendu](docs/lot0/RENDU.md), [contrats](docs/lot0/CONTRATS.md)
 
 JDK 17 requis ; SDK Android API 36 pour Android, Xcode 16.4 sur Mac Apple Silicon pour iOS.

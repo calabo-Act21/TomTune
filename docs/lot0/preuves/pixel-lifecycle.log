@@ -1,0 +1,9 @@
+Native AudioRecord running with scene visible
+Background: microphone inactive; Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+792ms ago; duration=+710ms
+Foreground return: explicit interrupted state, no automatic capture
+Text selection during capture: source resumed with fresh session
+Closed screen: microphone inactive; Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+4s921ms ago; duration=+2s484ms
+Reopened: microphone remains stopped
+Reopened: native selection of lug 1 succeeds
