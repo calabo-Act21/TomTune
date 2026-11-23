@@ -52,6 +52,10 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
+      - uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ runner.arch }}-2.2.20-xcode16.4
       - name: Select Xcode 16.4
         run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
       - name: Build iOS simulator app
@@ -67,6 +71,8 @@ jobs:
           sleep 5
           xcrun simctl spawn "$device_id" launchctl list | grep com.tomtune.app
           xcrun simctl io "$device_id" screenshot build/ios-ci/smoke.png
+      - name: Test shared logic on iOS simulator
+        run: ./gradlew :shared:iosSimulatorArm64Test --console=plain
       - uses: actions/upload-artifact@v4
         if: always()
         with:

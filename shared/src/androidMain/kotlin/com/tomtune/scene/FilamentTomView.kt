@@ -46,7 +46,7 @@ class FilamentTomView(context: Context, private val onSelect: (Int) -> Unit) : F
         // A fixed camera keeps numbering and the noon logo stable during measurement.
         val manipulator = Manipulator.Builder()
             .targetPosition(0f, -.18f, 0f)
-            .orbitHomePosition(0f, 2.8f, 1.2f)
+            .orbitHomePosition(0f, 5.6f, 3.2f)
             .upVector(0f, 1f, 0f)
             .build(Manipulator.Mode.ORBIT)
         // Registered before ModelViewer's listener: free our additions before it destroys its engine.
@@ -55,6 +55,8 @@ class FilamentTomView(context: Context, private val onSelect: (Int) -> Unit) : F
             override fun onViewDetachedFromWindow(v: View) { releaseOwnedResources() }
         })
         viewer = ModelViewer(surface, manipulator = manipulator)
+        // A longer lens avoids the near rim hiding the shell in a close, almost vertical view.
+        viewer.cameraFocalLength = 56f
         ambient = IndirectLight.Builder()
             .irradiance(1, floatArrayOf(.8f, .77f, .72f))
             .intensity(30_000f).build(viewer.engine)

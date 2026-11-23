@@ -4,7 +4,7 @@ import com.tomtune.session.MeasurementController
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.interop.UIKitViewController
+import androidx.compose.ui.viewinterop.UIKitViewController
 import androidx.compose.ui.window.ComposeUIViewController
 import com.tomtune.contracts.*
 import kotlinx.cinterop.ExperimentalForeignApi

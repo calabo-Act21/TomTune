@@ -3,6 +3,7 @@ package com.tomtune.app
 import com.tomtune.session.MeasurementController
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -37,30 +38,29 @@ fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
     LaunchedEffect(measurement.issue) { if (measurement.issue != null) controller.releaseAfterIssue() }
     MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xff1269d3), background = Color(0xffede9e3))) {
         Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).safeContentPadding()
-            .verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("TomTune", style = MaterialTheme.typography.headlineMedium)
+            .verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("TomTune", style = MaterialTheme.typography.titleLarge)
             if (closed) {
                 Text(stringResource(Res.string.closed))
                 Button(onClick = { closed = false }) { Text(stringResource(Res.string.reopen)) }
             } else {
-                Text(stringResource(Res.string.prototype), style = MaterialTheme.typography.labelLarge)
-                Text(stringResource(Res.string.head), style = MaterialTheme.typography.headlineSmall)
+                Text(stringResource(Res.string.prototype), style = MaterialTheme.typography.labelSmall)
+                Text(stringResource(Res.string.head), style = MaterialTheme.typography.titleMedium)
                 Text(stringResource(Res.string.target, formatHz(185.0)))
                 NativeTomScene(TomSceneState(8, selected), { index -> selectLug(index) },
-                    Modifier.fillMaxWidth().height(330.dp))
-                Text(stringResource(Res.string.selected, selected + 1))
+                    Modifier.fillMaxWidth().height(250.dp))
+                Text(stringResource(Res.string.selected, selected + 1), style = MaterialTheme.typography.labelLarge)
                 // Same controls as native picking, with 48dp minimum touch targets and localized labels.
-                for (row in 0..1) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    for (column in 0..3) {
-                        val index = row * 4 + column
+                Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    for (index in 0..7) {
                         FilterChip(selected = selected == index, onClick = { selectLug(index) },
                             label = { Text(stringResource(Res.string.lug, index + 1)) },
                             modifier = Modifier.heightIn(min = 48.dp))
                     }
                 }
-                Text(stringResource(Res.string.instruction))
+                Text(stringResource(Res.string.instruction), style = MaterialTheme.typography.bodySmall)
                 Card(Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite }) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         val event = measurement.event
                         val issue = measurement.issue
                         Text(stringResource(when (issue) {
@@ -81,12 +81,14 @@ fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
                         }
                     }
                 }
-                Button(onClick = { if (measurement.listening) controller.stop() else controller.start(startCapture) },
-                    modifier = Modifier.fillMaxWidth()) {
-                    Text(stringResource(if (measurement.listening) Res.string.stop else Res.string.enable))
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = { if (measurement.listening) controller.stop() else controller.start(startCapture) },
+                        modifier = Modifier.weight(1f)) {
+                        Text(stringResource(if (measurement.listening) Res.string.stop else Res.string.enable))
+                    }
+                    TextButton(onClick = { controller.stop(); closed = true }) { Text(stringResource(Res.string.close)) }
                 }
-                Text(stringResource(Res.string.reference), style = MaterialTheme.typography.labelMedium)
-                TextButton(onClick = { controller.stop(); closed = true }) { Text(stringResource(Res.string.close)) }
+                Text(stringResource(Res.string.reference), style = MaterialTheme.typography.labelSmall)
             }
         }
     }

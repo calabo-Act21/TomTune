@@ -23,8 +23,8 @@ final class TomSceneViewController: UIViewController {
         arView.scene.addAnchor(anchor)
         anchor.addChild(drum)
         let camera = PerspectiveCamera()
-        camera.camera.fieldOfViewInDegrees = 43
-        camera.look(at: [0, -0.18, 0], from: [0, 2.8, 1.2], relativeTo: nil)
+        camera.camera.fieldOfViewInDegrees = 22.3
+        camera.look(at: [0, -0.18, 0], from: [0, 5.6, 3.2], relativeTo: nil)
         anchor.addChild(camera)
         let light = DirectionalLight()
         light.light.intensity = 7000

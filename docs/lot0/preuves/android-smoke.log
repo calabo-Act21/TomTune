@@ -1,0 +1,18 @@
+native picking: lug 1/8 correct
+native picking: lug 2/8 correct
+native picking: lug 3/8 correct
+native picking: lug 4/8 correct
+native picking: lug 5/8 correct
+native picking: lug 6/8 correct
+native picking: lug 7/8 correct
+native picking: lug 8/8 correct
+permission denied: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: ignore
+RECORD_AUDIO: allow; time=+1m19s895ms ago; duration=+3s865ms
+permission granted: native AudioRecord active with Filament visible; Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+2s603ms ago (running)
+background: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+4s424ms ago; duration=+4s304ms
+closed screen: microphone app-op inactive after lifecycle transition; Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+9s235ms ago; duration=+7s30ms
+reopened: native scene recreated and capture requires explicit activation
+PASS — emulator simulation only; no real strike or hardware latency measured.
