@@ -15,7 +15,7 @@ Les contrats ont été écrits avant les délégations. Audio et rendu ont trava
 | Vérification | Résultat dans cette session |
 |---|---|
 | Build Android debug | **Réussi** avec SDK temporaire API 36 / build-tools 35.0.0, JDK 17, Gradle 8.14.3. APK `composeApp/build/outputs/apk/debug/composeApp-debug.apk`. Contrôle ZIP : modèles 5/6/8/10, ressources FR/EN/ES/DE et bibliothèques Filament présents. |
-| Tests JVM sur signaux et repère | **21 réussis** : 16 audio (dont WAV), 2 repère, 3 cycle de vie/session. Les 20 tests communs réussissent aussi sur la JVM du variant Android. Voir `preuves/integration-tests.log`. |
+| Tests JVM sur signaux et repère | **23 réussis** : 17 audio (dont WAV), 2 repère, 4 cycle de vie/session. Les 22 tests communs réussissent aussi sur la JVM du variant Android. Voir `preuves/integration-tests.log`. |
 | WAV synthétique fourni | **8 détections, 8 estimations, 0 rejet, 0 frappe manquée, 0 doublon** ; erreur absolue maximale ≈ **0,014 cent**, tolérance ±12 cents. |
 | Délais WAV | Détection à impact +5 ms, résultat +320 ms en **temps du signal injecté**. Ne mesure ni latence matérielle, ni affichage UI, ni charge du GPU. |
 | Cas déterministes | Secondaire dominant inharmonique et proche octave, octave exacte, ambiguïté persistante rejetée, fréquence 317 Hz indépendante de la cible 185 Hz, silence, bruit, saturation, décroissance, 44,1 kHz et repliement spectral. |
@@ -48,7 +48,7 @@ export ANDROID_HOME=/private/tmp/tomtune-tools/android-sdk
 | `gradle -Pmobile=false :shared:jvmTest wrapper --gradle-version 8.14.3 --distribution-type bin --console=plain` | Réussi ; wrapper standard fourni. |
 | `./gradlew -Pmobile=false :shared:jvmTest --console=plain` | Réussi, 18 tests après compléments FIR. Voir `preuves/jvm-tests.log`. |
 | `./gradlew :composeApp:assembleDebug :shared:testDebugUnitTest --console=plain` | Premier essai échoué : Filament 1.64.0 non publié. Corrigé en 1.64.1 ; build réussi et 17 tests communs Android réussis. Voir `preuves/android-build.log`. |
-| `./gradlew :shared:jvmTest :composeApp:assembleDebug :shared:testDebugUnitTest --console=plain` | Réussi : APK compilé, 21 tests JVM et 20 tests unitaires Android, dont 3 tests de session sur chaque cible. Voir `preuves/integration-tests.log`. |
+| `./gradlew :shared:jvmTest :composeApp:assembleDebug :shared:testDebugUnitTest --console=plain` | Réussi : APK compilé, 23 tests JVM et 22 tests unitaires Android, dont 4 tests de session sur chaque cible. Voir `preuves/integration-tests.log`. |
 | `unzip -l composeApp/build/outputs/apk/debug/composeApp-debug.apk` | Assets et langues effectivement inclus. |
 | `python3 tools/generate_tom.py --check` | Réussi N=5,6,8,10. |
 | `swiftc -frontend -parse iosApp/TomTune/*.swift` | Réussi, syntaxe seulement. |

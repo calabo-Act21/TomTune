@@ -27,6 +27,12 @@ fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
     val measurement by controller.state.collectAsState()
     var selected by remember { mutableStateOf(0) }
     var closed by remember { mutableStateOf(false) }
+    fun selectLug(index: Int) {
+        if (selected == index) return
+        selected = index
+        // A strike belongs to the selected lug/session; discard any former result or pending PCM.
+        if (measurement.listening) controller.start(startCapture) else controller.stop()
+    }
     DisposableEffect(controller) { onDispose { controller.dispose() } }
     LaunchedEffect(measurement.issue) { if (measurement.issue != null) controller.releaseAfterIssue() }
     MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xff1269d3), background = Color(0xffede9e3))) {
@@ -40,14 +46,14 @@ fun App(controller: MeasurementController, startCapture: (PcmSink) -> Unit) {
                 Text(stringResource(Res.string.prototype), style = MaterialTheme.typography.labelLarge)
                 Text(stringResource(Res.string.head), style = MaterialTheme.typography.headlineSmall)
                 Text(stringResource(Res.string.target, formatHz(185.0)))
-                NativeTomScene(TomSceneState(8, selected), { index -> selected = index },
+                NativeTomScene(TomSceneState(8, selected), { index -> selectLug(index) },
                     Modifier.fillMaxWidth().height(330.dp))
                 Text(stringResource(Res.string.selected, selected + 1))
                 // Same controls as native picking, with 48dp minimum touch targets and localized labels.
                 for (row in 0..1) Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     for (column in 0..3) {
                         val index = row * 4 + column
-                        FilterChip(selected = selected == index, onClick = { selected = index },
+                        FilterChip(selected = selected == index, onClick = { selectLug(index) },
                             label = { Text(stringResource(Res.string.lug, index + 1)) },
                             modifier = Modifier.heightIn(min = 48.dp))
                     }

@@ -90,4 +90,19 @@ class TomStrikeAnalyzerTest {
     }
     @Test fun noInventedSubharmonicWithoutSupportingPeak() = assertFrequency(analyze(signal(370.0)), 370.0)
 
+    @Test fun startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike() {
+        val tail = FloatArray((rate * 0.65).toInt()) { i ->
+            val t = i.toDouble() / rate + 0.04
+            (0.30 * exp(-7 * t) * sin(2 * PI * 185 * t)).toFloat()
+        }
+        val analyzer = TomStrikeAnalyzer()
+        // The first non-quiet hop belongs to a strike from the previous screen/selection.
+        assertTrue(analyzer.accept(PcmBlock(tail, rate, 0)).isEmpty())
+        analyzer.reset()
+        assertTrue(analyzer.accept(PcmBlock(tail, rate, 0)).isEmpty())
+        val following = FloatArray(rate / 5) + signal(192.0)
+        val events = analyzer.accept(PcmBlock(following, rate, tail.size.toLong())) + analyzer.finish()
+        assertFrequency(events, 192.0)
+    }
+
 }

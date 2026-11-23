@@ -1,8 +1,11 @@
 name: Lot 0 verification
 on:
   push:
-    branches: [main, 'codex/**']
+    branches: [main]
   pull_request:
+concurrency:
+  group: lot0-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
@@ -31,6 +34,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
       - uses: gradle/actions/setup-gradle@v4
       - run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
       - run: ./gradlew :composeApp:assembleDebug :shared:testDebugUnitTest --console=plain
@@ -50,4 +55,20 @@ jobs:
       - name: Select Xcode 16.4
         run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
       - name: Build iOS simulator app
-        run: xcodebuild -project iosApp/TomTune.xcodeproj -scheme TomTune -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug CODE_SIGNING_ALLOWED=NO build
+        run: xcodebuild -project iosApp/TomTune.xcodeproj -scheme TomTune -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -configuration Debug CODE_SIGNING_ALLOWED=NO -derivedDataPath build/ios-ci build
+      - name: Launch iOS simulator smoke test
+        run: |
+          xcrun simctl list devices available -j > /tmp/devices.json
+          device_id=$(python3 -c 'import json; d=json.load(open("/tmp/devices.json")); print(next(v["udid"] for k,vs in d["devices"].items() if "iOS-18" in k for v in vs if v["isAvailable"] and "iPhone" in v["name"]))')
+          xcrun simctl boot "$device_id"
+          xcrun simctl bootstatus "$device_id" -b
+          xcrun simctl install "$device_id" build/ios-ci/Build/Products/Debug-iphonesimulator/TomTune.app
+          xcrun simctl launch "$device_id" com.tomtune.app
+          sleep 5
+          xcrun simctl spawn "$device_id" launchctl list | grep com.tomtune.app
+          xcrun simctl io "$device_id" screenshot build/ios-ci/smoke.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios-smoke
+          path: build/ios-ci/smoke.png

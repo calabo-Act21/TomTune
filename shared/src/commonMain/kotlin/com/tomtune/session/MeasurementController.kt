@@ -60,6 +60,13 @@ class MeasurementController(
         mutableState.value = MeasurementState(generation = mutableState.value.generation + 1)
         stopCapture()
     }
+    fun interrupt() {
+        val old = mutableState.value
+        if (old.listening) {
+            mutableState.value = MeasurementState(issue = CaptureIssue.Interrupted, generation = old.generation + 1)
+        }
+        stopCapture()
+    }
     fun releaseAfterIssue() { stopCapture() }
     fun dispose() { stop(); queue.close(); scope.cancel() }
 }

@@ -49,6 +49,20 @@ class MeasurementControllerTest {
         assertNull(controller.state.value.event)
         controller.dispose()
     }
+    @Test fun backgroundAlwaysReleasesCaptureEvenAfterOverrun() = runTest {
+        var releases = 0
+        val controller = MeasurementController({ releases++ }, StandardTestDispatcher(testScheduler))
+        lateinit var sink: PcmSink
+        controller.start { sink = it }
+        repeat(33) { sink.onPcm(PcmBlock(FloatArray(480), 48000, it * 480L)) }
+        assertEquals(CaptureIssue.Overrun, controller.state.value.issue)
+        val before = releases
+        controller.interrupt()
+        assertEquals(before + 1, releases)
+        assertEquals(CaptureIssue.Overrun, controller.state.value.issue)
+        runCurrent()
+        controller.dispose()
+    }
     private fun attack() = PcmBlock(FloatArray(12000) { i ->
         val t = i / 48000.0 - .1
         if (t < 0) 0f else (.3 * exp(-7 * t) * sin(2 * PI * 185 * t)).toFloat()

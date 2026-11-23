@@ -24,13 +24,13 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
     private var lastOnset = Long.MIN_VALUE / 2
     private var envelope = 0.0
     private var noise = 0.001
-    private var armed = true
+    private var armed = false
     private var frame = ArrayList<Float>()
     private var pending: ArrayList<Float>? = null
 
     override fun reset() {
         rate = 0; nextFrame = 0; id = 0; onsetFrame = 0; lastOnset = Long.MIN_VALUE / 2
-        envelope = 0.0; noise = 0.001; armed = true; frame.clear(); pending = null
+        envelope = 0.0; noise = 0.001; armed = false; frame.clear(); pending = null
     }
 
     override fun accept(block: PcmBlock): List<StrikeEvent> {

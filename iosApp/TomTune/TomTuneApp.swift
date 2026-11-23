@@ -17,10 +17,23 @@ private final class SceneHost: NSObject, IOSSceneHost {
 private final class PermissionPcmSource: NSObject, PcmSource {
     private let capture = IOSPcmSource()
     private var generation: UInt64 = 0
+    private var activeSink: PcmSink?
+    private var backgroundObserver: NSObjectProtocol?
+    override init() {
+        super.init()
+        backgroundObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: .main
+        ) { [weak self] _ in
+            guard let self, let sink = self.activeSink else { return }
+            self.stop()
+            sink.onIssue(issue: .interrupted)
+        }
+    }
     func start(sink: PcmSink) {
         stop()
         generation &+= 1
         let token = generation
+        activeSink = sink
         AVAudioSession.sharedInstance().requestRecordPermission { [weak self] granted in
             DispatchQueue.main.async {
                 guard let self, self.generation == token else { return }
@@ -33,7 +46,11 @@ private final class PermissionPcmSource: NSObject, PcmSource {
             }
         }
     }
-    func stop() { generation &+= 1; capture.stop() }
+    func stop() { generation &+= 1; activeSink = nil; capture.stop() }
+    deinit {
+        if let backgroundObserver { NotificationCenter.default.removeObserver(backgroundObserver) }
+        capture.stop()
+    }
 }
 private struct FeasibilityView: UIViewControllerRepresentable {
     func makeCoordinator() -> PermissionPcmSource { PermissionPcmSource() }

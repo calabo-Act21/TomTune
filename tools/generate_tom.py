@@ -12,6 +12,12 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def canonical(value):
+    # Canonical precision removes platform-libm last-bit differences, including signed zero.
+    rounded = round(value, 8)
+    return 0.0 if rounded == 0 else rounded
+
+
 def cylinder(radius, bottom, top, segments=64):
     p, n, ix = [], [], []
     for i in range(segments):
@@ -88,6 +94,8 @@ def build(count):
     def accessor(values, kind, component=5126):
         while len(binary)%4: binary.append(0)
         start = len(binary)
+        if kind != 'SCALAR':
+            values = [tuple(canonical(v) for v in row) for row in values]
         if kind == 'SCALAR':
             binary.extend(struct.pack('<'+'H'*len(values),*values))
         else:
@@ -105,7 +113,7 @@ def build(count):
         return len(doc['meshes'])-1
     def node(name, mesh_id, position=(0,0,0)):
         doc['scenes'][0]['nodes'].append(len(doc['nodes']))
-        doc['nodes'].append({'name':name,'mesh':mesh_id,'translation':list(position)})
+        doc['nodes'].append({'name':name,'mesh':mesh_id,'translation':[canonical(v) for v in position]})
     node('shell',mesh(cylinder(.98,-.68,0),wood))
     node('head',mesh(cylinder(.97,.008,.025),skin))
     node('upper_hoop',mesh(torus(1,.027,.025),steel))
@@ -165,8 +173,8 @@ def verify(data, count):
     for i in range(count):
         angle = -math.pi/2 + math.tau*(i+.5)/count
         lug = next(n for n in doc['nodes'] if n['name'] == f'lug_{i}')
-        assert abs(lug['translation'][0]-1.035*math.cos(angle)) < 1e-12
-        assert abs(lug['translation'][2]-1.035*math.sin(angle)) < 1e-12
+        assert abs(lug['translation'][0]-1.035*math.cos(angle)) < 1e-7
+        assert abs(lug['translation'][2]-1.035*math.sin(angle)) < 1e-7
         assert sum(n['name'] == f'selection_{i}' for n in doc['nodes']) == 1
     assert any(n['name'] == 'TomTune' for n in doc['nodes'])
 

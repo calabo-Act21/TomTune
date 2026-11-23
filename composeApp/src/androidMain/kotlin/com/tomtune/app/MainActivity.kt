@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
             else { pendingSink = sink; permission.launch(Manifest.permission.RECORD_AUDIO) }
         } }
     }
-    override fun onStop() { controller.stop(); super.onStop() }
+    override fun onStop() { controller.interrupt(); super.onStop() }
     override fun onDestroy() { controller.dispose(); super.onDestroy() }
 }
 
