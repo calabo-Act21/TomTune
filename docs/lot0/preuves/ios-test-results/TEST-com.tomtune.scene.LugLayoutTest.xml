@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tomtune.scene.LugLayoutTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-23T19:33:08.040Z" hostname="sjc22-bm213-1773290c-f4f5-4700-baf8-9c886188cbe8-8EDB7BFD15DA.local" time="0.005">
+  <properties/>
+  <testcase name="canonicalIndicesAndSymmetry[iosSimulatorArm64]" classname="com.tomtune.scene.LugLayoutTest" time="0.002"/>
+  <testcase name="invalidSelectionCannotReachNativeRenderer[iosSimulatorArm64]" classname="com.tomtune.scene.LugLayoutTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

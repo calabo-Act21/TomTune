@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tomtune.session.MeasurementControllerTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-23T19:33:08.045Z" hostname="sjc22-bm213-1773290c-f4f5-4700-baf8-9c886188cbe8-8EDB7BFD15DA.local" time="0.057">
+  <properties/>
+  <testcase name="stoppingDiscardsQueuedPcmAndLateCallbacks[iosSimulatorArm64]" classname="com.tomtune.session.MeasurementControllerTest" time="0.04"/>
+  <testcase name="resumeAcceptsFreshStrikeAndIgnoresOldSessionFault[iosSimulatorArm64]" classname="com.tomtune.session.MeasurementControllerTest" time="0.013"/>
+  <testcase name="overrunIsExplicitAndDoesNotPublishStaleFrequency[iosSimulatorArm64]" classname="com.tomtune.session.MeasurementControllerTest" time="0.0"/>
+  <testcase name="backgroundAlwaysReleasesCaptureEvenAfterOverrun[iosSimulatorArm64]" classname="com.tomtune.session.MeasurementControllerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

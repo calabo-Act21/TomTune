@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.tomtune.audio.TomStrikeAnalyzerTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-23T19:33:03.042Z" hostname="sjc22-bm213-1773290c-f4f5-4700-baf8-9c886188cbe8-8EDB7BFD15DA.local" time="4.997">
+  <properties/>
+  <testcase name="simpleAndDecayNotSecondStrike[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.085"/>
+  <testcase name="dominantInharmonicTransient[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.3"/>
+  <testcase name="dominantNearOctaveTransient[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.162"/>
+  <testcase name="exactOctaveHasResolvedLowerPeriod[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.153"/>
+  <testcase name="ambiguousPersistentModesAreRejected[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.248"/>
+  <testcase name="distantFrequencyIsNotPulledToDisplayed185HzTarget[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.455"/>
+  <testcase name="silenceNeverDetected[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.05"/>
+  <testcase name="deterministicBroadbandNoiseNeverAccepted[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.281"/>
+  <testcase name="clippingRejected[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.186"/>
+  <testcase name="callbackChunkingDoesNotChangeResults[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.802"/>
+  <testcase name="detectionPublishedBeforeEnoughDataForEstimate[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.013"/>
+  <testcase name="rearmingAfterQuietAllowsAnotherStrike[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.629"/>
+  <testcase name="native44100RateIsRespected[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.221"/>
+  <testcase name="highFrequencyDoesNotAliasIntoAcceptedBand[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.253"/>
+  <testcase name="noInventedSubharmonicWithoutSupportingPeak[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.601"/>
+  <testcase name="startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike[iosSimulatorArm64]" classname="com.tomtune.audio.TomStrikeAnalyzerTest" time="0.488"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

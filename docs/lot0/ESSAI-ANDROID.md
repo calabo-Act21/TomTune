@@ -39,6 +39,7 @@ Ces chiffres sont des **temps de diagnostic**. `withFrameNanos` ne prouve pas l�
 - Fermeture de l’écran : micro inactif ; réouverture avec micro arrêté, picking natif à nouveau fonctionnel. Voir `preuves/pixel-lifecycle.log`.
 - Permission accordée sur le téléphone, puis contrôle de refus/réautorisation natifs et arrêt final : `preuves/pixel-permissions.log`, `preuves/pixel-permission-denied.png`.
 - Le premier helper de picking finit avec `StopIteration` en cherchant « Activer le micro » : l’opérateur avait déjà activé le micro. Les huit sélections précédentes avaient réussi et l’app-op confirmait une capture active. Ce défaut de synchronisation du helper n’est pas une exception de l’app ; les contrôles de cycle de vie suivants ont leur propre journal.
+- Pour reproduire le refus natif, `adb shell pm revoke com.tomtune.app android.permission.RECORD_AUDIO` a retiré l’autorisation du test. Après le refus, Android a conservé le refus fixe ; les flags de test `user-set user-fixed` ont été effacés avec `pm clear-permission-flags`, puis le dialogue a permis de réautoriser. L’autorisation initiale est rétablie et le micro est laissé arrêté.
 - Appel téléphonique et changement de route audio physique non exécutés. Aucun essai sur iPhone physique.
 
 Le PCM a été traité en mémoire. Seuls événements, Hz et horodatages ont été conservés pour cette livraison. Aucune référence de fût n’a été enregistrée.
