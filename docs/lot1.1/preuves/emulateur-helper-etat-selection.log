@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-lot11-mark.py", line 44, in <module>
+    assert len(selected)==1, [(n.get('text'),n.get('selected')) for n in tree.iter('node')]
+AssertionError: [('', 'false'), ('', 'false'), ('', 'false'), ('', 'false'), ('', 'false'), ('', 'false'), ('Rack tom 10″', 'false'), ('', 'false'), ('Rack tom 12″', 'false'), ('', 'false'), ('', 'false'), ('Rack tom 13″', 'false'), ('', 'false'), ('Floor tom 16″', 'false'), ('', 'false'), ('Floor tom 18″', 'false'), ('', 'false'), ('Caisse claire 14″', 'false'), ('', 'false'), ('Grosse caisse 22″', 'false')]

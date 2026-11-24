@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-lot11-mark.py", line 49, in <module>
+    assert find('Kit actif: Studio','content-desc') is not None
+  File "/private/tmp/tomtune-lot11-mark.py", line 12, in find
+    raise AssertionError((label,[(n.get('text'),n.get('content-desc')) for n in tree.iter('node') if n.get('text') or n.get('content-desc')]))
+AssertionError: ('Kit actif: Studio', [('← Mon kit', ''), ('', 'Choisir un fût: Rack tom 12″'), ('Rack tom 12″', ''), (' ▾', ''), ('6 vis par peau', '')])

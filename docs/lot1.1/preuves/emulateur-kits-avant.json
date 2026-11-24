@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "activeId": "17f7ee95-0536-4977-9c51-39c54909f34b",
+  "kits": [
+    {
+      "id": "17f7ee95-0536-4977-9c51-39c54909f34b",
+      "name": "Studio",
+      "revision": 5,
+      "drums": [
+        {
+          "id": "626d0ef9-9311-411e-bdab-5b84415cf7f3",
+          "family": "snare",
+          "order": 2,
+          "diameter": 14,
+          "lugs": null,
+          "manualLugs": false
+        },
+        {
+          "id": "217e872e-5cdd-4a10-92ce-582699c78606",
+          "family": "kick",
+          "order": 3,
+          "diameter": 22,
+          "lugs": null,
+          "manualLugs": false
+        },
+        {
+          "id": "66ea780d-7b25-46b6-82b8-f7ee8a8cb783",
+          "family": "rack",
+          "order": 0,
+          "diameter": 12,
+          "lugs": 7,
+          "manualLugs": true
+        },
+        {
+          "id": "8ee62e00-6b5c-4133-8ab9-30a5ea667ac9",
+          "family": "rack",
+          "order": 4,
+          "diameter": 10,
+          "lugs": 5,
+          "manualLugs": false
+        },
+        {
+          "id": "57deab4a-c461-4523-b305-6d6174b7cc18",
+          "family": "rack",
+          "order": 5,
+          "diameter": 13,
+          "lugs": 6,
+          "manualLugs": false
+        },
+        {
+          "id": "adfd66cb-3879-491c-8a10-665d054b7e2e",
+          "family": "floor",
+          "order": 1,
+          "diameter": 16,
+          "lugs": 8,
+          "manualLugs": false
+        },
+        {
+          "id": "b74cbd8f-5b7d-41c8-8546-2ac7e350e556",
+          "family": "floor",
+          "order": 6,
+          "diameter": 18,
+          "lugs": 8,
+          "manualLugs": false
+        }
+      ]
+    },
+    {
+      "id": "8a6b4eea-0408-4033-98b4-87ede8d3bbe0",
+      "name": "Live",
+      "revision": 2,
+      "drums": [
+        {
+          "id": "6dd04048-4513-4115-96a4-7a0e73b06a88",
+          "family": "snare",
+          "order": 2,
+          "diameter": 14,
+          "lugs": null,
+          "manualLugs": false
+        },
+        {
+          "id": "20439ea5-cc1f-45d6-946a-a2fc27d82abd",
+          "family": "kick",
+          "order": 3,
+          "diameter": 22,
+          "lugs": null,
+          "manualLugs": false
+        }
+      ]
+    }
+  ]
+}

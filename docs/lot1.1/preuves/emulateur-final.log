@@ -1,0 +1,5 @@
+APK final: installation -r, relance en mode avion, trois kits et sélection conservés
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-lot11-last.py", line 47, in <module>
+    assert find('Rack tom 12″').get('selected')=='true'
+AssertionError

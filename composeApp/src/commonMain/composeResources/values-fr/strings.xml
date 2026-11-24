@@ -66,4 +66,9 @@
   <string name="kit_snare_illustration">Illustration : 8 vis. Le nombre de vis de la caisse claire n’est pas configuré.</string>
   <string name="kit_no_visual">Pas de visuel exact au catalogue. Voici les données de ton fût.</string>
   <string name="kit_schematic">Schéma interactif · sans floor tom</string>
+
+  <string name="kit_visual_loading">Chargement du visuel du kit…</string>
+  <string name="kit_visual_fallback">Image indisponible · schéma interactif du kit</string>
+  <string name="kit_drum_selector">Choisir un fût</string>
+  <string name="kit_drum_ordinal">%1$s · %2$d</string>
 </resources>

@@ -1,0 +1,9 @@
+Installation sur téléphone — 24 novembre 2026
+Appareil détecté par ADB : Pixel 9 Pro XL, état device.
+Commande : adb -s PHONE_SERIAL install -r "/Users/camlaborde/Workspace/TomTune/TomTune/composeApp/build/outputs/apk/debug/composeApp-debug.apk"
+Résultat : Performing Streamed Install / Success ; code de sortie 0.
+Commande : adb -s PHONE_SERIAL shell am start -W -n com.tomtune.app/.MainActivity
+Résultat : Status: ok ; LaunchState: COLD ; TotalTime: 408 ms ; code de sortie 0.
+SHA-256 : 43123801c70992ec41b7792b6bdbf8c763978d82affdf76fee2ac3df263b7896
+Installation avec conservation des données (-r), sans désinstallation ni effacement.
+Aucun critère P1 à P7 déclaré physiquement validé par cette seule installation.

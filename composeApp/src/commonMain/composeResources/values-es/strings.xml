@@ -66,4 +66,9 @@
   <string name="kit_snare_illustration">Ilustración: 8 tensores. El número de tensores de la caja no está configurado.</string>
   <string name="kit_no_visual">No hay una imagen exacta en el catálogo. Estos son los datos de tu tambor.</string>
   <string name="kit_schematic">Esquema interactivo · sin tom de suelo</string>
+
+  <string name="kit_visual_loading">Cargando imagen de la batería…</string>
+  <string name="kit_visual_fallback">Imagen no disponible · esquema interactivo de la batería</string>
+  <string name="kit_drum_selector">Elegir tambor</string>
+  <string name="kit_drum_ordinal">%1$s · %2$d</string>
 </resources>
