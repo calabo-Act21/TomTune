@@ -1,0 +1,7 @@
+P4: final APK, 2 allers-retours Studio/Live, image et IDs corrects, zéro floor interactif
+P1/P2/P3: second rapport 1200x1920, rack12 ouvert par coque après redimensionnement
+P6: hors catalogue, texte 200%, données et liste accessibles dans UIAutomator, retour visible
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-lot11-final.py", line 89, in <module>
+    assert disk()['kits']==initial['kits']
+AssertionError

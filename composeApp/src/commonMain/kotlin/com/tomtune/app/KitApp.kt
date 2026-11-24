@@ -13,10 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tomtune.app.resources.*
 import com.tomtune.kit.*
 import org.jetbrains.compose.resources.stringResource
@@ -33,17 +37,37 @@ fun drumLabel(drum: Drum): String = stringResource(when (drum.family) {
 fun drumAccessibleLabel(drum: Drum): String = drumLabel(drum) +
     (drum.lugs?.let { " · " + stringResource(Res.string.kit_lug_count, it) } ?: "")
 
+/** One ordinal per ID when type and diameter are identical. */
+@Composable
+fun kitDrumLabel(kit: Kit, drum: Drum, accessible: Boolean = false): String {
+    val matching = kit.visualDrums().filter { it.family == drum.family && it.diameter == drum.diameter }
+    val base = if (accessible) drumAccessibleLabel(drum) else drumLabel(drum)
+    return if (matching.size > 1) stringResource(Res.string.kit_drum_ordinal, base, matching.indexOfFirst { it.id == drum.id } + 1) else base
+}
+
+// Sampled from the unobstructed edges of the original rack photograph.
+private val StudioBackgroundStops = arrayOf(
+    0f to Color(0xffe5d8d2), .25f to Color(0xffe7dad5), 1f to Color(0xffe7d9d4))
+
+// Shared palette for text, controls, menus and the studio background.
+private val StudioColors = lightColorScheme(
+    primary = Color(0xff602033), onPrimary = Color.White,
+    background = StudioBackgroundStops.first().second, onBackground = Color(0xff261b19),
+    surface = Color(0xfffff9f3), onSurface = Color(0xff261b19),
+    onSurfaceVariant = Color(0xff42332e), surfaceContainer = Color(0xfffff9f3))
+
 @Composable
 fun KitApp(controller: KitController, catalogue: VisualCatalogue,
     kitVisual: @Composable (Kit, Modifier, ((String) -> Unit)?) -> Unit,
     focusVisual: @Composable (Drum, Modifier) -> Unit) {
     val state by controller.state.collectAsState()
     val keyboard = LocalSoftwareKeyboardController.current
-    MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xff752c3e),
-        background = Color(0xfff6f2ed), surface = Color(0xfffffbf7))) {
-        Surface(Modifier.fillMaxSize()) {
-            Column(Modifier.fillMaxSize().safeDrawingPadding().imePadding().padding(horizontal = 16.dp)) {
-                Text("TomTune", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(vertical = 12.dp))
+    MaterialTheme(colorScheme = StudioColors) {
+        Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            val presentation = state.screen == KitScreen.HOME || state.screen == KitScreen.DRUM
+            Column(Modifier.fillMaxSize().background(Brush.verticalGradient(*StudioBackgroundStops)).safeDrawingPadding().imePadding()
+                .padding(horizontal = if (presentation) 0.dp else 16.dp)) {
+                if (!presentation) Text("TomTune", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(vertical = 12.dp))
                 when (state.screen) {
                     KitScreen.LOADING -> CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
                     KitScreen.LOAD_ERROR -> {
@@ -103,32 +127,76 @@ fun KitApp(controller: KitController, catalogue: VisualCatalogue,
                         }
                     }
                     KitScreen.HOME -> {
-                        KitToolbar(state, controller)
-                        if (state.error != null) KitErrorText(state.error!!)
-                        if (state.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
-                        kitVisual(state.store.active!!, Modifier.weight(1f).fillMaxWidth(), if (state.busy) null else controller::openDrum)
-                        Text(stringResource(Res.string.kit_touch_help), style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(vertical = 12.dp))
+                        BoxWithConstraints(Modifier.fillMaxSize()) {
+                            val density = LocalDensity.current
+                            var headerHeight by remember { mutableIntStateOf(0) }
+                            var helpHeight by remember { mutableIntStateOf(0) }
+                            val minimumVisualHeight = minOf((maxWidth - 16.dp) / 1.5f, 160.dp)
+                            val visualHeight = (maxHeight - with(density) { (headerHeight + helpHeight).toDp() } - 8.dp)
+                                .coerceAtLeast(minimumVisualHeight)
+                            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
+                                Column(Modifier.fillMaxWidth().onSizeChanged { headerHeight = it.height }) {
+                                    Text("TomTune", style = MaterialTheme.typography.titleLarge,
+                                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                                    Box(Modifier.padding(horizontal = 16.dp)) { KitToolbar(state, controller) }
+                                    if (state.error != null) Box(Modifier.padding(horizontal = 16.dp)) { KitErrorText(state.error!!) }
+                                    if (state.busy) LinearProgressIndicator(Modifier.fillMaxWidth())
+                                }
+                                Spacer(Modifier.height(8.dp))
+                                kitVisual(state.store.active!!, Modifier.padding(horizontal = 8.dp).fillMaxWidth().height(visualHeight),
+                                    if (state.busy) null else controller::openDrum)
+                                Text(stringResource(Res.string.kit_touch_help), style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.onSizeChanged { helpHeight = it.height }
+                                        .padding(horizontal = 16.dp, vertical = 8.dp))
+                            }
+                        }
                     }
                     KitScreen.DRUM -> {
-                        BackAction(false, controller::back, Res.string.kit_back_home)
-                        val drum = state.store.active!!.drums.first { it.id == state.selectedDrumId }
-                        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            Text(drumLabel(drum), style = MaterialTheme.typography.headlineMedium)
-                            focusVisual(drum, Modifier.fillMaxWidth().height(320.dp))
-                            Card(Modifier.fillMaxWidth()) {
-                                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Text(drumLabel(drum), style = MaterialTheme.typography.titleMedium)
-                                    Text(stringResource(Res.string.kit_diameter_value, drum.diameter))
-                                    drum.lugs?.let { Text(stringResource(Res.string.kit_lug_count, it)) }
+                        val kit = state.store.active!!
+                        val drum = kit.drums.first { it.id == state.selectedDrumId }
+                        BoxWithConstraints(Modifier.fillMaxSize()) {
+                            val visualHeight = minOf(maxWidth - 16.dp, (maxHeight - 160.dp).coerceAtLeast(200.dp))
+                            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
+                                Column(Modifier.padding(horizontal = 16.dp)) {
+                                    BackAction(false, controller::back, Res.string.kit_back_home)
+                                    DrumSelector(kit, drum, controller::openDrum)
+                                }
+                                Spacer(Modifier.height(8.dp))
+                                key(drum.id) { focusVisual(drum, Modifier.padding(horizontal = 8.dp).fillMaxWidth().height(visualHeight)) }
+                                Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    drum.lugs?.let { Text(stringResource(Res.string.kit_lug_count, it),
+                                        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                                     if (drum.family == DrumFamily.SNARE && drum.diameter == 14) Text(stringResource(Res.string.kit_snare_illustration))
                                     if (catalogue.focusFor(drum) == null) Text(stringResource(Res.string.kit_no_visual))
                                 }
                             }
-                            Spacer(Modifier.height(12.dp))
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DrumSelector(kit: Kit, drum: Drum, choose: (String) -> Unit) {
+    var expanded by remember(kit.id) { mutableStateOf(false) }
+    val selector = stringResource(Res.string.kit_drum_selector)
+    val title = kitDrumLabel(kit, drum)
+    Box {
+        TextButton(onClick = { expanded = true }, contentPadding = PaddingValues(vertical = 4.dp),
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                .semantics { contentDescription = "$selector: $title" }) {
+            Text(title, style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp), modifier = Modifier.weight(1f))
+            Text(" ▾", fontSize = 24.sp)
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            kit.visualDrums().forEach { item ->
+                DropdownMenuItem(text = { Text(kitDrumLabel(kit, item)) },
+                    onClick = { expanded = false; choose(item.id) },
+                    trailingIcon = if (item.id == drum.id) ({ Text("✓", Modifier.clearAndSetSemantics {}) }) else null,
+                    modifier = Modifier.semantics { selected = item.id == drum.id })
             }
         }
     }
@@ -188,7 +256,7 @@ private fun KitToolbar(state: KitState, controller: KitController) {
         Box(Modifier.weight(1f)) {
             val selector = stringResource(Res.string.kit_selector)
             OutlinedButton(onClick = { kitsOpen = true }, enabled = !state.busy,
-                modifier = Modifier.fillMaxWidth().semantics { contentDescription = selector + ": " + state.store.active!!.name }) {
+                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp).semantics { contentDescription = selector + ": " + state.store.active!!.name }) {
                 Text(state.store.active!!.name, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                 Text(" ▾")
             }

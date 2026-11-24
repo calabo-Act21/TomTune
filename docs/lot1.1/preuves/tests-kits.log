@@ -1,0 +1,38 @@
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+
+> Task :shared:compileKotlinJvm
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/commonMain/kotlin/com/tomtune/audio/CaptureLock.kt:4:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/jvmMain/kotlin/com/tomtune/audio/CaptureLock.kt:2:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:jvmJar
+> Task :shared:compileTestKotlinJvm
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses
+
+> Task :shared:jvmTest
+
+KitPresentationTest[jvm] > loadingClearsPriorFrameAndFailureFallsBackToRequestedKit[jvm] PASSED
+
+KitPresentationTest[jvm] > lateDecodeCannotReplaceCurrentImageOrIdsEvenForSameVisualKey[jvm] PASSED
+
+KitPresentationTest[jvm] > frontPolygonWinsAndTouchesFollowActualFitRectangle[jvm] PASSED
+
+KitWorkflowTest[jvm] > countDiameterAndManualLugsKeepStableDrums[jvm] PASSED
+
+KitWorkflowTest[jvm] > namesCancelEditSelectAndReload[jvm] PASSED
+
+KitWorkflowTest[jvm] > failedSaveRetainsDraftAndDoubleTapWritesOnce[jvm] PASSED
+
+KitWorkflowTest[jvm] > unreadableStoreNeverOpensAnEmptyEditableState[jvm] PASSED
+
+KitWorkflowTest[jvm] > exactFocusAndLetterboxZones[jvm] PASSED
+
+BUILD SUCCESSFUL in 2s
+5 actionable tasks: 5 executed

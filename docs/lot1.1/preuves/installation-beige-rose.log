@@ -1,0 +1,9 @@
+Révision beige rosé — 24 novembre 2026
+APK: /Users/camlaborde/Workspace/TomTune/TomTune/composeApp/build/outputs/apk/debug/composeApp-debug.apk
+Simulation emulator-5554: install -r Success ; captures accueil/fiche inspectées ; navigation correcte ; fichier kits inchangé.
+Téléphone Pixel 9 Pro XL: adb -s PHONE_SERIAL install -r [APK] → Success.
+Fichier kits-v1.json strictement identique avant/après installation et premier lancement.
+Premier lancement: écran système PackageUpdateActivity. Après fin de la mise à jour, am force-stop puis am start -W -n com.tomtune.app/.MainActivity :
+Status: ok ; LaunchState: COLD ; Activity: com.tomtune.app/.MainActivity ; TotalTime: 434 ms.
+SHA-256 APK: 93cb2580759875660332b003988c035dcac19e3cc184c6c381bdaafae8770b70
+Aucune validation physique de ce dernier choix de couleur revendiquée.

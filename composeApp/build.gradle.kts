@@ -34,7 +34,7 @@ android {
 // Package the supplied artwork directly; keep one source of truth in docs/visuels.
 val prepareKitAssets by tasks.registering(Sync::class) {
     from(rootProject.file("docs/visuels")) {
-        include("kit/*.png", "toms/*.png", "catalogue-focus.json", "zones-kit.json")
+        include("kit/*.png", "toms/*.png", "catalogue-focus.json", "zones-kit.json", "lot1.1/*.png", "lot1.1/*-zones.json")
     }
     into(layout.buildDirectory.dir("generated/kitAssets/visuels"))
 }

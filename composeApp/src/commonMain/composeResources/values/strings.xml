@@ -66,4 +66,9 @@
   <string name="kit_snare_illustration">Illustration: 8 lugs. The snare lug count is not configured.</string>
   <string name="kit_no_visual">No exact image in the catalogue. These are your saved drum details.</string>
   <string name="kit_schematic">Interactive diagram · no floor tom</string>
+
+  <string name="kit_visual_loading">Loading kit image…</string>
+  <string name="kit_visual_fallback">Image unavailable · interactive kit diagram</string>
+  <string name="kit_drum_selector">Drum selector</string>
+  <string name="kit_drum_ordinal">%1$s · %2$d</string>
 </resources>

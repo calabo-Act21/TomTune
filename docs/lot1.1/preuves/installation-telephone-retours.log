@@ -1,0 +1,21 @@
+Révision après retours — Pixel 9 Pro XL
+Commande: adb -s PHONE_SERIAL install -r "/Users/camlaborde/Workspace/TomTune/TomTune/composeApp/build/outputs/apk/debug/composeApp-debug.apk"
+Performing Streamed Install
+Success
+Commande: adb -s PHONE_SERIAL shell am start -W -n com.tomtune.app/.MainActivity
+Starting: Intent { cmp=com.tomtune.app/.MainActivity }
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+Status: ok
+LaunchState: UNKNOWN (0)
+Activity: com.android.systemui/com.android.wm.shell.packageupdate.PackageUpdateActivity
+TotalTime: 0
+WaitTime: 15
+Complete
+SHA-256 APK: a1336ef387d6595d382a42b9d4d5d858a4ca33ecbe9acab8b96eaf4f53eca2c2
+PASS: fichier kits-v1.json identique avant/après installation et lancement.
+La validation visuelle de cette révision reste au propriétaire.
+
+Après fermeture de l’écran système de mise à jour :
+adb -s PHONE_SERIAL shell am force-stop com.tomtune.app
+adb -s PHONE_SERIAL shell am start -W -n com.tomtune.app/.MainActivity
+Status: ok ; LaunchState: COLD ; Activity: com.tomtune.app/.MainActivity ; TotalTime: 549 ms.
