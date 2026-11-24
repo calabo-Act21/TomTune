@@ -31,4 +31,14 @@ android {
     defaultConfig { applicationId = "com.tomtune.app"; minSdk = 26; targetSdk = 36; versionCode = 1; versionName = "0.0.1" }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
 }
+// Package the supplied artwork directly; keep one source of truth in docs/visuels.
+val prepareKitAssets by tasks.registering(Sync::class) {
+    from(rootProject.file("docs/visuels")) {
+        include("kit/*.png", "toms/*.png", "catalogue-focus.json", "zones-kit.json")
+    }
+    into(layout.buildDirectory.dir("generated/kitAssets/visuels"))
+}
+android.sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/kitAssets"))
+tasks.named("preBuild").configure { dependsOn(prepareKitAssets) }
+
 compose.resources { packageOfResClass = "com.tomtune.app.resources" }

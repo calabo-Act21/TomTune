@@ -1,0 +1,4 @@
+A7: final APK restores Studio and both kits after force-stop in airplane mode
+A9: rack 12-inch 6/8-lug exact images and 7-lug data-only fallback; floor/snare checked in A4
+Android write-failure injection: readable error, draft and disk retained; retry succeeded
+PASS: final APK targeted emulator checks
