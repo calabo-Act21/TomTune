@@ -1,0 +1,14 @@
+Pixel 9 Pro XL / Android 17: native picking lug 1/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 2/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 3/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 4/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 5/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 6/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 7/8 correct
+Pixel 9 Pro XL / Android 17: native picking lug 8/8 correct
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-tools/pixel-smoke.py", line 16, in <module>
+    tap_text('Activer le micro')
+  File "/private/tmp/tomtune-tools/pixel-smoke.py", line 8, in tap_text
+    n=next(n for n in ui().iter('node') if n.get('text')==text)
+StopIteration

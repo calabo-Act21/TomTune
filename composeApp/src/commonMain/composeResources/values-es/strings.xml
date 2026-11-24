@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="prototype">Viabilidad · cerca de un tornillo</string>
+  <string name="head">Parche batidor</string>
+  <string name="target">Objetivo local de sesión: %1$s Hz</string>
+  <string name="instruction">Amortigua el parche opuesto y golpea suavemente cerca del tornillo seleccionado.</string>
+  <string name="enable">Activar micrófono</string>
+  <string name="stop">Detener micrófono</string>
+  <string name="waiting">Esperando un golpe</string>
+  <string name="detected">Golpe detectado</string>
+  <string name="provisional">Medición provisional</string>
+  <string name="rejected">Medición no concluyente · vuelve a golpear</string>
+  <string name="denied">Micrófono denegado · actívalo en Ajustes</string>
+  <string name="interrupted">Captura interrumpida · toca para reanudar</string>
+  <string name="route">Ruta de audio modificada · toca para reanudar</string>
+  <string name="unavailable">Micrófono no disponible · reintenta</string>
+  <string name="overrun">Análisis de audio sobrecargado · reintenta</string>
+  <string name="lug">Tornillo %1$d</string>
+  <string name="selected">Tornillo seleccionado: %1$d</string>
+  <string name="reference">Sin referencia guardada</string>
+  <string name="stopped">Micrófono detenido</string>
+  <string name="close">Cerrar pantalla</string>
+  <string name="reopen">Volver a viabilidad</string>
+  <string name="closed">Pantalla cerrada. Se ha liberado el micrófono.</string>
+</resources>

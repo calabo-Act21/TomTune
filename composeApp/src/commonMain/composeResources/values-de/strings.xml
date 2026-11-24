@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="prototype">Machbarkeit · an einer Schraube</string>
+  <string name="head">Schlagfell</string>
+  <string name="target">Lokales Sitzungsziel: %1$s Hz</string>
+  <string name="instruction">Dämpfe das gegenüberliegende Fell und schlage sanft neben der gewählten Schraube.</string>
+  <string name="enable">Mikrofon aktivieren</string>
+  <string name="stop">Mikrofon stoppen</string>
+  <string name="waiting">Warte auf einen Schlag</string>
+  <string name="detected">Schlag erkannt</string>
+  <string name="provisional">Vorläufige Messung</string>
+  <string name="rejected">Messung nicht eindeutig · erneut schlagen</string>
+  <string name="denied">Mikrofon abgelehnt · in Einstellungen erlauben</string>
+  <string name="interrupted">Aufnahme unterbrochen · zum Fortsetzen tippen</string>
+  <string name="route">Audioroute geändert · zum Fortsetzen tippen</string>
+  <string name="unavailable">Mikrofon nicht verfügbar · erneut versuchen</string>
+  <string name="overrun">Audioanalyse überlastet · erneut versuchen</string>
+  <string name="lug">Schraube %1$d</string>
+  <string name="selected">Gewählte Schraube: %1$d</string>
+  <string name="reference">Keine gespeicherte Referenz</string>
+  <string name="stopped">Mikrofon gestoppt</string>
+  <string name="close">Bildschirm schließen</string>
+  <string name="reopen">Zur Machbarkeit zurück</string>
+  <string name="closed">Bildschirm geschlossen. Das Mikrofon wurde freigegeben.</string>
+</resources>

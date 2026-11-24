@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="prototype">Faisabilité · près d’une vis</string>
+  <string name="head">Peau de frappe</string>
+  <string name="target">Cible locale de session : %1$s Hz</string>
+  <string name="instruction">Étouffez la peau opposée et frappez doucement près de la vis sélectionnée.</string>
+  <string name="enable">Activer le micro</string>
+  <string name="stop">Arrêter le micro</string>
+  <string name="waiting">En attente d’une frappe</string>
+  <string name="detected">Frappe captée</string>
+  <string name="provisional">Mesure provisoire</string>
+  <string name="rejected">Mesure non concluante · refrappez</string>
+  <string name="denied">Micro refusé · autorisez-le dans les réglages</string>
+  <string name="interrupted">Capture interrompue · touchez pour reprendre</string>
+  <string name="route">Route audio modifiée · touchez pour reprendre</string>
+  <string name="unavailable">Micro indisponible · réessayez</string>
+  <string name="overrun">Analyse audio surchargée · réessayez</string>
+  <string name="lug">Vis %1$d</string>
+  <string name="selected">Vis sélectionnée : %1$d</string>
+  <string name="reference">Aucune référence enregistrée</string>
+  <string name="stopped">Micro arrêté</string>
+  <string name="close">Quitter l’écran</string>
+  <string name="reopen">Revenir à la faisabilité</string>
+  <string name="closed">Écran fermé. Le microphone est libéré.</string>
+</resources>
