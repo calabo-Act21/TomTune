@@ -1,4 +1,4 @@
-# TomTune — Spécification v0.6
+# TomTune — Spécification v0.7
 
 Les parcours et la direction visuelle sont validés. Cette version fixe le périmètre de la V1 et la prochaine itération Android. Le produit continue en Kotlin Multiplatform et Compose sur la base du lot 0. Les paramètres d’analyse audio restent des hypothèses tant que les essais sur des batteries réelles ne les ont pas validés.
 
@@ -7,6 +7,8 @@ Les parcours et la direction visuelle sont validés. Cette version fixe le péri
 - [Visuels validés et index des variantes](docs/visuels/INDEX.md) pour les images de kit et de tom.
 - [Mission du lot 1 Android](docs/lot1/LOT-1.md) pour le périmètre, les valeurs initiales et la validation debug.
 - [Mission du lot 0](docs/lot0/LOT-0.md) pour l’écran à construire et les essais.
+
+- [Lot 1.1 Android](docs/lot1.1/LOT-1.1.md) et [charte de départ](docs/lot1.1/CHARTE.md) pour l’accueil et la fiche fût.
 
 ## 1. Périmètre
 
@@ -55,6 +57,13 @@ Le [prototype filaire](docs/maquettes/TomTune-maquettes.html) fixe l’enchaîne
 
 - **CTR-01.** Mesurer la caisse claire, tous les toms par diamètre croissant, puis la grosse caisse. Pour les diamètres égaux, garder l’ordre du kit. Montrer le fût courant, le progrès et le retour visuel de mesure. Avancer seulement après une série stable ou après « Passer ». Signaler les fûts sans référence et ceux passés sans mesure.
 - **CTR-02.** Afficher dans le bilan les références et les mesures du contrôle sur le visuel du kit, avec un détail lisible par fût. Proposer « Accorder ce tom » pour un tom dont l’écart stable dépasse le seuil configuré. Après le guidage, revenir au même bilan et remplacer la mesure du tom concerné. Sa référence est mise à jour uniquement si l’utilisateur a choisi de l’enregistrer. Une mesure historique ne remplit pas une case passée lors du contrôle en cours.
+
+### Évolutions du lot 1.1 — Accueil et fiche fût
+
+- **V11-01.** L’application dessine un fond continu sur tout l’écran. Les sujets pilotés sont détourés, gardent leurs ombres de contact et occupent la plus grande surface possible en restant entiers. L’image commence juste sous les commandes, avec de petites marges sur les côtés. Les images gardent leurs proportions et les commandes respectent les zones sûres. Le rendu final sur les autres variantes suit la validation des deux pilotes.
+- **V11-02.** Sur le kit, toucher la peau ou la coque visible ouvre la bonne fiche. Dans les zones de recouvrement, la partie visible au premier plan reçoit le toucher. Le rendu, les régions tactiles et leurs libellés basculent ensemble lors d’un changement de kit. Un chargement, une erreur ou une ancienne image ne donne accès à aucune cible du nouveau kit.
+- **V11-03.** La fiche associe le titre du fût à une liste déroulante des fûts du kit actif. Sélectionner un autre fût change la fiche sur place. Retour ramène au même kit avec un seul geste. Le titre affiche déjà le type et le diamètre. Les détails réellement utiles restent lisibles, comme le nombre de vis ou une mention d’illustration. Les variantes hors catalogue gardent une fiche de données.
+- **V11-04.** Le lot 1.1 fixe une charte commune pour fond, titres, commandes et états, et laisse la finition des écrans de mesure aux lots qui les introduisent. Consulter le [brief Android](docs/lot1.1/LOT-1.1.md) pour périmètre et critères.
 
 ## 3. Audio et accordage
 
@@ -110,6 +119,7 @@ Le domaine Kotlin ne dépend pas du microphone, de la 3D ni de la persistance. I
 |---|---|---|
 | **0. Faisabilité** | Projet Kotlin Multiplatform et Compose. Un tom 3D tactile, capture PCM et fréquence visible. Voir la mission du lot 0 | Trace des essais sur iPhone et Android. Mesures de latence indicative et fluidité, échecs recensés et décision sur la stack |
 | **1. Kits Android** | Configuration, aperçu, sauvegarde, sélection, édition et vue de kit interactive avec fiches de consultation. Voir le brief du lot 1 | KIT-01 à KIT-04, VIS-01 et parcours A1 à A9 sur Android debug |
+| **1.1 Présentation Android** | Fond continu, visuels agrandis, sélection peau/coque et navigation entre fûts. Validation de deux images pilotes puis déploiement sur le catalogue | V11-01 à V11-04. Deux rapports d’écran Android et comparaison visuelle des pilotes avant déclinaison |
 | **2. Mesure** | Adaptateur micro, détection de frappe, estimateur, stabilité, feedback et source simulée | Tests d’entrée silence, bruit, saturation, différence d’octave, signaux amortis, frappes rapprochées et interruptions. Validation unique et nombre variable de frappes |
 | **3. Guidage** | Géométrie des vis, fiche, cible de session, tours des deux peaux et vérification globale | VIS-02 à VIS-04 et ACC-01 à ACC-04 sur une session simulée complète, puis essai réel sur au moins un tom |
 | **4. Références et contrôle** | Référence au choix, suggérée ou capturée. Contrôle, bilan et reprise de l’accordage | REF-01, REF-02, CTR-01 et CTR-02. Contrôle de kit complet au micro et reprise d’un tom |

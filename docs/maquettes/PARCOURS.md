@@ -16,3 +16,9 @@ Ouvrir [TomTune-maquettes.html](TomTune-maquettes.html) dans un navigateur. Cett
 - À l’accordage, utiliser des images de fûts avec l’accastillage complet. La flèche verticale est dessinée au-dessus de la vis active par l’app, au même point que la zone tactile. Le logo est entre les deux vis du haut. La vue du fût domine l’écran et les vis se touchent sur le cercle. Aucune rangée de boutons par vis. Un lecteur d’écran peut sélectionner chaque vis.
 - Sur frappe près d’une vis, afficher les Hz et l’écart à la cible si disponible. Pour le fût joué au centre, afficher note, Hz et écart. Distinguer frappe captée, mesure provisoire, mesure non concluante et confirmation. Accepter un nombre variable de frappes selon leur concordance.
 - Au retour d’un accordage, actualiser la mesure du fût. Sa référence change sur confirmation explicite. Lire [SPEC.md](../../SPEC.md) pour les exigences détaillées et [LOT-1.md](../lot1/LOT-1.md) pour le périmètre Android de l’itération.
+
+## Évolutions du lot 1.1
+
+- Sur l’accueil, le visuel du kit se place sous le sélecteur et s’ouvre au toucher sur la peau ou la coque. La sélection suit le fût visible au premier plan en cas de recouvrement.
+- Sur la fiche, le titre devient un sélecteur affichant les fûts du kit actif. Toucher un fût de la liste remplace la fiche sur place. « Mon kit » ou le retour Android ramène en un geste au même kit.
+- La charte et les règles d’affichage sont précisées dans [le brief du lot 1.1](../lot1.1/LOT-1.1.md). Le filaire historique reste la référence de l’enchaînement général.
