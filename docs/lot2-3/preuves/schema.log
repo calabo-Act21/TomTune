@@ -1,0 +1,14 @@
+CLICK Rack tom 12″
+CLICK Floor tom 16″
+CLICK Commencer l’accordage
+CLICK Commencer par la peau de frappe
+Warning: Activity not started, its current task has been brought to the front
+CLICK Reprendre la mesure
+Traceback (most recent call last):
+  File "/private/tmp/lot23-schema-ui.py", line 16, in <module>
+    ui.adb('shell','input','keyevent','KEYCODE_BACK');ui.click('Abandonner')
+  File "/Users/camlaborde/Workspace/TomTune/TomTune/tools/verify_lot23_emulator.py", line 22, in click
+    raise AssertionError((label,strings(root)))
+AssertionError: ('Abandonner', ['← Fiche du tom', 'Floor tom 16″', 'Peau de frappe', 'Tour 1', 'Cible près des vis : 110,1 Hz', 'Logo à midi. Étouffe la peau de résonance. Frappe doucement près de la vis active.', 'TomTune', 'Peau de frappe', 'Vis 1 · À mesurer', 'Vis 2 · À mesurer', 'Vis 3 · À mesurer', 'Vis 4 · À mesurer', 'Vis 5 · À mesurer', 'Vis 6 · À mesurer', 'Vis 7 · À mesurer', 'Vis 8 · À mesurer', '0 vis confirmées sur 8', 'Vis 1 sur 8', 'Capture interrompue · touchez pour reprendre', 'Reprendre la mesure'])
+CLICK Abandonner
+PASS continuation: configuration-change idle awaited before Back; floor16/8 diagram exposed 8 lugs; font 200% accessible resume; font restored to 1.0; confirmed discard, snapshot identical.

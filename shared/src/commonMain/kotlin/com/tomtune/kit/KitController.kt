@@ -77,6 +77,25 @@ class KitController(private val repository: KitRepository, private val rules: Ki
         if (s.busy || s.store.activeId == id || s.store.kits.none { it.id == id }) return
         commit(s.store.copy(activeId = id))
     }
+    /** Commit both optional fields in the existing atomic snapshot, addressed by stable IDs. */
+    suspend fun finishTuning(session: com.tomtune.tuning.TuningState, withReference: Boolean, now: Long): Boolean {
+        val s = mutable.value
+        if (s.busy || session.centerHz == null) return false
+        val kit = s.store.kits.find { it.id == session.kitId } ?: return false
+        val drum = kit.drums.find { it.id == session.drum.id } ?: return false
+        if (drum.family != session.drum.family || drum.diameter != session.drum.diameter || drum.lugs != session.drum.lugs) return false
+        val updated = drum.copy(lastMeasurement = GlobalMeasurement(session.centerHz, now),
+            reference = if (withReference) DrumReference(session.targetHz, session.targetOrigin, now) else drum.reference)
+        val nextKit = kit.copy(drums = kit.drums.map { if (it.id == drum.id) updated else it }, revision = kit.revision + 1)
+        val next = s.store.copy(kits = s.store.kits.map { if (it.id == kit.id) nextKit else it })
+        mutable.value = s.copy(busy = true, error = null)
+        return try {
+            repository.write(next.validated())
+            mutable.value = s.copy(store = next, screen = KitScreen.DRUM, selectedDrumId = drum.id, busy = false)
+            true
+        } catch (e: CancellationException) { throw e }
+        catch (_: Exception) { mutable.value = s.copy(busy = false); false }
+    }
     private fun commit(next: KitStore) {
         val previous = mutable.value
         mutable.value = previous.copy(busy = true, error = null)

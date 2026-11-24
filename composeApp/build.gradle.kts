@@ -22,6 +22,10 @@ kotlin {
             implementation(compose.components.resources)
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
         }
+        androidUnitTest.dependencies {
+            implementation(kotlin("test-junit"))
+            implementation("org.json:json:20240303")
+        }
         androidMain.dependencies { implementation("androidx.activity:activity-compose:1.10.1") }
     }
 }
@@ -34,7 +38,7 @@ android {
 // Package the supplied artwork directly; keep one source of truth in docs/visuels.
 val prepareKitAssets by tasks.registering(Sync::class) {
     from(rootProject.file("docs/visuels")) {
-        include("kit/*.png", "toms/*.png", "catalogue-focus.json", "zones-kit.json", "lot1.1/*.png", "lot1.1/*-zones.json")
+        include("kit/*.png", "toms/*.png", "catalogue-focus.json", "zones-kit.json", "lot1.1/*.png", "lot1.1/*-zones.json", "lot1.1/*-lugs.json")
     }
     into(layout.buildDirectory.dir("generated/kitAssets/visuels"))
 }

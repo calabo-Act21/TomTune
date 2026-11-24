@@ -44,15 +44,15 @@ fun AndroidKitVisual(kit: Kit, catalogue: VisualCatalogue, modifier: Modifier, o
         KitVisualLoader { requested: Kit ->
             withContext(Dispatchers.IO) {
                 val visualKey = requested.visualKey()
-                val pilot = visualKey == "r3-f2"
-                val manifest = if (pilot) JSONObject(context.assets.open("visuels/lot1.1/kit-r3-f2-zones.json")
-                    .bufferedReader().use { it.readText() }) else null
-                val path = if (manifest != null) "lot1.1/${manifest.getString("image")}" else "kit/$visualKey.png"
+                val manifest = JSONObject(context.assets.open("visuels/lot1.1/kit-$visualKey-zones.json")
+                    .bufferedReader().use { it.readText() })
+                val path = "lot1.1/${manifest.getString("image")}"
                 val bitmap = context.assets.open("visuels/$path").use {
                     requireNotNull(BitmapFactory.decodeStream(it)) { "Invalid bitmap: $path" }.asImageBitmap()
                 }
-                val regions = if (manifest != null) {
+                val regions = run {
                     require(manifest.getString("key") == visualKey)
+                    require(visualKey == "r3-f2" || manifest.getBoolean("verified"))
                     require(bitmap.width == manifest.getInt("width") && bitmap.height == manifest.getInt("height"))
                     val order = manifest.getJSONArray("hitOrder")
                     val polygons = manifest.getJSONObject("regions")
@@ -64,10 +64,6 @@ fun AndroidKitVisual(kit: Kit, catalogue: VisualCatalogue, modifier: Modifier, o
                             NormalPoint(p.getDouble(0).toFloat(), p.getDouble(1).toFloat())
                         })
                     }
-                } else catalogue.zones.getValue(visualKey).map { (zone, rect) ->
-                    DrumHitRegion(requireNotNull(requested.atZone(zone)).id, listOf(
-                        NormalPoint(rect.left, rect.top), NormalPoint(rect.right, rect.top),
-                        NormalPoint(rect.right, rect.bottom), NormalPoint(rect.left, rect.bottom)))
                 }
                 KitArtwork(bitmap, regions)
             }
@@ -119,8 +115,7 @@ fun AndroidKitVisual(kit: Kit, catalogue: VisualCatalogue, modifier: Modifier, o
 @Composable
 fun AndroidFocusVisual(drum: Drum, catalogue: VisualCatalogue, modifier: Modifier) {
     val visual = catalogue.focusFor(drum) ?: return
-    val path = if (drum.family == DrumFamily.RACK && drum.diameter == 12 && drum.lugs == 6)
-        "lot1.1/rack-12-6-alpha.png" else visual.path
+    val path = "lot1.1/" + visual.path.substringAfterLast('/').replace("-vis.png", "-alpha.png")
     val context = LocalContext.current.applicationContext
     key(path) {
         var failed by remember { mutableStateOf(false) }
@@ -168,4 +163,30 @@ private fun SchematicKit(kit: Kit, modifier: Modifier, onOpen: ((String) -> Unit
         Text(stringResource(if (floors.isEmpty()) Res.string.kit_schematic else Res.string.kit_visual_fallback),
             style = MaterialTheme.typography.labelSmall, modifier = Modifier.align(Alignment.BottomCenter).padding(8.dp))
     }
+}
+
+/** Only the inspected batter face is activated. Other faces use the real lug-count diagram. */
+@Composable
+fun AndroidTuningVisual(s: com.tomtune.tuning.TuningState, select: (Int) -> Unit) {
+    val drum = s.drum
+    if (s.head != com.tomtune.tuning.Head.BATTER || drum.family != DrumFamily.RACK || drum.diameter != 12 || drum.lugs != 6) {
+        LugDiagram(s, select); return
+    }
+    val context = LocalContext.current.applicationContext
+    val artwork by produceState<Pair<ImageBitmap, List<NormalPoint>>?>(null) {
+        value = withContext(Dispatchers.IO) {
+            runCatching {
+                val m = JSONObject(context.assets.open("visuels/lot1.1/rack-12-6-lugs.json").bufferedReader().use { it.readText() })
+                require(m.getBoolean("verified") && m.getString("head") == "batter")
+                val bitmap = context.assets.open("visuels/lot1.1/${m.getString("image")}").use { requireNotNull(BitmapFactory.decodeStream(it)).asImageBitmap() }
+                require(bitmap.width == m.getInt("width") && bitmap.height == m.getInt("height"))
+                val points = m.getJSONArray("points")
+                require(points.length() == drum.lugs)
+                bitmap to (0 until points.length()).map { i -> points.getJSONArray(i).let { NormalPoint(it.getDouble(0).toFloat(), it.getDouble(1).toFloat()) } }
+            }.getOrNull()
+        }
+    }
+    val loaded = artwork
+    if (loaded == null) LugDiagram(s, select)
+    else LugDiagram(s, select, loaded.second) { Image(loaded.first, null, Modifier.fillMaxSize(), contentScale = ContentScale.Fit) }
 }

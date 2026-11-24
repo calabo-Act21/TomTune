@@ -1,0 +1,115 @@
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+
+> Task :shared:compileKotlinJvm
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/commonMain/kotlin/com/tomtune/audio/CaptureLock.kt:4:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/jvmMain/kotlin/com/tomtune/audio/CaptureLock.kt:2:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:jvmJar
+> Task :shared:compileTestKotlinJvm
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses
+
+> Task :shared:jvmTest
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] STANDARD_OUT
+    WAV impact=1.0s detected=1.005s result=1.32s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=1.9s detected=1.905s result=2.22s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=2.8s detected=2.805s result=3.12s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=3.7s detected=3.705s result=4.02s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=4.6s detected=4.605s result=4.92s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=5.5s detected=5.505s result=5.82s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=6.4s detected=6.405s result=6.72s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=7.3s detected=7.305s result=7.62s Hz=192.00143622934743 errorCents=0.01295020754582655
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantInharmonicTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > exactOctaveHasResolvedLowerPeriod[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > callbackChunkingDoesNotChangeResults[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > distantFrequencyIsNotPulledToDisplayed185HzTarget[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > rearmingAfterQuietAllowsAnotherStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > silenceNeverDetected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > detectionPublishedBeforeEnoughDataForEstimate[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > native44100RateIsRespected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > clippingRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantNearOctaveTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > highFrequencyDoesNotAliasIntoAcceptedBand[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > deterministicBroadbandNoiseNeverAccepted[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > ambiguousPersistentModesAreRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > simpleAndDecayNotSecondStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > noInventedSubharmonicWithoutSupportingPeak[jvm] PASSED
+
+KitPresentationTest[jvm] > loadingClearsPriorFrameAndFailureFallsBackToRequestedKit[jvm] PASSED
+
+KitPresentationTest[jvm] > lateDecodeCannotReplaceCurrentImageOrIdsEvenForSameVisualKey[jvm] PASSED
+
+KitPresentationTest[jvm] > frontPolygonWinsAndTouchesFollowActualFitRectangle[jvm] PASSED
+
+KitWorkflowTest[jvm] > countDiameterAndManualLugsKeepStableDrums[jvm] PASSED
+
+KitWorkflowTest[jvm] > namesCancelEditSelectAndReload[jvm] PASSED
+
+KitWorkflowTest[jvm] > failedSaveRetainsDraftAndDoubleTapWritesOnce[jvm] PASSED
+
+KitWorkflowTest[jvm] > unreadableStoreNeverOpensAnEmptyEditableState[jvm] PASSED
+
+KitWorkflowTest[jvm] > exactFocusAndLetterboxZones[jvm] PASSED
+
+LugLayoutTest[jvm] > invalidSelectionCannotReachNativeRenderer[jvm] PASSED
+
+LugLayoutTest[jvm] > canonicalIndicesAndSymmetry[jvm] PASSED
+
+MeasurementControllerTest[jvm] > overrunIsExplicitAndDoesNotPublishStaleFrequency[jvm] PASSED
+
+MeasurementControllerTest[jvm] > resumeAcceptsFreshStrikeAndIgnoresOldSessionFault[jvm] PASSED
+
+MeasurementControllerTest[jvm] > backgroundAlwaysReleasesCaptureEvenAfterOverrun[jvm] PASSED
+
+MeasurementControllerTest[jvm] > stoppingDiscardsQueuedPcmAndLateCallbacks[jvm] PASSED
+
+TuningTest[jvm] > synchronousPermissionFailureStaleRepliesAndAllCaptureIssuesCanResume[jvm] PASSED
+
+TuningTest[jvm] > configurationGuardAndDiameterResetPreserveReferencesOnRename[jvm] PASSED
+
+TuningTest[jvm] > repeatCorrectionAbandonAndBothFinishActionsPreserveTheRightData[jvm] PASSED
+
+TuningTest[jvm] > duplicatesLateEventsManualSelectionAndRejectionsNeverSkipALug[jvm] PASSED
+
+TuningTest[jvm] > diagramHasTheRealLugCountClockwiseWithLogoBetweenTheTopPair[jvm] PASSED
+
+TuningTest[jvm] > quickLongIncoherentSeriesAndMedian[jvm] PASSED
+
+TuningTest[jvm] > exactReferenceOutsideManualSelectorIsRetainedUntilAnExplicitChoice[jvm] PASSED
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] STANDARD_OUT
+    PCM injected complete: floor 18 / 3 lugs, repeat + both heads + 42 Hz center + correction + 120 Hz center; target=65.40639132514966; saved=120.00072026598241
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] PASSED
+
+TuningTest[jvm] > interruptionAndPcmGapRequireExplicitResumeWithEmptySeries[jvm] PASSED
+
+BUILD SUCCESSFUL in 2s
+5 actionable tasks: 5 executed

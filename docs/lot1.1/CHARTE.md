@@ -20,3 +20,5 @@ Révision après essai physique du propriétaire le 24 novembre 2026 : reprendre
 **Fiche fût.** Retour « Mon kit », titre déroulant, photo et information secondaire utile. Aucun doublon du diamètre. Les composants liés aux mesures seront précisés quand leurs états seront intégrés.
 
 Toutes les nouvelles chaînes passent par les quatre catalogues FR, EN, ES et DE. À taille de texte importante, donner la priorité aux commandes et autoriser le défilement de la vue entière si nécessaire.
+
+Pour la livraison Android 2–3, le [brief du lot](../lot2-3/LOT-2-3.md#4-intégration-et-visuels) remplace ce dégradé par le fond **uni `#E3D1CA`** sur tous les écrans, derrière les barres système. Les autres règles de cette charte restent applicables.

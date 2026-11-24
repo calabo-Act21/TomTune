@@ -24,12 +24,12 @@ class AndroidKitRepository(context: Context) : KitRepository {
                 if (file.exists()) throw e
                 return@withLock KitStore()
             }
-            decode(String(bytes, Charsets.UTF_8)).validated()
+            KitJson.decode(String(bytes, Charsets.UTF_8)).validated()
         }
     }
     override suspend fun write(store: KitStore) = withContext(Dispatchers.IO) {
         mutex.withLock {
-            val bytes = encode(store.validated()).toByteArray(Charsets.UTF_8)
+            val bytes = KitJson.encode(store.validated()).toByteArray(Charsets.UTF_8)
             val pending = File(file.parentFile, file.name + ".new")
             try {
                 FileOutputStream(pending).use { stream -> stream.write(bytes); stream.fd.sync() }
@@ -37,32 +37,6 @@ class AndroidKitRepository(context: Context) : KitRepository {
                 Os.rename(pending.path, file.path)
             } finally { pending.delete() }
         }
-    }
-    internal fun encode(store: KitStore): String = JSONObject().apply {
-        put("schema", store.schema)
-        put("activeId", store.activeId ?: JSONObject.NULL)
-        put("kits", JSONArray().apply { store.kits.forEach { kit ->
-            put(JSONObject().apply {
-                put("id", kit.id); put("name", kit.name); put("revision", kit.revision)
-                put("drums", JSONArray().apply { kit.drums.forEach { drum ->
-                    put(JSONObject().apply {
-                        put("id", drum.id); put("family", drum.family.key); put("order", drum.order)
-                        put("diameter", drum.diameter); put("lugs", drum.lugs ?: JSONObject.NULL)
-                        put("manualLugs", drum.manualLugs)
-                    })
-                } })
-            })
-        } })
-    }.toString()
-    internal fun decode(raw: String): KitStore {
-        val root = JSONObject(raw)
-        return KitStore(root.getInt("schema"), root.getJSONArray("kits").objects().map { kit ->
-            Kit(kit.getString("id"), kit.getString("name"), kit.getJSONArray("drums").objects().map { drum ->
-                Drum(drum.getString("id"), DrumFamily.entries.first { it.key == drum.getString("family") },
-                    drum.getInt("order"), drum.getInt("diameter"), if (drum.isNull("lugs")) null else drum.getInt("lugs"),
-                    drum.getBoolean("manualLugs"))
-            }, kit.getInt("revision"))
-        }, if (root.isNull("activeId")) null else root.getString("activeId"))
     }
 }
 
@@ -73,7 +47,10 @@ fun readVisualCatalogue(context: Context): VisualCatalogue {
         .objects().map { item -> FocusVisual(DrumFamily.entries.first { it.key == item.getString("type") },
             item.getInt("diametrePouces"), item.getInt("visParPeau"),
             // The handoff names JPEGs, but all supplied files are PNGs.
-            item.getString("fichier").substringBeforeLast('.') + ".png") }
+            item.getString("fichier").substringBeforeLast('.') + ".png",
+            item.getJSONArray("points").let { points -> (0 until points.length()).map { i ->
+                val p = points.getJSONArray(i); NormalPoint(p.getDouble(0).toFloat(), p.getDouble(1).toFloat())
+            } }) }
     val json = JSONObject(assets.open("visuels/zones-kit.json").bufferedReader().use { it.readText() })
     val zones = json.keys().asSequence().associateWith { key ->
         val kit = json.getJSONObject(key)

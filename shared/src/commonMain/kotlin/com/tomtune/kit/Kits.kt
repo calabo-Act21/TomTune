@@ -10,7 +10,12 @@ enum class DrumFamily(val key: String, val diameters: List<Int>) {
 }
 
 data class Drum(val id: String, val family: DrumFamily, val order: Int, val diameter: Int,
-                val lugs: Int? = null, val manualLugs: Boolean = false)
+                val lugs: Int? = null, val manualLugs: Boolean = false,
+                val reference: DrumReference? = null, val lastMeasurement: GlobalMeasurement? = null)
+enum class TargetOrigin { MANUAL, SUGGESTED, CAPTURED }
+data class DrumReference(val hz: Double, val origin: TargetOrigin, val timestampMillis: Long)
+data class GlobalMeasurement(val hz: Double, val timestampMillis: Long, val origin: String = "guided-tuning")
+
 data class Kit(val id: String, val name: String, val drums: List<Drum>, val revision: Int = 0) {
     fun ordered(family: DrumFamily) = drums.filter { it.family == family }
         .sortedWith(compareBy<Drum> { it.diameter }.thenBy { it.order })
@@ -33,6 +38,10 @@ data class KitStore(val schema: Int = 1, val kits: List<Kit> = emptyList(), val 
         require(if (kits.isEmpty()) activeId == null else active != null)
         kits.forEach { kit ->
             require(kit.id.isNotBlank() && kit.name == kit.name.trim() && kit.name.length in 1..60 && kit.revision >= 0)
+            kit.drums.forEach { drum ->
+                require(drum.reference?.let { it.hz.isFinite() && it.hz > 0 && it.timestampMillis >= 0 } != false)
+                require(drum.lastMeasurement?.let { it.hz.isFinite() && it.hz > 0 && it.timestampMillis >= 0 } != false)
+            }
             require(kit.drums.map { it.id }.distinct().size == kit.drums.size)
             require(kit.drums.all { it.id.isNotBlank() && it.order >= 0 && it.diameter in it.family.diameters &&
                 (if (it.family.isTom) it.lugs in 3..12 else it.lugs == null) })
@@ -55,7 +64,8 @@ interface KitRepository {
     suspend fun write(store: KitStore)
 }
 
-data class FocusVisual(val family: DrumFamily, val diameter: Int, val lugs: Int, val path: String)
+data class FocusVisual(val family: DrumFamily, val diameter: Int, val lugs: Int, val path: String,
+    val anchors: List<NormalPoint> = emptyList())
 data class NormalRect(val left: Float, val top: Float, val right: Float, val bottom: Float)
 data class ImageRect(val left: Float, val top: Float, val width: Float, val height: Float) {
     fun zone(rect: NormalRect) = ImageRect(left + width * rect.left, top + height * rect.top,
@@ -103,7 +113,8 @@ class KitRules(private val newId: () -> String, private val catalogue: VisualCat
     fun diameter(kit: Kit, id: String, diameter: Int) = kit.copy(drums = kit.drums.map {
         if (it.id != id) it else {
             require(diameter in it.family.diameters)
-            it.copy(diameter = diameter, lugs = if (it.family.isTom && !it.manualLugs) suggested(it.family, diameter) else it.lugs)
+            it.copy(diameter = diameter, reference = if (diameter == it.diameter) it.reference else null,
+                lastMeasurement = if (diameter == it.diameter) it.lastMeasurement else null, lugs = if (it.family.isTom && !it.manualLugs) suggested(it.family, diameter) else it.lugs)
         }
     })
     fun lugs(kit: Kit, id: String, count: Int): Kit {

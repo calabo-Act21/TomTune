@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.ImeAction
@@ -45,30 +44,35 @@ fun kitDrumLabel(kit: Kit, drum: Drum, accessible: Boolean = false): String {
     return if (matching.size > 1) stringResource(Res.string.kit_drum_ordinal, base, matching.indexOfFirst { it.id == drum.id } + 1) else base
 }
 
-// Sampled from the unobstructed edges of the original rack photograph.
-private val StudioBackgroundStops = arrayOf(
-    0f to Color(0xffe5d8d2), .25f to Color(0xffe7dad5), 1f to Color(0xffe7d9d4))
+private val StudioBackground = Color(0xffe3d1ca)
 
 // Shared palette for text, controls, menus and the studio background.
 private val StudioColors = lightColorScheme(
     primary = Color(0xff602033), onPrimary = Color.White,
-    background = StudioBackgroundStops.first().second, onBackground = Color(0xff261b19),
+    background = StudioBackground, onBackground = Color(0xff261b19),
     surface = Color(0xfffff9f3), onSurface = Color(0xff261b19),
     onSurfaceVariant = Color(0xff42332e), surfaceContainer = Color(0xfffff9f3))
 
 @Composable
 fun KitApp(controller: KitController, catalogue: VisualCatalogue,
     kitVisual: @Composable (Kit, Modifier, ((String) -> Unit)?) -> Unit,
-    focusVisual: @Composable (Drum, Modifier) -> Unit) {
+    focusVisual: @Composable (Drum, Modifier) -> Unit,
+    tuning: com.tomtune.tuning.TuningController? = null,
+    injectedPcm: Boolean = false,
+    tuningVisual: @Composable (com.tomtune.tuning.TuningState, (Int) -> Unit) -> Unit = { s, select -> LugDiagram(s, select) }) {
     val state by controller.state.collectAsState()
+    val tuningState = tuning?.state?.collectAsState()?.value
     val keyboard = LocalSoftwareKeyboardController.current
     MaterialTheme(colorScheme = StudioColors) {
         Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             val presentation = state.screen == KitScreen.HOME || state.screen == KitScreen.DRUM
-            Column(Modifier.fillMaxSize().background(Brush.verticalGradient(*StudioBackgroundStops)).safeDrawingPadding().imePadding()
+            Column(Modifier.fillMaxSize().background(StudioBackground).safeDrawingPadding().imePadding()
                 .padding(horizontal = if (presentation) 0.dp else 16.dp)) {
+                if (injectedPcm) Text(stringResource(Res.string.tune_injected), Modifier.padding(8.dp))
                 if (!presentation) Text("TomTune", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(vertical = 12.dp))
-                when (state.screen) {
+                if (tuningState != null) {
+                    TuningScreen(tuningState, tuning, tuningVisual)
+                } else when (state.screen) {
                     KitScreen.LOADING -> CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
                     KitScreen.LOAD_ERROR -> {
                         Text(stringResource(Res.string.kit_load_error), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
@@ -165,6 +169,10 @@ fun KitApp(controller: KitController, catalogue: VisualCatalogue,
                                 Spacer(Modifier.height(8.dp))
                                 key(drum.id) { focusVisual(drum, Modifier.padding(horizontal = 8.dp).fillMaxWidth().height(visualHeight)) }
                                 Column(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    DrumMeasurements(drum)
+                                    if (drum.family.isTom && tuning != null) Button(onClick = { tuning.open(kit, drum) }, modifier = Modifier.fillMaxWidth()) {
+                                        Text(stringResource(Res.string.tune_start))
+                                    }
                                     drum.lugs?.let { Text(stringResource(Res.string.kit_lug_count, it),
                                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                                     if (drum.family == DrumFamily.SNARE && drum.diameter == 14) Text(stringResource(Res.string.kit_snare_illustration))
