@@ -40,7 +40,7 @@ export ANDROID_HOME=/private/tmp/tomtune-tools/android-sdk
 
 Le premier démarrage de Gradle et celui d’ADB dans le bac à sable ont échoué avec `Operation not permitted` sur leurs sockets locaux. Les commandes autorisées hors bac à sable ont réussi. Les avertissements Kotlin `expect`/`actual` du lot 0 restent présents. Les premières assertions du helper UIAutomator ont été adaptées à l’état coché porté par le parent du libellé Compose et au préfixe « ← » du bouton Annuler ; ces échecs de helper ne sont pas des exceptions de l’app.
 
-Ni Xcode ni workflow CI ni suite audio n’ont été lancés. Aucun signal PCM injecté, aucune capture micro et aucun essai acoustique. Les essais d’interface sur émulateur sont une **simulation Android**, distincte de la validation physique à faire sur téléphone.
+Ni Xcode ni workflow CI ni suite audio n’ont été lancés. Aucun signal PCM injecté, aucune capture micro et aucun essai acoustique. Les essais d’interface sur émulateur sont une **simulation Android**, distincte de la validation physique rapportée ensuite par le propriétaire.
 
 ## APK et installation
 
@@ -58,11 +58,17 @@ Sur le téléphone connecté avec le débogage USB autorisé :
 
 Le chemin ADB ci-dessus est celui de cette machine ; un SDK installé ailleurs peut utiliser sa propre commande `adb`. S’il y a plusieurs appareils, utiliser `adb -s SERIAL install -r …`. L’installation `-r` conserve les données existantes. Pour A1, utiliser une installation sans données ; pour A7, conserver les données et forcer seulement l’arrêt. Les kits du prototype HTML ne sont pas importés.
 
+## Validation physique rapportée
+
+Le 24 novembre 2026, après installation de l’APK debug sur son Pixel 9 Pro XL sous Android 17, le propriétaire confirme avoir validé les fonctionnalités. Aucun défaut n’est signalé dans ce retour. Voir [le relevé de l’essai physique](ESSAI-ANDROID.md) pour l’installation, l’APK et la confirmation.
+
+Il s’agit d’une validation fonctionnelle globale déclarée par le propriétaire. Le détail de chaque scénario A1 à A9 n’a pas été recueilli ; la matrice ci-dessous décrit les vérifications techniques antérieures et les points du protocole physique à tracer individuellement si nécessaire.
+
 ## Matrice A1 à A9
 
-Émulateur Android 15 / API 35 ARM64, locale FR, 1080 × 2400. **Aucune ligne ne constitue une validation sur le téléphone du propriétaire.**
+Émulateur Android 15 / API 35 ARM64, locale FR, 1080 × 2400. Les résultats détaillés ci-dessous proviennent des tests et de l’émulateur, distincts du retour global du propriétaire sur téléphone.
 
-| ID | Vérifié ici | À confirmer sur le téléphone |
+| ID | Vérifications techniques détaillées | Points du protocole physique non détaillés dans le retour |
 |---|---|---|
 | A1 | Premier écran « Définir mon kit » ; configuration initiale 1 rack 12″ / 1 floor 16″ sur émulateur. | Installation vierge et lisibilité. |
 | A2 | 3 racks + 2 floors, image 3+2 et conservation du brouillon au retour sur émulateur. Règles de diamètre, suggestion et vis manuelles testées dans le domaine ; sélecteur de vis utilisé pour A9. | Changer aussi un diamètre dans l’UI, vérifier clavier et cadrage sur l’écran réel. |
@@ -82,4 +88,4 @@ Preuves de simulation : [kit 3+2](preuves/emulateur-kit-3-2.png), [schéma sans 
 - Le catalogue fourni référence 19 fichiers `.jpg` alors que les fichiers correspondants sont des `.png`. Le chargement Android résout ces références vers les PNG fournis ; les documents sources restent intacts. Le contrôle des assets vérifie cette résolution.
 - Présentation Material 3 avec la finition bordeaux des images ; le HTML fixe le parcours et la hiérarchie, pas une reproduction pixel par pixel de son habillage historique.
 - Persistance iOS différée selon le lot. Entrée et cibles iOS conservées, sans build Xcode.
-- La persistance sur le téléphone du propriétaire, le toucher réel et TalkBack restent à confirmer sur le téléphone. Les références, mesures, accordage et contrôle ne sont pas implémentés au lot 1.
+- Le retour physique est global : le détail de la persistance après arrêt forcé en mode avion, du toucher aux bords et de TalkBack n’est pas consigné individuellement. Les références, mesures, accordage et contrôle ne sont pas implémentés au lot 1.
