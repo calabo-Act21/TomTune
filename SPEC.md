@@ -1,9 +1,11 @@
-# TomTune — Spécification v0.3
+# TomTune — Spécification v0.6
 
-Les parcours et la direction visuelle sont validés. Cette version fixe le périmètre de la V1 et retient Kotlin Multiplatform avec Compose pour le lot 0. Les paramètres d’analyse audio restent des hypothèses tant que les essais sur des batteries réelles ne les ont pas validés.
+Les parcours et la direction visuelle sont validés. Cette version fixe le périmètre de la V1 et la prochaine itération Android. Le produit continue en Kotlin Multiplatform et Compose sur la base du lot 0. Les paramètres d’analyse audio restent des hypothèses tant que les essais sur des batteries réelles ne les ont pas validés.
 
 - [Maquette filaire cliquable](docs/maquettes/TomTune-maquettes.html) pour les interactions.
-- [Direction visuelle validée](docs/maquettes/direction-visuelle.png) pour les volumes et les matériaux.
+- [Parcours annoté](docs/maquettes/PARCOURS.md) pour les transitions et décisions postérieures au filaire.
+- [Visuels validés et index des variantes](docs/visuels/INDEX.md) pour les images de kit et de tom.
+- [Mission du lot 1 Android](docs/lot1/LOT-1.md) pour le périmètre, les valeurs initiales et la validation debug.
 - [Mission du lot 0](docs/lot0/LOT-0.md) pour l’écran à construire et les essais.
 
 ## 1. Périmètre
@@ -14,24 +16,33 @@ Pour démarrer, je propose iOS et Android, une interface portrait et un traiteme
 
 ## 2. Parcours et critères d’acceptation
 
+Le [prototype filaire](docs/maquettes/TomTune-maquettes.html) fixe l’enchaînement des écrans, la hiérarchie des actions et les états de référence. Les [visuels de référence](docs/visuels/INDEX.md) fixent le cadrage, le relief, les matériaux et l’ambiance. Pour chaque écran livré, vérifier le parcours sur un téléphone et signaler les écarts volontairement retenus. Les critères ci-dessous prévalent si un visuel de référence diffère, notamment pour le tabouret et les contrôles de vis.
+
+| Parcours | Écrans de référence |
+|---|---|
+| Configurer un kit | Premier lancement → configuration → aperçu et nom → accueil avec le kit enregistré |
+| Accorder un tom | Accueil → toucher le tom → fiche → choisir la cible → mesurer la peau de frappe → corriger et vérifier → mesurer la peau de résonance → vérifier le fût entier → revenir à la fiche |
+| Gérer les références | Menu → notes de référence → choisir le fût → choisir, accepter une suggestion ou capter → confirmer |
+| Contrôler le kit | Menu → mesure guidée par fût → bilan → éventuellement accorder un tom → revenir au même bilan |
+
 ### KIT — Configurer et retrouver ses kits
 
-- **KIT-01.** Au premier lancement, proposer « Définir mon kit ». La configuration commence avec un rack tom et un floor tom. Accepter une saisie entière libre pour chaque nombre, dont zéro et les valeurs au-delà de deux. Demander les diamètres. Préremplir le nombre de tirants par tom et permettre de le corriger. La caisse claire et la grosse caisse font partie du kit et ont un diamètre configurable.
+- **KIT-01.** Au premier lancement, proposer « Définir mon kit ». La configuration commence avec un rack tom et un floor tom. Accepter 0 à 3 rack toms et 0 à 2 floor toms. Afficher ces choix et leurs valeurs initiales selon le brief du lot 1. Demander les diamètres. Préremplir le nombre de tirants par tom et permettre de le corriger. La caisse claire et la grosse caisse font partie du kit et ont un diamètre configurable.
 - **KIT-02.** Afficher un aperçu. Pour enregistrer, demander un nom non vide après retrait des espaces de bord. Si un nom est déjà utilisé, afficher une erreur près du champ. Le bouton et la validation clavier doivent fonctionner. Un enregistrement réussi ouvre le kit créé et le sélectionne. Créer un second kit, redémarrer hors ligne puis retrouver les deux et le kit actif.
 - **KIT-03.** Faire de la scène interactive le contenu principal. Le sélecteur de kits est en haut, le bouton ☰ ouvre « Contrôle de l’accordage », « Notes de référence », « Modifier le kit » et « Créer un kit ». Modifier le kit actif met à jour son propre enregistrement. Annuler l’édition ne change ni ce kit ni les autres.
-- **KIT-04.** Garder des identifiants stables pour les fûts conservés pendant l’édition. Je propose de conserver la référence et la dernière mesure lors d’un renommage ou changement de disposition, de les effacer si le diamètre change et d’invalider les mesures près des vis si leur nombre change. Tester ces trois transitions.
+- **KIT-04.** Garder des identifiants stables pour les fûts conservés pendant l’édition. Je propose de conserver la référence et la dernière mesure lors d’un renommage ou changement de disposition, de les effacer si le diamètre change et d’invalider les mesures près des vis si leur nombre change. Ces transitions s’appliquent quand les mesures sont disponibles.
 
-### 3D — Repérer le bon fût et les bonnes vis
+### VIS — Représenter le kit et repérer les vis
 
-- **VIS-01.** Vue principale depuis le tabouret. Grosse caisse devant le batteur, rack toms au-dessus en arc, caisse claire au premier plan. Les deux premiers floor toms sont à droite de la grosse caisse, le troisième à gauche. Le tabouret apparaît sans texte. Tester les configurations avec zéro à trois floor toms. Au-delà, utiliser provisoirement un placement par rangées sans recouvrement des cibles tactiles. Garder le calcul de disposition isolé.
-- **VIS-02.** Toucher un fût ouvre sa fiche. La scène a des volumes réels, avec bois, métaux, ombres, coque et cercle inférieur visibles. Sur la fiche d’un tom, prendre une vue presque verticale légèrement inclinée. La peau de frappe est affichée par défaut, puis la peau active pendant le guidage.
-- **VIS-03.** Pour N vis, utiliser des angles régulièrement espacés et décalés d’un demi-intervalle autour du haut de la peau. Dans un repère écran où le haut vaut −π/2, l’angle de la vis i vaut −π/2 + 2π(i+0,5)/N, avec i de 0 à N−1. TomTune est centré entre les deux vis qui encadrent midi. Tester le nombre de vis, leur symétrie et la correspondance vis active/indice pour N = 5, 6, 8 et 10.
-- **VIS-04.** Vérifier sur téléphone les intersections entre géométries, les occultations en perspective, le cadrage et la sélection du bon fût. Prévoir un accès textuel aux mêmes fûts pour l’accessibilité. Les scènes doivent rester fluides pendant la mesure micro.
+- **VIS-01.** Vue principale depuis la position du batteur, le tabouret hors champ. Grosse caisse centrale avec sa pédale, caisse claire au premier plan à gauche. Rack toms au-dessus de la grosse caisse du plus petit au plus grand, de gauche à droite. Les deux floor toms sont à droite, le plus petit près de la grosse caisse et le plus grand au premier plan. Les profondeurs progressent avec les diamètres dans chaque famille. Les floor toms ont des jambes chromées et des fixations adaptées à la profondeur. Utiliser les huit images du kit, choisies selon les nombres configurés. Pour zéro floor tom, afficher une vue schématique interactive au lot 1. L’image affiche des proportions typiques, les diamètres saisis restent la source de vérité des libellés et des fiches.
+- **VIS-02.** Toucher un fût ouvre sa fiche. Utiliser l’éclairage, la perspective, la coque en bois bordeaux laqué à bords sombres, les cercles chromés et le relief des visuels validés. Pour l’accordage, angle presque vertical et profondeur visible sous la peau. Choisir une image complète selon le type de fût et son nombre de vis, avec tirants et coquilles intégrés. Distinguer un rack tom court à attache latérale, un floor tom profond sur pieds et une caisse claire peu profonde. La peau de frappe est affichée par défaut, puis la peau active pendant le guidage. Le lot 1 fournit une fiche de consultation. Le catalogue visuel couvre les rack toms 10″, 12″ et 13″, les floor toms 14″, 16″ et 18″, et une caisse claire 14″. L’index indique les combinaisons disponibles.
+- **VIS-03.** Chaque variante d’image de fût destinée à l’accordage possède exactement le nombre de vis configuré et un repère à midi entre les deux vis du haut. Lire la position de chaque tête dans le catalogue visuel, dans le repère normalisé propre à l’image. Pour les combinaisons sans visuel exact, utiliser un schéma avec le nombre de tirants configuré ou différer le guidage si le schéma est indisponible. Afficher une flèche verticale indépendante au-dessus de la vis active. La pointe indique la tête de vis et la zone tactile utilise la même ancre. La flèche change de position avec l’avancement. Une variante avec un autre nombre de vis exige une image correspondante avant d’être utilisée pour le guidage.
+- **VIS-04.** Vérifier sur téléphone le cadrage, les recouvrements, la précision des zones tactiles et le maintien de l’alignement au redimensionnement. Exposer les fûts et les vis aux services d’accessibilité. Sur l’écran principal, sélectionner les vis directement sur le fût. La rangée visible de boutons « Vis 1 », « Vis 2 », etc. appartient à l’écran de faisabilité. La scène doit rester fluide pendant la mesure micro.
 
 ### ACC — Accorder un tom
 
 - **ACC-01.** Sur la fiche, afficher l’état d’accordage, la référence enregistrée si elle existe et la dernière mesure si disponible. Démarrer l’accordage avec la référence existante, ou une note suggérée selon le type et le diamètre du tom. Les suggestions doivent aussi respecter la progression grave/aigu du kit. Autoriser un changement de cible pour cette session.
-- **ACC-02.** Guider d’abord la peau de frappe. Donner la fréquence cible près des vis en Hz, montrer le repère et faire ressortir la vis active. Demander de frapper doucement près de la vis et d’étouffer la peau opposée. Indiquer visuellement « Frappe captée », afficher la fréquence provisoire et signaler une série instable. Valider automatiquement une fréquence stable, avancer d’une seule vis et laisser visible la dernière mesure confirmée.
+- **ACC-02.** Guider d’abord la peau de frappe. Donner la fréquence cible près des vis en Hz, montrer le repère, faire ressortir la vis active sur le cercle et permettre de toucher une vis directement sur le fût. Demander de frapper doucement près de la vis et d’étouffer la peau opposée. Indiquer visuellement « Frappe captée », afficher la fréquence provisoire et signaler une série instable. Valider automatiquement une fréquence stable, avancer d’une seule vis et laisser visible la dernière mesure confirmée.
 - **ACC-03.** Quand le tour est terminé, afficher pour chaque vis « Serrer », « Desserrer » ou « Laisser », avec symbole, couleur et libellé accessible. Un ordre de réglage peut être proposé. « Vérifier cette peau » lance un nouveau tour, autant de fois que nécessaire. « Passer à la peau de résonance » reprend le même cycle avec la cible de cette peau.
 - **ACC-04.** Après les deux peaux, demander de jouer au centre avec les deux peaux libres. Afficher note, Hz et écart à la cible en cents. Si l’écart reste significatif, proposer un passage de correction et permettre une nouvelle vérification. Terminer revient à la fiche et actualise la dernière mesure globale stable. Une action explicite permet d’enregistrer la cible de session comme référence. Un abandon, une série instable ou une frappe isolée ne modifie pas une mesure enregistrée.
 
@@ -76,7 +87,7 @@ Pour une mesure f et une cible t, l’écart vaut 1200 × log₂(f/t). Appliquer
 
 ## 4. Choix technique
 
-Kotlin Multiplatform et Compose Multiplatform pour le lot 0. Réévaluer ce choix si les résultats sur appareils révèlent un blocage réel. Partager l’interface Compose et la logique de mesure Kotlin. Tester Filament sous Android et RealityKit sous iOS comme intégrations de départ pour la scène. La capture PCM utilise les API de chaque plateforme derrière un contrat commun. Les lots suivants détailleront les choix de persistance. Préparer les ressources de texte en FR, EN, ES et DE dès le premier écran.
+Kotlin Multiplatform et Compose Multiplatform pour le lot 0. Réévaluer ce choix si les résultats sur appareils révèlent un blocage réel. Partager l’interface Compose et la logique de mesure Kotlin. Le lot 0 utilise Filament sous Android et RealityKit sous iOS. Pour le rendu produit, utiliser les images réalistes avec zones tactiles Compose et, à terme, une flèche mobile au-dessus de la vis active. Traiter en priorité Android en debug. Conserver les cibles iOS et préparer le partage du domaine et des ressources. Les builds et essais iPhone viennent au jalon de portage. La capture PCM utilise les API de chaque plateforme derrière un contrat commun. Les lots suivants détailleront les choix de persistance. Préparer les ressources de texte en FR, EN, ES et DE dès le premier écran.
 
 Stocker une fréquence en Hz et une hauteur canonique indépendante de la langue. L’affichage proposé utilise Do/Ré/Mi en FR et ES, C/D/E en EN, H pour le si naturel et B pour le si bémol en DE. La notation des altérations et des octaves reste à relire avec des musiciens des langues cibles. Utiliser le format numérique local et conserver les unités Hz et cents.
 
@@ -98,7 +109,7 @@ Le domaine Kotlin ne dépend pas du microphone, de la 3D ni de la persistance. I
 | Lot | Travail | Condition de sortie |
 |---|---|---|
 | **0. Faisabilité** | Projet Kotlin Multiplatform et Compose. Un tom 3D tactile, capture PCM et fréquence visible. Voir la mission du lot 0 | Trace des essais sur iPhone et Android. Mesures de latence indicative et fluidité, échecs recensés et décision sur la stack |
-| **1. Kits** | Domaine, migrations, configuration, aperçu, sauvegarde, sélection et édition. Vue 3D fonctionnelle, sans attente de finition | KIT-01 à KIT-04 et placements reproductibles de VIS-01 |
+| **1. Kits Android** | Configuration, aperçu, sauvegarde, sélection, édition et vue de kit interactive avec fiches de consultation. Voir le brief du lot 1 | KIT-01 à KIT-04, VIS-01 et parcours A1 à A9 sur Android debug |
 | **2. Mesure** | Adaptateur micro, détection de frappe, estimateur, stabilité, feedback et source simulée | Tests d’entrée silence, bruit, saturation, différence d’octave, signaux amortis, frappes rapprochées et interruptions. Validation unique et nombre variable de frappes |
 | **3. Guidage** | Géométrie des vis, fiche, cible de session, tours des deux peaux et vérification globale | VIS-02 à VIS-04 et ACC-01 à ACC-04 sur une session simulée complète, puis essai réel sur au moins un tom |
 | **4. Références et contrôle** | Référence au choix, suggérée ou capturée. Contrôle, bilan et reprise de l’accordage | REF-01, REF-02, CTR-01 et CTR-02. Contrôle de kit complet au micro et reprise d’un tom |
@@ -106,7 +117,7 @@ Le domaine Kotlin ne dépend pas du microphone, de la 3D ni de la persistance. I
 
 Au lot 0, documenter les commandes Gradle et Xcode de build et de test qui s’appliquent au projet. Les commandes de vérification sont exécutées à chaque lot selon le périmètre. Pour les tests micro réels, noter l’appareil, le type et le diamètre du fût, le placement du téléphone, le contexte acoustique et l’instrument ou la méthode de comparaison. Sur des enregistrements annotés et des frappes au micro, relever l’erreur en cents, le délai et le nombre de frappes avant validation, les fausses confirmations, les octaves erronées et les échecs de mesure. Consigner les mesures avant de figer les seuils V1.
 
-## 7. Organisation des sous-agents
+## 7. Organisation des itérations
 
 | Sous-agent | Périmètre |
 |---|---|
@@ -115,7 +126,7 @@ Au lot 0, documenter les commandes Gradle et Xcode de build et de test qui s’a
 | Produit et données | Configuration, navigation, stockage, références et localisation |
 | Validation | Scénarios d’acceptation, données de test et vérification d’intégration |
 
-L’agent principal fixe les interfaces partagées et l’ordre des lots. Déléguer en parallèle les investigations indépendantes. Si plusieurs agents écrivent du code, leur donner des fichiers distincts ou des branches séparées. Chaque agent rend les fichiers changés, les vérifications exécutées et les points non testés. L’agent principal intègre et vérifie les parcours complets.
+Au lot 1, un agent par défaut. Suivre la validation légère décrite dans le brief. Réserver les sous-agents aux travaux indépendants clairement délimités. Leur donner des fichiers distincts ou des branches séparées. L’agent principal rassemble le diff, les commandes et les résultats dans un compte rendu court. Déclencher la validation complète de la CI au jalon décidé.
 
 ## Sources techniques
 
