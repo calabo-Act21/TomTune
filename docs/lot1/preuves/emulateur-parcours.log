@@ -1,0 +1,15 @@
+A1: fresh welcome, defaults 1+1
+A2/A3: 3+2 preview, draft back, empty name, Studio saved
+A4: seven distinct drum zones open correct details and return to Studio
+A5: 0+1, case-insensitive duplicate rejected, second kit saved
+Traceback (most recent call last):
+  File "/private/tmp/tomtune-lot1-smoke.py", line 72, in <module>
+    tap('Floor toms : 0','content-desc');tap('Annuler')
+  File "/private/tmp/tomtune-lot1-smoke.py", line 21, in tap
+    node=find(label,attr)
+  File "/private/tmp/tomtune-lot1-smoke.py", line 12, in find
+    raise AssertionError((label,[(n.get('text'),n.get('content-desc')) for n in tree.iter('node') if n.get('text') or n.get('content-desc')]))
+AssertionError: ('Annuler', [('TomTune', ''), ('← Annuler', ''), ('Configurer mon kit', ''), ('Vérifie chaque diamètre et le nombre de vis par peau.', ''), ('Rack toms', ''), ('', 'Rack toms : 0'), ('0', ''), ('', 'Rack toms : 1'), ('1', ''), ('', 'Rack toms : 2'), ('2', ''), ('', 'Rack toms : 3'), ('3', ''), ('Floor toms', ''), ('', 'Floor toms : 0'), ('0', ''), ('', 'Floor toms : 1'), ('1', ''), ('', 'Floor toms : 2'), ('2', ''), ('Caisse claire 14″', ''), ('Diamètre : 14″ ▾', ''), ('Grosse caisse 22″', ''), ('Diamètre : 22″ ▾', ''), ('Voir mon kit', '')])
+A6/A8: cancel leaves saved kit intact; save changes only Live; zero-floor diagram navigates
+A7: process restart restores two kits and selected Studio (emulator; airplane mode not changed)
+PASS: emulator smoke; no physical test or PCM capture
