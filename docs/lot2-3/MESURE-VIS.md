@@ -1,6 +1,6 @@
 # Correction de la mesure près d’une vis — 25 novembre 2026
 
-**Mise à jour après livraison :** l’[essai physique](ESSAI-PHYSIQUE-2026-11-25.md) est désormais réalisé sur la caisse claire 14″. La mesure reste instable dans les deux séries demandées. Les mentions « non réalisé » ci-dessous décrivent l’état avant cet essai ; les résultats injectés restent distincts.
+**Mise à jour après livraison :** l’[essai physique et son complément](ESSAI-PHYSIQUE-2026-11-25.md) sont réalisés sur la caisse claire 14″. Les deux premières séries restent instables ; le complément confirme ponctuellement 490,7 Hz à la 9e détection, après des lectures très variables. Le ressenti utilisateur d’une forte sensibilité à l’intensité de frappe est consigné comme priorité de diagnostic. Les mentions « non réalisé » ci-dessous décrivent l’état avant les essais ; les résultats injectés restent distincts.
 
 ## Provenance
 

@@ -1,6 +1,6 @@
 # Essai physique près d’une vis — 25 novembre 2026
 
-**La mesure reste instable sur la caisse claire testée.** Les deux séries demandées ne donnent aucune confirmation stable. Les lectures exploitables changent entre plusieurs fréquences ; les coups plus francs n’ont pas résolu le problème. Les succès injectés de la livraison ne constituent donc pas une validation acoustique de cette mesure.
+**Une stabilité ponctuelle a été obtenue dans une série complémentaire vers 490,7 Hz, mais la sélection de fréquence reste variable.** Les deux premières séries demandées n’avaient donné aucune confirmation stable. Dans le complément, les premières lectures alternent encore vers 491/699/800 Hz avant la confirmation à la 9e détection. L’utilisateur signale une impression de fortes variations de fréquence lorsqu’il change légèrement l’intensité de frappe. La fiabilité acoustique de la mesure n’est donc pas établie.
 
 ## Appareil, instrument et méthode
 
@@ -9,7 +9,7 @@
 - Support dans l’application relu dans les exports Android : **Floor tom 16″, huit vis, peau de frappe, vis 1**, cible locale affichée **110,1 Hz**. L’utilisateur évoquait un tom 18″ comme support ; le libellé effectivement observé est conservé ici. L’instrument frappé reste la caisse claire. La cible du tom ne sert pas de référence de justesse pour cet essai.
 - Capture normale : traces `input=microphone`, aucun bandeau d’injection. **Aucun PCM ni enregistrement sonore sur disque.** Les preuves sont des métadonnées logcat et des états d’écran. Il n’existe donc pas de PCM physique à rejouer avec le lot 0.
 
-## Résultats observés
+## Résultats du premier relevé
 
 | Phase | Compte physique | Détections / estimations / rejets | Stabilité et avancement |
 |---|---|---|---|
@@ -36,16 +36,55 @@ La séquence des dix petits coups retenue **par cadence**, sans prétendre dispo
 
 Les événements 1–16 et 27 sont conservés dans la fenêtre brute, hors de cette séquence. Ils comprennent notamment des rejets `Noise` et des estimations à 171,3, 718,0 et 612,8 Hz. Leur origine physique n’est pas annotée. **Le nombre d’impacts réellement manqués ou de doubles détections ne peut pas être établi indépendamment**, faute de tops synchronisés ou d’observation audio/vidéo. Une séquence de dix détections compatible avec les dix coups déclarés est observée ; cela ne prouve pas à elle seule zéro impact manqué.
 
+## Série complémentaire demandée après publication
+
+L’utilisateur a demandé une nouvelle série de dix petits coups sur une seule vis pour compléter le rapport. Même APK, même support de guidage **vis 1/8**, nouvelle session de mesure (`session=2`, `generation=14`). La capture a été armée vide, en attente, « Suivant » désactivé. Consignes : petits coups à la baguette sur une vis physique fixe, point à 2,5 cm du cercle, téléphone et étouffement fixes, cinq secondes de silence avant/après, cadence demandée de deux secondes. L’utilisateur répond « fait », puis précise **« Un coup supplémentaire est possible »**. Le nombre physique exact n’est donc pas établi.
+
+| Périmètre | Observations |
+|---|---|
+| Fenêtre complète entre marqueurs de début/fin | **98,449 s ; 19 détections, 10 estimations, 9 rejets** : 4 `AmbiguousModes`, 5 `Noise`. Deux événements `Confirmed`, aucun `Next`. Cette fenêtre inclut l’attente et la réponse de l’utilisateur. |
+| Groupe régulier de détections 1–11 | **11 détections, 9 estimations, 2 rejets `AmbiguousModes`**. Durée première→dernière détection : **32,761 s** ; intervalles de **3,081 à 3,401 s**, moyenne **3,276 s**, plutôt que les deux secondes demandées. Aucun taux de détection sur « dix coups exacts » n’est calculé. |
+| Première confirmation | À la **9e détection**, médiane **490,7105 Hz**, après trois estimations compatibles aux ID **6, 8 et 9**. Le rejet de l’ID 7 ne compte pas. Le nombre de coups physiques avant stabilité reste incertain ; le rang 9 désigne une détection. |
+| Affinage sur la même vis | À l’ID **10**, nouvelle confirmation **490,7133 Hz**, série de quatre estimations. Même capture et vis ; aucun avancement. |
+| Après le groupe régulier, toujours dans la fenêtre complète | **8 détections supplémentaires**, dont 7 rejets (2 `AmbiguousModes`, 5 `Noise`) et une estimation **384,539 Hz** à l’ID 19. Origine non annotée : ne pas les attribuer aux coups physiques de la série ni à une variation d’intensité. |
+| État relu en fin de fenêtre | **384,5 Hz provisoire**, série à 1 ; **« Dernière mesure stable · 490,7 Hz »** conservée en dessous ; **« Suivant » désactivé**, toujours vis 1/8. Aucun nouveau `Confirmed` après l’ID 19. Cet état montre le maintien de l’ancienne confirmation lors d’une contradiction ; l’origine physique de l’événement contradictoire n’est pas établie. |
+
+Détail du groupe régulier, en conservant les **onze** détections puisque le coup supplémentaire est possible :
+
+| ID détecté | Résultat | Confirmation |
+|---:|---|---|
+| 1 | 800,329 Hz | — |
+| 2 | 490,758 Hz | — |
+| 3 | 800,324 Hz | — |
+| 4 | 800,349 Hz | — |
+| 5 | 698,966 Hz | — |
+| 6 | 490,711 Hz | — |
+| 7 | Rejet `AmbiguousModes` | La série reste à 1 |
+| 8 | 490,656 Hz | — |
+| 9 | 490,713 Hz | 490,7105 Hz ; série à 3 |
+| 10 | 490,758 Hz | 490,7133 Hz ; série à 4 |
+| 11 | Rejet `AmbiguousModes` | La série reste à 4 |
+
+La disponibilité de « Suivant » juste après la confirmation n’a pas été photographiée pendant les frappes ; sa désactivation après la contradiction est présente dans l’export final. Aucun appui sur « Suivant » n’a été effectué. La justesse du mode confirmé vers 491 Hz n’est pas établie par un comparateur : cette confirmation prouve une cohérence entre quelques lectures, pas l’identification certaine de la résonance pertinente pour la vis.
+
+### Retour utilisateur sur l’intensité
+
+Après cette série, l’utilisateur rapporte : « j’ai l’impression que si je varie un peu d’intensité sur ma frappe, on a de grosse variations de fréquence ». Cette **sensibilité perçue à l’intensité est un point préoccupant pour la fiabilité de la mesure**, à conserver comme priorité de diagnostic. Les changements importants de lecture sont bien présents dans les métadonnées ; leur dépendance causale à l’intensité seule n’est pas démontrée. La force n’a pas été mesurée ou associée individuellement aux détections, et aucun PCM n’a été conservé.
+
+Hypothèse à examiner : le mode retenu pourrait changer selon la frappe. Le rapport ne conclut ni que la fréquence pertinente de la peau change réellement dans les mêmes proportions, ni que l’intensité en est la seule cause. Pour comparer les vis, le choix de fréquence doit être suffisamment reproductible dans le geste prescrit. Ce point reste à résoudre ; il ne doit pas être masqué par un rabattement d’octave ou un choix du candidat proche de la cible.
+
 ## Ce que l’essai valide et ce qu’il laisse ouvert
 
 - La mesure reste sur la **même vis** sans appui. Aucun événement `Next` pendant les frappes. Les rejets et remises à zéro sont distincts dans la trace. Les écrans de fin des séries montrent une lecture provisoire et le bouton désactivé.
 - La répétabilité de la fréquence près d’une vis **n’est pas validée** dans ces conditions : les lectures acceptées alternent entre plusieurs groupes très éloignés. Les valeurs 491/699/801 ne constituent pas un simple saut systématique d’octave. La justesse de chacune n’est pas établie faute de comparateur.
 - La confirmation préliminaire vers 598 Hz prouve qu’une série peut se stabiliser ; elle ne prouve pas que le mode choisi est le bon. Une alternance entre résonances reste une hypothèse à examiner. La trace ne contient pas les candidats spectraux ni leurs courbes de décroissance, et ne suffit pas à attribuer une cause.
-- Les deux séries demandées n’ont pas atteint « Mesure stable » : nombre de coups avant stabilité **non atteint**, et reconfirmation d’une ancienne valeur stable **non observée** dans ces séries. La remise à zéro entre préliminaire et série comptée avait effacé ce brouillon. Le remplacement d’une ancienne confirmation et l’appui sur « Suivant » après nouvelle stabilité ne sont donc pas déclarés validés physiquement ; leurs tests injectés restent distincts.
+- Les deux **premières** séries demandées n’ont pas atteint « Mesure stable ». Le complément obtient une confirmation à la 9e détection puis un affinage à la 10e ; le nombre physique exact reste incertain. Le maintien d’une ancienne confirmation sous une nouvelle lecture contradictoire est relu à l’écran, mais l’origine de cette contradiction n’est pas annotée. Le remplacement par une autre fréquence reconfirmée et l’appui sur « Suivant » après stabilité ne sont pas validés physiquement ; leurs tests injectés restent distincts.
 - Aucun vrai tom disponible, confirmé par l’utilisateur. Le geste guidé sur tom et sa seconde peau ne sont pas testés physiquement. Aucun guidage produit de caisse claire n’est ajouté.
 - Session abandonnée après le relevé, retour à la fiche, micro arrêté (`appops` sans capture en cours), snapshot des kits identique avant/après. Aucune référence ni mesure globale enregistrée.
 
-**Suite technique proposée pour une prochaine demande :** examiner les conditions qui laissent accepter successivement plusieurs modes éloignés, puis l’attribution de détections hors des coups attendus. Enrichir les métadonnées des candidats et de leur persistance pourrait aider sans conserver de PCM. Ne pas corriger les Hz par rabattement d’octave ni par rapprochement de la cible ; ne pas conclure à un étalonnage à partir de cet essai. Aucune nouvelle correction ni nouvelle compilation n’a été faite pendant cette session physique.
+**Suite technique proposée pour une prochaine demande :** examiner en priorité la sensibilité du choix de mode à l’intensité de frappe signalée par l’utilisateur, les conditions qui laissent accepter successivement plusieurs modes éloignés, puis l’attribution de détections hors des coups attendus. Enrichir les métadonnées des candidats et de leur persistance pourrait aider sans conserver de PCM. Ne pas corriger les Hz par rabattement d’octave ni par rapprochement de la cible ; ne pas conclure à un étalonnage à partir de cet essai. Aucune nouvelle correction ni nouvelle compilation n’a été faite pendant cette session physique.
+
+Preuves du complément : [préparation et ressenti utilisateur](preuves/essai-physique-2026-11-25/serie-complementaire-10/preparation.json), [trace de la fenêtre complète](preuves/essai-physique-2026-11-25/serie-complementaire-10/serie.log), [résumé complet](preuves/essai-physique-2026-11-25/serie-complementaire-10/resultats.json), [groupe régulier](preuves/essai-physique-2026-11-25/serie-complementaire-10/groupe-regulier.log), [résumé du groupe](preuves/essai-physique-2026-11-25/serie-complementaire-10/resultats-groupe-regulier.json), [état final](preuves/essai-physique-2026-11-25/serie-complementaire-10/apres-serie.xml), [clôture](preuves/essai-physique-2026-11-25/serie-complementaire-10/cloture.log). Les événements postérieurs au marqueur de fin de série, présents dans le journal continu, restent hors des comptes ci-dessus. La session complémentaire a été abandonnée, micro arrêté et kits inchangés. Aucun nouveau build ni changement audio. Les comptes, fréquences, cadence, états d’écran, liens de preuve et empreintes ont été recalculés : [vérification du complément](preuves/essai-physique-2026-11-25/serie-complementaire-10/verification-rapport.log).
 
 ## Preuves et vérifications
 

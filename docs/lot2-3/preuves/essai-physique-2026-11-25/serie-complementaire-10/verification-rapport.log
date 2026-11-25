@@ -1,0 +1,6 @@
+PASS full window 19 detections /10 estimates /9 rejections /2 confirmations; regular group11/9/2/2; no Next.
+PASS first confirmation at detection9: 490.7105083 Hz; refinement at10: 490.7132783 Hz; rejected7 does not count.
+PASS regular group duration32.761 s, intervals3.081..3.401 s; operator allows extra stroke; no exact physical count or detection rate invented.
+PASS later384.539 Hz distinct from counted group; previous490.7 remains in final UI with disabled Next.
+PASS perceived intensity sensitivity included with causal uncertainty; all proof links exist; live log closed and intact.
+PASS same APK, microphone closed, kit snapshot unchanged, no new code or binary.

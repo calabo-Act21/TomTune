@@ -1,0 +1,18 @@
+{
+  "apkSha256": "b8f82d4cb1ae4791c7e5ebb9474b94a003b4806d1f72233723eab293a956d878",
+  "sourceCommit": "f19bcbb5e3ec1f1b1981ed29d056d379674c7b57",
+  "kitsBeforeSha256": "229f05091ff83a464608a0b590408676cc356d0f374735908563a98706a36332",
+  "requestedPlayed": 10,
+  "guidedLugRequested": 1,
+  "gesture": "petits coups à la baguette, point à 2,5 cm du cercle, un toutes les deux secondes",
+  "silenceRequested": "5 secondes avant et après les dix coups",
+  "conditions": "même caisse claire 14 pouces, timbre débrayé, peau opposée étouffée à la main, téléphone fixe à environ 10 cm du centre comme précédemment",
+  "status": "completed and abandoned",
+  "operatorCompletion": "fait",
+  "operatorStrokeCount": null,
+  "operatorCountClarification": "Un coup supplémentaire est possible",
+  "operatorIntensityFeedback": "Impression de grosses variations de fréquence en variant un peu l’intensité de frappe",
+  "kitsAfterSha256": "229f05091ff83a464608a0b590408676cc356d0f374735908563a98706a36332",
+  "sessionAbandoned": true,
+  "recordAudioAppOpsAfterTrial": "Uid mode: RECORD_AUDIO: foreground\nRECORD_AUDIO: allow; time=+4m1s560ms ago; duration=+3m56s211ms\n"
+}
