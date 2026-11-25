@@ -165,28 +165,35 @@ private fun SchematicKit(kit: Kit, modifier: Modifier, onOpen: ((String) -> Unit
     }
 }
 
-/** Only the inspected batter face is activated. Other faces use the real lug-count diagram. */
+/** Every variant uses its own verified map, with a keyed bitmap/anchor publication.
+ * Faces without an exact inspected image keep the real lug-count diagram. */
 @Composable
 fun AndroidTuningVisual(s: com.tomtune.tuning.TuningState, select: (Int) -> Unit) {
     val drum = s.drum
-    if (s.head != com.tomtune.tuning.Head.BATTER || drum.family != DrumFamily.RACK || drum.diameter != 12 || drum.lugs != 6) {
-        LugDiagram(s, select); return
-    }
+    if (s.head != com.tomtune.tuning.Head.BATTER) { LugDiagram(s, select); return }
+    val variant = "${drum.family.key}-${drum.diameter}-${drum.lugs}"
     val context = LocalContext.current.applicationContext
-    val artwork by produceState<Pair<ImageBitmap, List<NormalPoint>>?>(null) {
-        value = withContext(Dispatchers.IO) {
-            runCatching {
-                val m = JSONObject(context.assets.open("visuels/lot1.1/rack-12-6-lugs.json").bufferedReader().use { it.readText() })
-                require(m.getBoolean("verified") && m.getString("head") == "batter")
-                val bitmap = context.assets.open("visuels/lot1.1/${m.getString("image")}").use { requireNotNull(BitmapFactory.decodeStream(it)).asImageBitmap() }
-                require(bitmap.width == m.getInt("width") && bitmap.height == m.getInt("height"))
-                val points = m.getJSONArray("points")
-                require(points.length() == drum.lugs)
-                bitmap to (0 until points.length()).map { i -> points.getJSONArray(i).let { NormalPoint(it.getDouble(0).toFloat(), it.getDouble(1).toFloat()) } }
-            }.getOrNull()
+    key(variant) {
+        val artwork by produceState<Pair<ImageBitmap, List<NormalPoint>>?>(null) {
+            value = withContext(Dispatchers.IO) {
+                runCatching {
+                    val m = JSONObject(context.assets.open("visuels/lot1.1/$variant-lugs.json").bufferedReader().use { it.readText() })
+                    require(m.getBoolean("verified") && m.getString("head") == "batter")
+                    require(m.getString("image") == "$variant-alpha.png")
+                    val bitmap = context.assets.open("visuels/lot1.1/${m.getString("image")}").use { requireNotNull(BitmapFactory.decodeStream(it)).asImageBitmap() }
+                    require(bitmap.width == m.getInt("width") && bitmap.height == m.getInt("height"))
+                    val points = m.getJSONArray("points")
+                    require(points.length() == drum.lugs)
+                    bitmap to (0 until points.length()).map { i -> points.getJSONArray(i).let {
+                        val x = it.getDouble(0).toFloat(); val y = it.getDouble(1).toFloat()
+                        require(x in 0f..1f && y in 0f..1f)
+                        NormalPoint(x, y)
+                    } }
+                }.getOrNull()
+            }
         }
+        val loaded = artwork
+        if (loaded == null) LugDiagram(s, select)
+        else LugDiagram(s, select, loaded.second) { Image(loaded.first, null, Modifier.fillMaxSize(), contentScale = ContentScale.Fit) }
     }
-    val loaded = artwork
-    if (loaded == null) LugDiagram(s, select)
-    else LugDiagram(s, select, loaded.second) { Image(loaded.first, null, Modifier.fillMaxSize(), contentScale = ContentScale.Fit) }
 }

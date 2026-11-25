@@ -26,3 +26,7 @@ Toutes les fiches couvertes par `catalogue-focus.json` affichent maintenant leur
 **Guidage activé en photo :** uniquement frappe du rack 12″ à six vis, avec son propre [manifest](rack-12-6-lugs.json), vérifié sur `rack-12-6-alpha.png`. Les six points ont été contrôlés sur ce PNG, index 0 à droite du logo, puis sens horaire. Image carrée ajustée proportionnellement ; flèche, toucher et accessibilité utilisent le même point. La résonance et les autres combinaisons utilisent un schéma tactile de la peau active avec le nombre réel de vis (3 à 12). Les autres photos restent disponibles pour la consultation, sans activer des ancrages de guidage non vérifiés.
 
 Le fond continu de cette livraison est le beige rosé uni `#E3D1CA` défini par le brief 2–3. La précision et le confort des zones sur téléphone, ainsi que TalkBack, restent à confirmer physiquement.
+
+### Pilote photo floor 16″ / huit vis
+
+À la demande du propriétaire, le guidage photo ajoute `floor-16-8-lugs.json`, vérifié sur les huit têtes de `floor-16-8-alpha.png`. Le composant partagé place les numéros au-dessus du fût pour les vis supérieures et sur la peau au-dessus des vis inférieures. La tête reste visible ; flèche, numéro et accessibilité partagent l’index. Le chargement des manifests est générique par variante, avec repli pour les cartes ou faces absentes. La validation visuelle sur le téléphone commence par ce floor 16″ ; la déclinaison des autres photos suit son acceptation. Voir le [suivi de révision](../../lot2-3/RESULTATS.md#retour-utilisateur-et-pilote-photo--révision-du-24-novembre).

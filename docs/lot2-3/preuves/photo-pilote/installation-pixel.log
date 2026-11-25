@@ -1,0 +1,21 @@
+Pixel 9 Pro XL, Android 17 / API 37. Identifiant matériel non consigné.
+APK photo pilot: composeApp/build/outputs/apk/debug/composeApp-debug.apk
+APK SHA-256: 8fbb818c95c1f2c36ec97147d2eb11f14e953981dcd40348bc87f837e96f3ef0
+Previous installed certificate SHA-256: 6b8fae72dbd4481071bde7fbf160eb67c811e8de1d7b79a59cd585cf08f15c42
+New certificate SHA-256: 6b8fae72dbd4481071bde7fbf160eb67c811e8de1d7b79a59cd585cf08f15c42
+Signature compatible: exact match (same as validated 1.1A certificate)
+adb -s PHONE_SERIAL install -r APK: Performing Streamed Install
+Success
+Kits before SHA-256: 229f05091ff83a464608a0b590408676cc356d0f374735908563a98706a36332
+Kits after SHA-256: 229f05091ff83a464608a0b590408676cc356d0f374735908563a98706a36332
+Kits byte-for-byte identical: yes
+Normal launch, no injected PCM:
+Starting: Intent { cmp=com.tomtune.app/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.tomtune.app/.MainActivity
+TotalTime: 520
+WaitTime: 522
+Complete
+
+Visual validation on owner's Android: pending. No new physical acoustic trial claimed.

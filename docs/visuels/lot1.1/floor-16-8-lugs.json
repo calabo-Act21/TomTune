@@ -1,0 +1,44 @@
+{
+  "image": "floor-16-8-alpha.png",
+  "width": 1254,
+  "height": 1254,
+  "head": "batter",
+  "verified": true,
+  "points": [
+    [
+      0.646,
+      0.058
+    ],
+    [
+      0.813,
+      0.196
+    ],
+    [
+      0.813,
+      0.373
+    ],
+    [
+      0.638,
+      0.516
+    ],
+    [
+      0.356,
+      0.516
+    ],
+    [
+      0.176,
+      0.371
+    ],
+    [
+      0.18,
+      0.195
+    ],
+    [
+      0.355,
+      0.057
+    ]
+  ],
+  "ordre": "Premier indice à droite du logo, puis sens horaire.",
+  "verification": "Inspection des huit têtes sur floor-16-8-alpha.png. Repérage distinct du catalogue historique.",
+  "sha256": "74fb157d351fb6767e9cae5d406b3892cb9926d9cc58f4bffb0c9f5d07b2aec5"
+}

@@ -32,10 +32,13 @@ for path in art.glob('*-zones.json'):
   assert hit(x,shellY)==z,(m['key'],z,'shell',hit(x,shellY))
  if f==2:assert hit(.69,.50)=='floor2'
  if m['key']!='r3-f2':assert m['verified'] and m['sha256']==hashlib.sha256(image.read_bytes()).hexdigest()
-m=json.loads((art/'rack-12-6-lugs.json').read_text());assert m['verified'] and m['head']=='batter' and len(m['points'])==6
-assert m['sha256']==hashlib.sha256((art/m['image']).read_bytes()).hexdigest()
-# First anchor right of logo, then clockwise; same point list is consumed by arrow, touch, semantics.
-assert m['points'][0][0]>.5 and m['points'][-1][0]<.5
+guidance=list(art.glob('*-lugs.json'))
+for path in guidance:
+ m=json.loads(path.read_text());count=int(path.stem.split('-')[2])
+ assert m['verified'] and m['head']=='batter' and len(m['points'])==count
+ assert m['sha256']==hashlib.sha256((art/m['image']).read_bytes()).hexdigest()
+ assert m['points'][0][0]>.5 and m['points'][-1][0]<.5
+ assert all(0<=v<=1 for pair in m['points'] for v in pair)
 catalogues=[]
 for lang in ['values','values-fr','values-es','values-de']:
  nodes=ET.parse(root/'composeApp/src/commonMain/composeResources'/lang/'strings.xml').getroot().findall('string')
@@ -49,4 +52,4 @@ if args.apk:
  with zipfile.ZipFile(args.apk)as z:
   for path in art.iterdir():
    if path.suffix in ('.png','.json'):assert z.read('assets/visuels/lot1.1/'+path.name)==path.read_bytes(),path
-print(f'PASS: 28 exact PNGs; 8 ordered kit maps; batter rack12/6 exact anchors; other faces diagram; {len(catalogues[0])} keys in all 4 languages; offline APK bytes identical' if args.apk else 'PASS: artwork, maps and four resource catalogues')
+print(f'PASS: 28 exact PNGs; 8 ordered kit maps; {len(guidance)} verified guidance maps; other faces diagram; {len(catalogues[0])} keys in all 4 languages; offline APK bytes identical' if args.apk else 'PASS: artwork, maps and four resource catalogues')

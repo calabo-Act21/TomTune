@@ -38,3 +38,9 @@ Restent physiques : pertinence de la résonance choisie près d’une vis et au 
 | Accordeur de comparaison, méthode, valeur, écart en cents | À relever si disponible |
 | Arrière-plan, reprise, abandon et kits conservés | À relever |
 | Cycle complet sur tom | Non réalisé : tom indisponible annoncé |
+
+## Retour déclaré et validation visuelle suivante
+
+Le propriétaire indique avoir testé avec succès le parcours floor 16″ / huit vis sur sa caisse claire 14″ ayant le même nombre de vis. Aucun relevé chiffré n’a été récupéré ; conserver ce retour comme validation qualitative du fonctionnement local.
+
+La prochaine validation demandée porte sur **l’affichage Android du pilote floor 16″ / huit vis** : photo entière, numéros supérieurs au-dessus du fût, numéros inférieurs sur la peau au-dessus des vis, numéro actif en bordeaux et consigne sous l’image. Toucher successivement une vis du haut et du bas ; numéro et flèche doivent suivre la même vis. L’application peut rester micro en pause pour ce contrôle. La clôture du lot attend le retour du propriétaire sur ce pilote ; la déclinaison des autres photos utilise le même composant ensuite.

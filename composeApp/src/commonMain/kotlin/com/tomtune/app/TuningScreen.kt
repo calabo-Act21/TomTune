@@ -3,7 +3,9 @@ package com.tomtune.app
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -68,14 +70,15 @@ fun TuningScreen(s: TuningState, controller: TuningController,
                 Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter else Res.string.tune_resonant), style = MaterialTheme.typography.headlineSmall)
                 Text(stringResource(Res.string.tune_pass, s.pass))
                 Text(stringResource(Res.string.tune_local_target, formatHz(s.localTarget)))
-                Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter_help else Res.string.tune_resonant_help))
                 headVisual(s, controller::selectLug)
+                if (s.stage == TuningStage.LUGS) Text(stringResource(Res.string.tune_active_lug, s.lug + 1, s.drum.lugs!!),
+                    style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                Text(stringResource(if (s.stage == TuningStage.ADVICE) Res.string.tune_advice_help else
+                    if (s.head == Head.BATTER) Res.string.tune_batter_help else Res.string.tune_resonant_help))
                 Text(stringResource(Res.string.tune_progress, s.measurements.size, s.drum.lugs!!))
                 if (s.stage == TuningStage.LUGS) {
-                    Text(stringResource(Res.string.tune_active_lug, s.lug + 1, s.drum.lugs!!))
                     CaptureFeedback(s, controller)
                 } else {
-                    Text(stringResource(Res.string.tune_advice_help))
                     s.measurements.toSortedMap().forEach { (index, hz) ->
                         val a = advice(hz, s.localTarget, s.profile.localToleranceCents)
                         Text(stringResource(Res.string.tune_lug_value, index + 1, formatHz(hz)) + " · " + adviceLabel(a), color = adviceColor(a))
@@ -173,46 +176,77 @@ private fun adviceColor(a: Advice) = when(a) {
     Advice.LEAVE -> Color(0xff286140)
 }
 
-/** Shared clockwise geometry: arrow, touch target and semantics use the very same point.
- * No photograph is used without a face-specific verified manifest. */
+/** One geometry for the hardware, adjacent numbers, arrow, touch and accessibility. */
 @Composable
 fun LugDiagram(s: TuningState, select: (Int) -> Unit,
     anchors: List<NormalPoint> = emptyList(), photo: (@Composable () -> Unit)? = null) {
+    val callback by rememberUpdatedState(select)
+    val points = anchors.takeIf { it.size == s.drum.lugs } ?: schematicLugAnchors(s.drum.lugs!!)
+    val markers = lugMarkers(points)
     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        BoxWithConstraints(Modifier.widthIn(max = 300.dp).fillMaxWidth().aspectRatio(1f)) {
+        BoxWithConstraints(Modifier.widthIn(max = 360.dp).fillMaxWidth()) {
             val width = maxWidth
-            if (photo != null) photo() else Canvas(Modifier.fillMaxSize()) {
-                drawCircle(Color(0xfff7ede4), radius = size.width * .35f)
-                drawCircle(Color(0xff602033), radius = size.width * .35f, style = Stroke(3.dp.toPx()))
-            }
-            if (photo == null) Text("TomTune", Modifier.align(Alignment.TopCenter).padding(top = width * .03f), color = MaterialTheme.colorScheme.primary)
-            if (photo == null) Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter else Res.string.tune_resonant),
-                Modifier.align(Alignment.Center).width(width * .40f), textAlign = TextAlign.Center)
-            val points = anchors.takeIf { it.size == s.drum.lugs } ?: schematicLugAnchors(s.drum.lugs!!)
-            for ((index, point) in points.withIndex()) {
-                val x = point.x
-                val y = point.y
-                val active = s.stage == TuningStage.LUGS && index == s.lug
-                val hz = s.measurements[index]
-                val status = if (hz == null) stringResource(Res.string.tune_unmeasured) else
-                    stringResource(Res.string.tune_confirmed) + " · ${formatHz(hz)} Hz · " + adviceLabel(advice(hz, s.localTarget, s.profile.localToleranceCents))
-                val label = stringResource(Res.string.lug, index + 1) + " · " + status
-                Box(Modifier.offset(width * x - 24.dp, width * y - 24.dp).size(48.dp)
-                    .background(if (active) MaterialTheme.colorScheme.primary else Color(0xfffff9f3), CircleShape)
-                    .border(if (hz != null) 3.dp else 1.dp, if (hz != null) adviceColor(advice(hz, s.localTarget, s.profile.localToleranceCents)) else MaterialTheme.colorScheme.primary, CircleShape)
-                    .clickable(onClickLabel = stringResource(Res.string.tune_select_lug)) { select(index) }
-                    .semantics(mergeDescendants = true) { contentDescription = label; selected = active; role = Role.Button }, contentAlignment = Alignment.Center) {
-                    Text("${index + 1}", color = if (active) Color.White else MaterialTheme.colorScheme.primary, modifier = Modifier.clearAndSetSemantics {})
-                }
-                if (active) Canvas(Modifier.fillMaxSize().clearAndSetSemantics {}) {
-                    val at = Offset(size.width * x, size.height * y)
-                    val color = Color(0xff602033)
-                    drawLine(color, at - Offset(0f, 54.dp.toPx()), at - Offset(0f, 8.dp.toPx()), strokeWidth = 3.dp.toPx())
-                    val path = androidx.compose.ui.graphics.Path().apply {
-                        moveTo(at.x, at.y); lineTo(at.x - 7.dp.toPx(), at.y - 12.dp.toPx())
-                        lineTo(at.x + 7.dp.toPx(), at.y - 12.dp.toPx()); close()
+            val top = 48.dp
+            Box(Modifier.fillMaxWidth().height(width + top + 8.dp)
+                .pointerInput(markers, width, top) {
+                    detectTapGestures { p ->
+                        hitLug(markers, width.toPx(), top.toPx(), p.x, p.y, 24.dp.toPx())?.let { callback(it) }
                     }
-                    drawPath(path, color)
+                }) {
+                Box(Modifier.offset(y = top).size(width)) {
+                    if (photo != null) photo() else Canvas(Modifier.fillMaxSize()) {
+                        drawCircle(Color(0xfff7ede4), radius = size.width * .35f)
+                        drawCircle(Color(0xff602033), radius = size.width * .35f, style = Stroke(3.dp.toPx()))
+                        points.forEach { p ->
+                            drawCircle(Color(0xff42332e), radius = 4.dp.toPx(), center = Offset(p.x * size.width, p.y * size.height))
+                        }
+                    }
+                    if (photo == null) {
+                        Text("TomTune", Modifier.align(Alignment.TopCenter).padding(top = width * .03f), color = MaterialTheme.colorScheme.primary)
+                        Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter else Res.string.tune_resonant),
+                            Modifier.align(Alignment.Center).width(width * .40f), textAlign = TextAlign.Center)
+                    }
+                }
+                for ((index, marker) in markers.withIndex()) {
+                    val p = marker.anchor
+                    val number = marker.number
+                    val active = s.stage == TuningStage.LUGS && index == s.lug
+                    val hz = s.measurements[index]
+                    val status = if (hz == null) stringResource(Res.string.tune_unmeasured) else
+                        stringResource(Res.string.tune_confirmed) + " · ${formatHz(hz)} Hz · " + adviceLabel(advice(hz, s.localTarget, s.profile.localToleranceCents))
+                    val label = stringResource(Res.string.lug, index + 1) + " · " + status
+                    val action = stringResource(Res.string.tune_select_lug)
+                    val left = width * minOf(p.x, number.x) - 24.dp
+                    val markerWidth = width * kotlin.math.abs(p.x - number.x) + 48.dp
+                    val markerTop = top + width * minOf(p.y, number.y) - 24.dp
+                    val markerHeight = width * kotlin.math.abs(p.y - number.y) + 48.dp
+                    // Exactly one accessible action. Its bounds include the head and its number.
+                    Box(Modifier.offset(left, markerTop).size(markerWidth, markerHeight).semantics {
+                        contentDescription = label
+                        selected = active
+                        role = Role.Button
+                        onClick(action) { callback(index); true }
+                    })
+                    Box(Modifier.offset(width * number.x - 24.dp, top + width * number.y - 24.dp).size(48.dp)
+                        .clearAndSetSemantics {}, contentAlignment = Alignment.Center) {
+                        Text("${index + 1}", color = if (active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontWeight = if (active) FontWeight.Bold else FontWeight.Normal,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.background(MaterialTheme.colorScheme.surface.copy(alpha = .94f), CircleShape)
+                                .then(if (active) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, CircleShape) else Modifier)
+                                .padding(horizontal = 7.dp, vertical = 3.dp))
+                    }
+                    if (active) Canvas(Modifier.fillMaxSize().clearAndSetSemantics {}) {
+                        val at = Offset(size.width * p.x, top.toPx() + width.toPx() * p.y)
+                        val color = Color(0xff602033)
+                        drawCircle(color, center = at, radius = 8.dp.toPx(), style = Stroke(2.dp.toPx()))
+                        drawLine(color, at - Offset(0f, 19.dp.toPx()), at - Offset(0f, 10.dp.toPx()), strokeWidth = 2.dp.toPx())
+                        val arrow = androidx.compose.ui.graphics.Path().apply {
+                            moveTo(at.x, at.y); lineTo(at.x - 5.dp.toPx(), at.y - 10.dp.toPx())
+                            lineTo(at.x + 5.dp.toPx(), at.y - 10.dp.toPx()); close()
+                        }
+                        drawPath(arrow, color)
+                    }
                 }
             }
         }

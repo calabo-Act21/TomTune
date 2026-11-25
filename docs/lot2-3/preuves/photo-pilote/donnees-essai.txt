@@ -1,0 +1,4 @@
+Lecture après essai déclaré sur caisse claire 14″, parcours floor16/8.
+Aucune mesure globale ni référence dans le snapshot.
+Lectures encore visibles avant mise à jour : []
+Aucun journal par frappe ni PCM enregistré.
