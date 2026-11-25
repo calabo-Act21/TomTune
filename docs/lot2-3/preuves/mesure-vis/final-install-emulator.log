@@ -1,0 +1,11 @@
+Final APK, emulator-5554 only; normal launch, no injection extra.
+Performing Streamed Install
+Success
+Starting: Intent { cmp=com.tomtune.app/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.tomtune.app/.MainActivity
+TotalTime: 1603
+WaitTime: 1613
+Complete
+Diagnostic kit snapshot unchanged. No physical microphone trial.
