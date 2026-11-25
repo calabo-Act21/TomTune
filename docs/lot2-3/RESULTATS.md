@@ -96,3 +96,7 @@ Vérifications de la révision :
 ## Correction près d’une vis — 25 novembre 2026
 
 Le retour utilisateur suivant signale des lectures autour de 350–700 Hz et des refrappes fréquentes sur caisse claire 14″. La correction et la validation ciblée sont décrites dans [MESURE-VIS.md](MESURE-VIS.md), qui remplace les anciennes consignes d’avancement automatique et de recette. Les deux peaux avancent désormais uniquement avec « Suivant ». Le nouvel essai physique de dix coups n’a pas encore été observé ; aucun résultat injecté ou d’émulateur n’est présenté comme acoustique.
+
+## Résultat physique du 25 novembre 2026
+
+L’[essai physique sur la caisse claire 14″](ESSAI-PHYSIQUE-2026-11-25.md) a été réalisé avec l’APK final. **La mesure locale reste instable** : pas de confirmation dans les dix petits coups ni dans la série plus franche. La séquence de dix détections compatible avec la cadence donne huit estimations vers 491/699/801 Hz et deux rejets ambigus. Le second compte physique est inconnu (« plus de cinq ») ; sa fenêtre contient neuf détections, cinq estimations et quatre rejets, sans stabilité. Aucun avancement sans appui ; session abandonnée, kits inchangés. Pas de vrai tom disponible. Le rapport distingue fenêtres brutes, attribution par cadence, frappes déclarées et limites du comptage ; il remplace l’état antérieur « essai physique en attente », sans transformer les validations injectées en validation acoustique.

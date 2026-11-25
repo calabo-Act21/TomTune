@@ -3,5 +3,5 @@
   "sha256": "b8f82d4cb1ae4791c7e5ebb9474b94a003b4806d1f72233723eab293a956d878",
   "sourceCommit": "f19bcbb5e3ec1f1b1981ed29d056d379674c7b57",
   "worktreeDirty": false,
-  "physicalTrial": "not performed; Pixel not connected"
+  "physicalTrial": "performed 2026-11-25 on snare 14 inches; near-lug measurement remained unstable; see docs/lot2-3/ESSAI-PHYSIQUE-2026-11-25.md"
 }

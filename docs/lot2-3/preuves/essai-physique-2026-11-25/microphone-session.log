@@ -1,0 +1,92 @@
+--------- beginning of main
+         1795639139.994 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795639142.746 30530 30530 I TomTuneTrace: PHYSICAL_BEGIN phase=ten_gentle requestedPlayed=10 intervalApproxSeconds=2 operatorReady=true cue=chat_no_synchronized_slots
+         1795639146.883 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=1 pcmSeconds=6.79
+         1795639147.241 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=1 pcmSeconds=7.105 reason=Noise count=0
+         1795639148.063 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=2 pcmSeconds=7.97
+         1795639148.455 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=2 pcmSeconds=8.285 reason=Noise count=0
+         1795639148.683 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=3 pcmSeconds=8.59
+         1795639149.041 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=3 pcmSeconds=8.905 hz=171.26329134729653 confidence=0.6834075330637354
+         1795639155.163 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=4 pcmSeconds=15.065
+         1795639155.500 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=4 pcmSeconds=15.38 hz=717.9613053310197 confidence=0.5954061044045321
+         1795639155.501 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=717.9613053310197
+         1795639156.204 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=5 pcmSeconds=16.11
+         1795639156.560 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=5 pcmSeconds=16.425 reason=Noise count=1
+         1795639156.763 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=6 pcmSeconds=16.675
+         1795639157.130 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=6 pcmSeconds=16.99 reason=Noise count=1
+         1795639157.181 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=7 pcmSeconds=17.095
+         1795639157.541 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=7 pcmSeconds=17.41 reason=Noise count=1
+         1795639157.923 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=8 pcmSeconds=17.84
+         1795639158.308 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=8 pcmSeconds=18.155 reason=Noise count=1
+         1795639158.943 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=9 pcmSeconds=18.85
+         1795639159.301 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=9 pcmSeconds=19.165 reason=Noise count=1
+         1795639159.502 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=10 pcmSeconds=19.42
+         1795639159.860 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=10 pcmSeconds=19.735 reason=Noise count=1
+         1795639160.083 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=11 pcmSeconds=20.0
+         1795639160.441 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=11 pcmSeconds=20.315 reason=Noise count=1
+         1795639163.183 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=12 pcmSeconds=23.09
+         1795639163.541 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=12 pcmSeconds=23.405 reason=Noise count=1
+         1795639172.443 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=13 pcmSeconds=32.35
+         1795639172.799 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=13 pcmSeconds=32.665 reason=Noise count=1
+         1795639173.743 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=14 pcmSeconds=33.66
+         1795639174.099 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=14 pcmSeconds=33.975 reason=Noise count=1
+         1795639174.161 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=15 pcmSeconds=34.065
+         1795639174.502 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=15 pcmSeconds=34.38 reason=Noise count=1
+         1795639177.023 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=16 pcmSeconds=36.94
+         1795639177.380 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=16 pcmSeconds=37.255 reason=Noise count=1
+         1795639178.583 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=17 pcmSeconds=38.495
+         1795639178.943 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=17 pcmSeconds=38.81 reason=AmbiguousModes count=1
+         1795639180.583 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=18 pcmSeconds=40.485
+         1795639180.948 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=18 pcmSeconds=40.8 hz=699.5708414275994 confidence=0.7663595293940835
+         1795639180.948 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=699.5708414275994
+         1795639182.463 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=19 pcmSeconds=42.375
+         1795639182.820 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=19 pcmSeconds=42.69 hz=491.1722652479049 confidence=0.7614432103037693
+         1795639182.820 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=491.1722652479049
+         1795639184.422 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=20 pcmSeconds=44.33
+         1795639184.799 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=20 pcmSeconds=44.645 hz=491.20333123077876 confidence=0.7574230336347377
+         1795639186.423 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=21 pcmSeconds=46.34
+         1795639186.862 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=21 pcmSeconds=46.655 hz=801.0577003173833 confidence=0.7583469235308419
+         1795639186.863 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=2 hz=801.0577003173833
+         1795639188.443 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=22 pcmSeconds=48.36
+         1795639188.803 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=22 pcmSeconds=48.675 hz=801.0681827416896 confidence=0.7700923466274356
+         1795639190.542 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=23 pcmSeconds=50.45
+         1795639190.904 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=23 pcmSeconds=50.765 reason=AmbiguousModes count=2
+         1795639192.623 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=24 pcmSeconds=52.535
+         1795639192.985 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=24 pcmSeconds=52.85 hz=699.4927322508839 confidence=0.759356780714969
+         1795639192.985 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=2 hz=699.4927322508839
+         1795639194.703 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=25 pcmSeconds=54.61
+         1795639195.143 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=25 pcmSeconds=54.925 hz=801.0727494629504 confidence=0.7554916053754671
+         1795639195.143 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=801.0727494629504
+         1795639196.843 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=26 pcmSeconds=56.745
+         1795639197.190 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=26 pcmSeconds=57.06 hz=699.3776243330727 confidence=0.8051691959123558
+         1795639197.191 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=699.3776243330727
+         1795639202.222 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=27 pcmSeconds=62.13
+         1795639202.588 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=27 pcmSeconds=62.445 hz=612.8476041827017 confidence=0.695233219877045
+         1795639202.589 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=612.8476041827017
+         1795639228.982 30611 30611 I TomTuneTrace: PHYSICAL_END phase=ten_gentle operatorPlayed=10 operatorConfirmed=true
+         1795639316.952 30709 30709 I TomTuneTrace: PHYSICAL_BEGIN phase=five_firmer requestedPlayed=5 intervalApproxSeconds=2 sameLug=true reset=false cue=chat_no_synchronized_slots
+         1795639331.504 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=28 pcmSeconds=191.42
+         1795639331.855 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=28 pcmSeconds=191.735 reason=AmbiguousModes count=1
+         1795639334.343 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=29 pcmSeconds=194.255
+         1795639334.701 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=29 pcmSeconds=194.57 reason=AmbiguousModes count=1
+         1795639335.902 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=30 pcmSeconds=195.81
+         1795639336.269 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=30 pcmSeconds=196.125 reason=Noise count=1
+         1795639337.242 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=31 pcmSeconds=197.15
+         1795639337.595 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Rejected strike=31 pcmSeconds=197.465 reason=AmbiguousModes count=1
+         1795639339.263 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=32 pcmSeconds=199.165
+         1795639339.601 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=32 pcmSeconds=199.48 hz=491.909112736663 confidence=0.7109744224398264
+         1795639339.601 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=491.909112736663
+         1795639341.263 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=33 pcmSeconds=201.165
+         1795639341.596 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=33 pcmSeconds=201.48 hz=707.4895123401735 confidence=0.677267176671832
+         1795639341.597 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=707.4895123401735
+         1795639343.423 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=34 pcmSeconds=203.325
+         1795639343.755 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=34 pcmSeconds=203.64 hz=492.1615771898582 confidence=0.7216976737314827
+         1795639343.756 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=1 hz=492.1615771898582
+         1795639345.563 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=35 pcmSeconds=205.475
+         1795639345.924 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=35 pcmSeconds=205.79 hz=491.95380866375416 confidence=0.6461217491461942
+         1795639348.223 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Detected strike=36 pcmSeconds=208.13
+         1795639348.589 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 Estimate strike=36 pcmSeconds=208.445 hz=599.9919553814517 confidence=0.7635188642905204
+         1795639348.589 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=9 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=2 hz=599.9919553814517
+         1795639382.216 30734 30734 I TomTuneTrace: PHYSICAL_END phase=five_firmer operatorPlayed=unknown operatorReports=more_than_five
+         1795639455.134 30030 30030 I TomTuneTrace: LUG run=257475525594060 input=microphone session=1 generation=-1 head=BATTER pass=1 lug=1 SeriesReset reason=context_or_capture count=1
+         1795639460.424 30985 30985 I TomTuneTrace: PHYSICAL_SESSION_CLOSED abandoned=true kitsUnchanged=true physicalTomAvailable=false

@@ -1,5 +1,7 @@
 # Session physique unique — mesure près d’une vis
 
+**Session réalisée le 25 novembre 2026 :** voir le [rapport physique et ses limites](ESSAI-PHYSIQUE-2026-11-25.md). Les séries demandées ne se sont pas stabilisées ; aucun tom disponible. La procédure ci-dessous est conservée pour relier les consignes aux observations, sans demander une nouvelle session.
+
 Utiliser **un seul APK debug final** de la livraison, dont l’empreinte et le commit embarqué sont relevés. Mise à jour `adb install -r`, même identifiant `com.tomtune.app`, même certificat debug ; ne pas désinstaller. Le lancement normal doit utiliser le micro et ne montrer aucun bandeau « PCM injecté ». Aucun PCM n’est écrit sur disque.
 
 ## Commencer sur la caisse claire 14″

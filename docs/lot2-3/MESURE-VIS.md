@@ -1,5 +1,7 @@
 # Correction de la mesure près d’une vis — 25 novembre 2026
 
+**Mise à jour après livraison :** l’[essai physique](ESSAI-PHYSIQUE-2026-11-25.md) est désormais réalisé sur la caisse claire 14″. La mesure reste instable dans les deux séries demandées. Les mentions « non réalisé » ci-dessous décrivent l’état avant cet essai ; les résultats injectés restent distincts.
+
 ## Provenance
 
 [Départ](https://github.com/calabo-Act21/TomTune/commit/97dce457e11372f89de5d1a48c874cfbc4ba799f), snapshot complet du lot 2–3 + pilote photo non commité auparavant. L’ancien APK correspond au SHA-256 du journal d’installation du pilote ; son commit exact n’est pas prouvable. Voir [limites de provenance](DEPART-MESURE-VIS.md). Aucun merge dans main.
