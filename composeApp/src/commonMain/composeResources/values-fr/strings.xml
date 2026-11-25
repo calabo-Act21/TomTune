@@ -130,4 +130,9 @@
     <string name="tune_noise">Signal trop bruité</string>
     <string name="tune_ambiguous">Résonances impossibles à départager</string>
     <string name="tune_short">Frappe trop courte</string>
+    <string name="tune_next_lug">Suivant</string>
+    <string name="tune_stable_label">✓ Mesure stable</string>
+    <string name="tune_stable">✓ Mesure stable · %1$s Hz</string>
+    <string name="tune_previous_stable">Dernière mesure stable · %1$s Hz</string>
+    <string name="tune_detected_previous">Frappe captée · dernière lecture affichée</string>
 </resources>

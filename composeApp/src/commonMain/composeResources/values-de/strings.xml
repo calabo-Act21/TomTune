@@ -130,4 +130,9 @@
     <string name="tune_noise">Zu starkes Rauschen</string>
     <string name="tune_ambiguous">Resonanzen nicht unterscheidbar</string>
     <string name="tune_short">Anschlag zu kurz</string>
+    <string name="tune_next_lug">Weiter</string>
+    <string name="tune_stable_label">✓ Stabile Messung</string>
+    <string name="tune_stable">✓ Stabile Messung · %1$s Hz</string>
+    <string name="tune_previous_stable">Letzte stabile Messung · %1$s Hz</string>
+    <string name="tune_detected_previous">Schlag erfasst · vorheriger Messwert angezeigt</string>
 </resources>

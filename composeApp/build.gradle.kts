@@ -46,3 +46,20 @@ android.sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("ge
 tasks.named("preBuild").configure { dependsOn(prepareKitAssets) }
 
 compose.resources { packageOfResClass = "com.tomtune.app.resources" }
+
+// Identify future APKs directly. This contains Git metadata, never PCM or user data.
+val prepareBuildIdentity by tasks.registering {
+    val output = layout.buildDirectory.dir("generated/buildIdentity")
+    outputs.dir(output)
+    outputs.upToDateWhen { false }
+    doLast {
+        val sha = providers.exec { commandLine("git", "rev-parse", "HEAD") }.standardOutput.asText.get().trim()
+        val dirty = providers.exec { commandLine("git", "status", "--porcelain") }.standardOutput.asText.get().isNotBlank()
+        output.get().file("build-info.properties").asFile.apply {
+            parentFile.mkdirs()
+            writeText("sourceCommit=$sha\nworktreeDirty=$dirty\n")
+        }
+    }
+}
+android.sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/buildIdentity"))
+tasks.named("preBuild").configure { dependsOn(prepareBuildIdentity) }

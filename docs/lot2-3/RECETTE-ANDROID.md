@@ -1,46 +1,46 @@
-# Recette unique sur le Pixel — lot 2–3
+# Session physique unique — mesure près d’une vis
 
-## APK et état de départ
+Utiliser **un seul APK debug final** de la livraison, dont l’empreinte et le commit embarqué sont relevés. Mise à jour `adb install -r`, même identifiant `com.tomtune.app`, même certificat debug ; ne pas désinstaller. Le lancement normal doit utiliser le micro et ne montrer aucun bandeau « PCM injecté ». Aucun PCM n’est écrit sur disque.
 
-Utiliser uniquement l’APK final indiqué dans le compte rendu. Mise à jour `adb install -r`, même identifiant `com.tomtune.app`, certificat comparé au 1.1A installé. Ne pas désinstaller. Le mode de lancement normal utilise AndroidPcmSource ; le bandeau « PCM injecté » ne doit pas être présent pendant cet essai. Aucun son ni PCM n’est enregistré sur disque.
+## Commencer sur la caisse claire 14″
 
-Téléphone accessible : Pixel 9 Pro XL, Android 17 / API 37. Les vérifications automatisées sur émulateur et les signaux injectés ne constituent pas une validation acoustique de ce téléphone.
+1. Timbre débrayé, peau de résonance étouffée. Choisir une seule vis physique et placer la baguette à **2,5 cm du cercle**. Fixer le téléphone ; noter sa distance, l’orientation et le bruit ambiant.
+2. Depuis la fiche d’un tom, ouvrir une session temporaire de diagnostic. Le guidage produit reste réservé aux toms : ne pas appliquer à la caisse claire les conseils tirés de la cible de ce tom. Garder la même vis sélectionnée à l’écran et **ne pas appuyer sur « Suivant »** pendant les deux séries.
+3. Jouer **10 coups** à la baguette au même point, environ **toutes les deux secondes**, en comptant réellement les coups. Relever pour chacun détection, rejet et motif, Hz provisoires, confirmation éventuelle et nombre de coups avant **« Mesure stable »**. La vis reste sélectionnée et le micro reste actif après la confirmation.
+4. Refrapper un peu plus franchement, toujours sur la même vis, sans déplacer le micro. Chaque fréquence exploitable s’affiche en grand. Si elle contredit la série, la nouvelle lecture est provisoire, la dernière valeur stable reste en dessous et « Suivant » est désactivé. Une nouvelle série stable remplace le brouillon précédent. Si les deux modes sont ambigus, la frappe est non concluante et ne compte pas.
+5. Après stabilisation, appuyer une fois sur **« Suivant »** : seule cette action valide la mesure et avance d’une seule vis. Abandonner ensuite le diagnostic temporaire pour éviter toute mesure globale ou référence sur cet instrument.
 
-## Instrument disponible annoncé par le propriétaire
+## Métadonnées pendant cette même session
 
-**Caisse claire 14″, essai de la peau de frappe.** Le guidage dédié à la caisse claire reste hors lot. Cet instrument permet de vérifier le choix de fréquence, la répétabilité entre frappes et le cycle de capture du geste local ; il ne qualifie ni le profil des toms ni la mesure globale d’un tom avec deux peaux libres.
+Si le Pixel est relié en USB au Mac, lancer les commandes depuis le dépôt. Les scripts ne manipulent que les métadonnées logcat, aucune donnée audio. Remplacer `SERIAL` par le Pixel explicite, jamais l’émulateur.
 
-Pendant la même session d’essai :
+```sh
+python3 tools/capture_lug_session.py --adb /private/tmp/tomtune-tools/android-sdk/platform-tools/adb --serial SERIAL --output /private/tmp/tomtune-dix-coups.log --count 10 --interval 2
+python3 tools/summarize_lug_trace.py /private/tmp/tomtune-dix-coups.log
+python3 tools/capture_lug_session.py --adb /private/tmp/tomtune-tools/android-sdk/platform-tools/adb --serial SERIAL --output /private/tmp/tomtune-coups-francs.log --count 5 --interval 2
+python3 tools/summarize_lug_trace.py /private/tmp/tomtune-coups-francs.log
+```
 
-1. Ouvrir l’app hors ligne et retrouver les kits existants. Depuis la fiche d’un **tom**, démarrer une session temporaire pour accéder au geste local. La cible de ce tom sert seulement au fonctionnement de l’écran : **ne pas appliquer à la caisse claire les conseils d’accordage dérivés de cette cible**. Aucun accordage de caisse claire n’est ajouté à sa fiche.
-2. Débrayer le timbre de la caisse claire et étouffer la peau opposée. Placer le téléphone à distance fixe et noter cette distance. Frapper doucement plusieurs fois au même point près d’une seule vis, environ une fois par seconde, avec retour au calme. Observer détection, Hz provisoires, instabilité éventuelle puis confirmation unique. Relever la fréquence et le nombre de frappes. Une confirmation passe à la vis suivante du support de guidage ; sélectionner à nouveau la même vis à l’écran pour répéter le **même geste physique**.
-3. Envoyer brièvement l’app en arrière-plan au milieu d’une série. Vérifier l’arrêt de l’indicateur micro. Revenir : même étape, confirmations conservées, reprise explicite et nouvelle série. Comparer la fréquence à un accordeur indépendant si disponible et noter sa méthode ; à défaut, relever seulement la répétabilité.
-4. Revenir à la fiche avec « Abandonner ». Cet essai local ne doit enregistrer ni mesure globale ni référence. Fermer et rouvrir hors ligne, vérifier les kits et les anciennes valeurs.
+Le script annonce les coups après un délai de 3 secondes. Chaque créneau attendu s’étend de −1 à +1 seconde autour du top. `MissedExpected` signifie **aucune détection dans ce créneau**, à qualifier d’impact manqué seulement si l’opérateur confirme avoir frappé à ce top. Un coup décalé, un top omis, un changement de contexte ou des doubles détections exigent une annotation ; aucun nombre de coups physiques n’est inventé. Le résumé distingue `Detected`, `Rejected`/motif, `Estimate`/Hz, `SeriesReset`/motif, `Confirmed`/Hz/compte et `Next`. Sans série comptée, seules les détections observées sont comptées.
 
-Cette session est **à réaliser par le propriétaire**. Aucun résultat acoustique sur sa caisse claire n’est revendiqué pour le lot livré.
+Le log debug normal porte `input=microphone`. `input=injected` et le bandeau PCM sont réservés à l’émulateur. Le compteur de série est borné aux cinq dernières valeurs ; le **nombre de coups avant la première stabilité** se lit dans l’ordre des détections, rejets compris, plutôt que dans ce compteur après affinage.
 
-## Complément restant à valider sur un vrai tom
+## Si un tom est disponible pendant cette même session
 
-Quand un rack tom ou un floor tom est disponible, reprendre le parcours du brief en une séance : fiche et cible → tour de frappe (peau opposée étouffée) et nouvelle passe → tour de résonance (peau de frappe étouffée) → centre avec les deux peaux libres → comparaison et éventuelle correction des deux peaux → nouvelle mesure centrale → action de fin choisie → même fiche → relance hors ligne. Vérifier flèche, toucher et TalkBack sur les vis physiques correspondantes. Enregistrer la cible comme référence seulement si c’est l’intention du batteur.
+Sur un vrai tom, contrôler aussi le geste guidé près d’une vis sur la peau de frappe puis sur la peau de résonance : étouffer la peau opposée, vérifier le repère, les Hz, le maintien sur la même vis et l’avancement par un seul appui sur « Suivant ». Ce complément reste local ; aucune nouvelle recette du centre ou des références n’est demandée.
 
-Restent physiques : pertinence de la résonance choisie près d’une vis et au centre d’un vrai tom ; absence de confusion d’octave sur ses modes réels ; justesse face à un comparateur ; seuils 8/18 cents, conseils ±12 cents, seuil global ±20 cents et coefficients ×1,50/×1,85 ; cadence et latence en acoustique réelle ; confort tactile et TalkBack sur le téléphone. Ces paramètres sont des hypothèses debug.
+## Relevé physique
 
-## Relevé à remplir pendant l’essai
-
-| Donnée | Relevé |
+| Donnée | Relevé réel |
 |---|---|
-| Modèle / Android / APK SHA-256 | Pixel 9 Pro XL / Android 17 (API 37) / empreinte de la livraison |
-| Instrument, diamètre, vis, peaux, timbre | Caisse claire 14″ ; compléter vis et peaux ; timbre débrayé |
-| Pièce, bruit, position et distance du téléphone | À relever |
-| Geste local : fréquence confirmée et répétitions | À relever |
-| Nombre de frappes, délai, rejets et séries instables | À relever |
-| Fausses validations ou sauts d’octave | À relever |
-| Accordeur de comparaison, méthode, valeur, écart en cents | À relever si disponible |
-| Arrière-plan, reprise, abandon et kits conservés | À relever |
-| Cycle complet sur tom | Non réalisé : tom indisponible annoncé |
+| Pixel / Android / APK / sourceCommit | À relever |
+| Instrument / peau / timbre / nombre de vis | Caisse claire 14″, compléter ; timbre débrayé |
+| Position du micro / distance / bruit / point à 2,5 cm | À relever |
+| Série 1 : coups réellement joués / détections / manqués / rejets | 10 demandés ; résultats à relever |
+| Série 1 : Hz par coup / coups avant « Mesure stable » | À relever |
+| Série 2 plus franche : coups / rejets / Hz / reconfirmation | À relever |
+| Mode ambigu : retour non concluant et absence de comptage | À relever si rencontré |
+| Aucun avancement avant appui ; un seul après appui | À relever |
+| Tom disponible et geste des deux peaux | À relever, sinon non réalisé |
 
-## Retour déclaré et validation visuelle suivante
-
-Le propriétaire indique avoir testé avec succès le parcours floor 16″ / huit vis sur sa caisse claire 14″ ayant le même nombre de vis. Aucun relevé chiffré n’a été récupéré ; conserver ce retour comme validation qualitative du fonctionnement local.
-
-La prochaine validation demandée porte sur **l’affichage Android du pilote floor 16″ / huit vis** : photo entière, numéros supérieurs au-dessus du fût, numéros inférieurs sur la peau au-dessus des vis, numéro actif en bordeaux et consigne sous l’image. Toucher successivement une vis du haut et du bas ; numéro et flèche doivent suivre la même vis. L’application peut rester micro en pause pour ce contrôle. La clôture du lot attend le retour du propriétaire sur ce pilote ; la déclinaison des autres photos utilise le même composant ensuite.
+À ce stade, le retour utilisateur disponible concerne l’**ancien APK** : frappes souvent répétées et lectures environ 350–700 Hz. Aucune série de dix coups avec le nouvel APK n’a encore été observée. Les injections et l’émulateur ne remplacent pas ce relevé.

@@ -13,6 +13,7 @@ data class AnalysisParameters(
     val rearmSeconds: Double = 0.40,
     val clippingLevel: Float = 0.985f,
     val clippingFraction: Double = 0.005,
+    val requireDecayEvidenceForOctaves: Boolean = false,
 )
 
 /** Streaming mono analyzer; call from one analysis worker, never the render thread. No target bias. */
@@ -91,16 +92,17 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
         val byLatePower = tracks.sortedByDescending { it.last().power }
         var winner = byLatePower.first()
         if (byLatePower.size > 1) {
-            // A resolved lower component plus an exact octave supports a lower period, even
-            // when the octave is stronger. Never invent a subharmonic without a spectral peak.
             val lower = byLatePower.minBy { it.first().hz }
             val harmonicFamily = byLatePower.all { track ->
                 val ratio = track.first().hz / lower.first().hz
                 abs(1200 * log2(ratio / ratio.roundToInt().coerceAtLeast(1))) < 20
             }
-            if (harmonicFamily) winner = lower
-            else {
-                // A faster dying transient resonance is distinguishable from a long-lived mode.
+            if (!parameters.requireDecayEvidenceForOctaves && harmonicFamily) {
+                winner = lower // retain lot 0 behavior for gestures outside this local correction
+            } else {
+                // Octave-related peaks are competing modes too. A resolved lower peak alone
+                // does not establish that the upper mode is its harmonic. Require independent
+                // decay evidence in either direction; otherwise this strike is inconclusive.
                 val persistence = byLatePower.sortedByDescending { it.last().power / it.first().power }
                 val best = persistence[0]
                 val other = persistence[1]

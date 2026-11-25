@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         model = ViewModelProvider(this, object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = KitModel(applicationContext,
-                applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0 && intent.getBooleanExtra("tomtune.injectedPcm", false)) as T
+                applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0 && intent.getBooleanExtra("tomtune.injectedPcm", false), intent.getBooleanExtra("tomtune.lugProbe", false)) as T
         })[KitModel::class.java]
         model.source.request = { token ->
             if (permissionToken == null) { permissionToken = token; permission.launch(Manifest.permission.RECORD_AUDIO) }
@@ -80,16 +80,20 @@ private class PermissionPcmSource(private val context: android.content.Context) 
     override fun stop() { serial++; pending = null; microphone.stop() }
 }
 
-private class KitModel(context: android.content.Context, val injectedPcm: Boolean) : ViewModel() {
+private class KitModel(context: android.content.Context, val injectedPcm: Boolean, lugProbe: Boolean) : ViewModel() {
+    private val traceRun = System.nanoTime()
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val catalogue = readVisualCatalogue(context)
     val controller = KitController(AndroidKitRepository(context), KitRules({ UUID.randomUUID().toString() }, catalogue), scope)
     val source = PermissionPcmSource(context)
     val tuning: TuningController
     init {
-        val input = if (injectedPcm) DiagnosticPcmSource(scope) { diagnosticFrequency() } else source
+        val input = if (injectedPcm) DiagnosticPcmSource(scope, { diagnosticFrequency() }, lugProbe) else source
         tuning = TuningController(input, scope, { session, reference ->
             controller.finishTuning(session, reference, System.currentTimeMillis())
+        }, trace = { detail ->
+            if (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0)
+                android.util.Log.i("TomTuneTrace", "LUG run=$traceRun input=${if (injectedPcm) "injected" else "microphone"} $detail")
         })
     }
     private fun diagnosticFrequency(): Double {

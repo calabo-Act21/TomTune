@@ -1,0 +1,2 @@
+PASS lot0 b519e98 -> baseline 97dce45: Android audio capture and common audio files identical.
+PASS frozen lot0 analyzer test snapshot: original bytes except package + attribution comments; not in Android source sets.

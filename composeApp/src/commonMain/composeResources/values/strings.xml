@@ -130,4 +130,9 @@
     <string name="tune_noise">Signal too noisy</string>
     <string name="tune_ambiguous">Resonances cannot be distinguished</string>
     <string name="tune_short">Strike too short</string>
+    <string name="tune_next_lug">Next</string>
+    <string name="tune_stable_label">✓ Stable measurement</string>
+    <string name="tune_stable">✓ Stable measurement · %1$s Hz</string>
+    <string name="tune_previous_stable">Last stable measurement · %1$s Hz</string>
+    <string name="tune_detected_previous">Strike captured · previous reading shown</string>
 </resources>

@@ -21,8 +21,9 @@ def selected(index,root):
  assert len(active)==1 and active[0].get('content-desc','').startswith(f'Vis {index} ·'),[n.attrib for n in active]
 selected(1,root);ui.shot('floor16-vis1')
 ui.click('Vis 4 ·',True);root=pause();selected(4,root);ui.shot('floor16-vis4')
-ui.click('Reprendre la mesure');time.sleep(3.5);root=pause()
-selected(5,root)
+ui.click('Reprendre la mesure');time.sleep(3.5);root=ui.dump()
+selected(4,root)
+ui.click('Suivant');root=pause();selected(5,root)
 assert any(n.get('content-desc','').startswith('Vis 4 · Mesure confirmée')for n in root.iter('node')),ui.strings(root)
 ui.shot('floor16-vis5-apres-confirmation')
 try:
@@ -33,4 +34,4 @@ finally:
  ui.adb('shell','settings','put','system','font_scale','1.0');ui.dump()
 ui.adb('shell','input','keyevent','KEYCODE_BACK');ui.dump();ui.click('Abandonner')
 assert ui.snapshot()==before
-print('PASS: floor16/8 photo pilot; 8 unique accessible lugs, select upper/lower heads, one PCM confirmation 4 -> 5, large text and scroll; original snapshot preserved; font restored.')
+print('PASS: floor16/8 photo pilot; 8 unique accessible lugs, select upper/lower heads, PCM stable draft remains on 4, Next advances 4 -> 5, large text and scroll; original snapshot preserved; font restored.')

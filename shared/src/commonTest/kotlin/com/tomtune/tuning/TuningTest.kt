@@ -37,9 +37,10 @@ class TuningTest {
         return id
     }
     private fun confirm(c: TuningController, hz: Double) { repeat(3) { hit(c, hz) } }
+    private fun confirmAndNext(c: TuningController, hz: Double) { confirm(c, hz); c.nextLug() }
     private fun toCenter(c: TuningController) {
         c.start()
-        repeat(2) { repeat(c.state.value!!.drum.lugs!!) { confirm(c, c.state.value!!.localTarget) }; c.nextHead() }
+        repeat(2) { repeat(c.state.value!!.drum.lugs!!) { confirmAndNext(c, c.state.value!!.localTarget) }; c.nextHead() }
         assertEquals(TuningStage.CENTER, c.state.value!!.stage)
     }
 
@@ -74,28 +75,67 @@ class TuningTest {
         repeat(10) { c.acceptEvent(original, StrikeEvent.Estimate(id, .32, 165.0, .9)) }
         assertEquals(1, c.state.value!!.seriesCount)
         c.acceptEvent(original, StrikeEvent.Estimate(999, .32, 165.0, .9)) // no detection
-        c.acceptEvent(original, StrikeEvent.Detected(10_000, 0.0))
+        val oldStrike = ++strike
+        c.acceptEvent(original, StrikeEvent.Detected(oldStrike, 0.0))
         c.selectLug(3)
-        c.acceptEvent(original, StrikeEvent.Estimate(10_000, .32, 165.0, .9))
+        c.acceptEvent(original, StrikeEvent.Estimate(oldStrike, .32, 165.0, .9))
         assertEquals(0, c.state.value!!.seriesCount)
         val current = c.captureGeneration
-        c.acceptEvent(current, StrikeEvent.Detected(10_001, 0.0))
-        c.acceptEvent(current, StrikeEvent.Rejected(10_001, .32, RejectionReason.Clipped))
+        val rejectedStrike = ++strike
+        c.acceptEvent(current, StrikeEvent.Detected(rejectedStrike, 0.0))
+        c.acceptEvent(current, StrikeEvent.Rejected(rejectedStrike, .32, RejectionReason.Clipped))
         assertEquals(Feedback.REJECTED, c.state.value!!.feedback)
         assertEquals(0, c.state.value!!.seriesCount)
         confirm(c, 165.0)
+        assertEquals(3, c.state.value!!.lug)
+        assertTrue(c.state.value!!.measurements.isEmpty())
+        c.nextLug()
         assertEquals(4, c.state.value!!.lug)
         assertEquals(mapOf(3 to 165.0), c.state.value!!.measurements)
         repeat(3) { hit(c, 165.0, current) }
         assertEquals(4, c.state.value!!.lug)
-        c.selectLug(3); confirm(c, 166.0)
+        c.selectLug(3); confirmAndNext(c, 166.0)
         assertEquals(166.0, c.state.value!!.measurements[3])
         assertEquals(4, c.state.value!!.lug)
         c.dispose()
     }
 
+    @Test fun stableDraftRefinesThenContradictionReconfirmsWithoutMovingAndRejectedStrikesDoNotCount() = runTest {
+        val source = Source(); val trace = mutableListOf<String>()
+        val c = TuningController(source, backgroundScope, { _, _ -> true }, StandardTestDispatcher(testScheduler), trace::add)
+        c.open(kit(), drum); c.start()
+        c.nextLug(); assertEquals(0, c.state.value!!.lug)
+        hit(c, 350.0); assertEquals(350.0, c.state.value!!.provisionalHz)
+        assertFalse(c.state.value!!.readyForNext)
+        hit(c, 350.1); hit(c, 350.2)
+        assertEquals(350.1, c.state.value!!.stableHz); assertTrue(c.state.value!!.readyForNext)
+        val generation = c.captureGeneration
+        assertTrue(source.running); assertTrue(c.state.value!!.measurements.isEmpty())
+        hit(c, 350.3); assertEquals(350.2, c.state.value!!.stableHz)
+        val id = ++strike
+        c.acceptEvent(generation, StrikeEvent.Detected(id, 0.0))
+        assertEquals(350.3, c.state.value!!.provisionalHz) // keep the last reading while analyzing the next attack
+        c.acceptEvent(generation, StrikeEvent.Rejected(id, .32, RejectionReason.Noise))
+        assertEquals(4, c.state.value!!.seriesCount); assertTrue(c.state.value!!.readyForNext)
+        hit(c, 700.0)
+        assertEquals(700.0, c.state.value!!.provisionalHz)
+        assertEquals(350.2, c.state.value!!.stableHz)
+        assertFalse(c.state.value!!.readyForNext); assertEquals(1, c.state.value!!.seriesCount)
+        c.nextLug(); assertEquals(0, c.state.value!!.lug)
+        hit(c, 700.1); hit(c, 700.2)
+        assertEquals(700.1, c.state.value!!.stableHz); assertTrue(c.state.value!!.readyForNext)
+        assertEquals(generation, c.captureGeneration); assertTrue(source.running)
+        assertTrue(c.state.value!!.measurements.isEmpty()); c.nextLug()
+        assertEquals(1, c.state.value!!.lug); assertEquals(mapOf(0 to 700.1), c.state.value!!.measurements)
+        c.nextLug(); assertEquals(1, c.state.value!!.lug)
+        assertTrue(trace.any { "SeriesReset reason=incompatible" in it })
+        assertTrue(trace.any { "Rejected" in it && "reason=Noise" in it })
+        assertTrue(trace.any { "Confirmed" in it && "hz=700.1" in it })
+        c.dispose()
+    }
+
     @Test fun interruptionAndPcmGapRequireExplicitResumeWithEmptySeries() = runTest {
-        val source = Source(); val c = controller(source); c.open(kit(), drum); c.start(); confirm(c, 165.0)
+        val source = Source(); val c = controller(source); c.open(kit(), drum); c.start(); confirmAndNext(c, 165.0)
         hit(c, 165.0); val old = source.sink; val gen = c.captureGeneration
         c.interrupt(); assertFalse(source.running); assertEquals(1, c.state.value!!.lug)
         assertEquals(mapOf(0 to 165.0), c.state.value!!.measurements)
@@ -106,7 +146,7 @@ class TuningTest {
         source.sink.onPcm(PcmBlock(FloatArray(480), 48000, 960)); runCurrent()
         assertEquals(CaptureIssue.Overrun, c.state.value!!.issue)
         assertFalse(source.running); assertEquals(0, c.state.value!!.seriesCount)
-        c.resume(); confirm(c, 165.0); assertEquals(2, c.state.value!!.lug)
+        c.resume(); confirmAndNext(c, 165.0); assertEquals(2, c.state.value!!.lug)
         c.dispose()
     }
 
@@ -147,7 +187,7 @@ class TuningTest {
         assertEquals(-49, cents(120.0, c.state.value!!.targetHz).roundToInt())
         assertEquals(151, cents(120.0, drum.reference!!.hz).roundToInt())
         c.correct(); assertNull(c.state.value!!.centerHz); c.finish(false); runCurrent(); assertEquals(0, repo.writes)
-        repeat(2) { repeat(6) { confirm(c, c.state.value!!.localTarget) }; c.nextHead() }
+        repeat(2) { repeat(6) { confirmAndNext(c, c.state.value!!.localTarget) }; c.nextHead() }
         confirm(c, 120.0)
         repo.fail = true; c.finish(false); runCurrent()
         assertEquals(120.0, c.state.value!!.centerHz); assertTrue(c.state.value!!.writeFailed)
@@ -164,7 +204,7 @@ class TuningTest {
         assertEquals(TargetOrigin.MANUAL, repo.disk.active!!.drums.first().reference!!.origin)
         assertEquals(120.0, repo.disk.active!!.drums.first().lastMeasurement!!.hz)
         c.open(repo.disk.active!!, repo.disk.active!!.drums.first()); c.start()
-        repeat(6) { confirm(c, 180.0) }; c.repeatHead()
+        repeat(6) { confirmAndNext(c, 180.0) }; c.repeatHead()
         assertTrue(c.state.value!!.measurements.isEmpty()); assertEquals(2, c.state.value!!.pass)
         val disk = repo.disk; c.requestAbandon(); c.abandon(); runCurrent(); assertNull(c.state.value); assertEquals(disk, repo.disk)
         val reopened = KitController(repo, KitRules({ "x" }, VisualCatalogue(emptyList(), emptyMap())), backgroundScope)
@@ -199,6 +239,49 @@ class TuningTest {
         assertFalse(controller.finishTuning(incompatible.copy(drum = measured.copy(id = "deleted")), true, 2))
     }
 
+    @Test fun tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence() = runTest {
+        for (midi in listOf(28, 60)) {
+            val source = Source(); val trace = mutableListOf<String>()
+            val c = TuningController(source, backgroundScope, { _, _ -> true }, StandardTestDispatcher(testScheduler), trace::add)
+            c.open(kit(), drum); c.chooseMidi(midi); c.start()
+            suspend fun pcm(hz: Double, amplitude: Double, secondAmplitude: Double = 0.0) {
+                repeat(200) { block ->
+                    val samples = FloatArray(80) { i ->
+                        val t = (block * 80 + i) / 8000.0 - .2
+                        if (t < 0) 0f else (exp(-7 * t) * (amplitude * sin(2 * PI * hz * t) +
+                            secondAmplitude * sin(2 * PI * 700 * t))).toFloat()
+                    }
+                    source.sink.onPcm(PcmBlock(samples, 8000, source.frame)); source.frame += 80; runCurrent()
+                }
+            }
+            repeat(10) { index ->
+                pcm(350.0, .025)
+                assertEquals(0, c.state.value!!.lug); assertTrue(source.running)
+                assertEquals(index >= 2, c.state.value!!.readyForNext)
+            }
+            assertEquals(10, trace.count { " Detected " in it })
+            assertEquals(0, trace.count { " Rejected " in it })
+            assertEquals(350.0, c.state.value!!.stableHz!!, .5)
+            assertTrue(trace.first { " Confirmed " in it }.contains("strike=3"))
+            val oldStable = c.state.value!!.stableHz
+            pcm(350.0, .25, .35) // two persistent octave modes: detected but inconclusive
+            assertEquals(Feedback.REJECTED, c.state.value!!.feedback)
+            assertEquals(RejectionReason.AmbiguousModes, c.state.value!!.rejection)
+            assertEquals(5, c.state.value!!.seriesCount); assertEquals(oldStable, c.state.value!!.stableHz)
+            pcm(700.0, .35)
+            assertEquals(700.0, c.state.value!!.provisionalHz!!, .5)
+            assertEquals(oldStable, c.state.value!!.stableHz); assertFalse(c.state.value!!.readyForNext)
+            c.nextLug(); assertEquals(0, c.state.value!!.lug)
+            pcm(700.0, .35); pcm(700.0, .35)
+            assertEquals(700.0, c.state.value!!.stableHz!!, .5)
+            assertTrue(c.state.value!!.readyForNext); assertTrue(source.running)
+            println("PCM lug targetMidi=$midi: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next")
+            c.nextLug(); assertEquals(1, c.state.value!!.lug)
+            assertEquals(700.0, c.state.value!!.measurements.getValue(0), .5)
+            c.dispose()
+        }
+    }
+
     /** Full source -> ordered worker -> analyzer -> stability -> both heads -> correction -> disk.
      * These are synthetic decaying PCM strikes, never microphone or acoustic validation. */
     @Test fun completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget() = runTest {
@@ -225,6 +308,10 @@ class TuningTest {
             val head = c.state.value!!.head
             repeat(3) { lug ->
                 repeat(3) { strike(c.state.value!!.localTarget) }
+                assertEquals(lug, c.state.value!!.lug)
+                assertTrue(source.running)
+                assertTrue(c.state.value!!.readyForNext)
+                c.nextLug()
                 assertTrue(c.state.value!!.measurements.containsKey(lug), "head=$head lug=$lug ${c.state.value}")
             }
             assertEquals(TuningStage.ADVICE, c.state.value!!.stage); assertFalse(source.running)

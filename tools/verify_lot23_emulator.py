@@ -31,6 +31,18 @@ def wait_text(label, timeout=70):
   adb('shell','input','swipe','800','2000','800','850','300')
   time.sleep(2)
  raise AssertionError((label,strings(root)))
+def measure_head(count=6):
+ for _ in range(count):
+  deadline=time.monotonic()+15
+  while time.monotonic()<deadline:
+   root=dump()
+   parents={c:p for p in root.iter('node')for c in p}
+   buttons=[n for n in root.iter('node')if n.get('text')=='Suivant' and parents[n].get('enabled')=='true']
+   if buttons:break
+   adb('shell','input','swipe','800','2000','800','850','250');time.sleep(.5)
+  else:raise AssertionError(('Next never enabled',strings(root)))
+  click('Suivant')
+ return wait_text('Vérifier cette peau')
 def snapshot():return json.loads(adb('shell','run-as','com.tomtune.app','cat','files/kits-v1.json'))
 def run_recipe():
  adb('shell','am','force-stop','com.tomtune.app')
@@ -45,12 +57,12 @@ def run_recipe():
  adb('shell','input','keyevent','KEYCODE_HOME');time.sleep(2)
  adb('shell','am','start','-n','com.tomtune.app/.MainActivity')
  click('Reprendre la mesure')
- wait_text('Vérifier cette peau');shot('frappe-conseils')
- click('Vérifier cette peau');wait_text('Vérifier cette peau')
- click('Passer à la peau de résonance');wait_text('Vérifier cette peau');shot('resonance-conseils')
+ measure_head();shot('frappe-conseils')
+ click('Vérifier cette peau');measure_head()
+ click('Passer à la peau de résonance');measure_head();shot('resonance-conseils')
  click('Vérifier le fût entier');wait_text('Terminer');shot('centre-avant-correction')
- click('Refaire une passe de correction');wait_text('Vérifier cette peau')
- click('Passer à la peau de résonance');wait_text('Vérifier cette peau')
+ click('Refaire une passe de correction');measure_head()
+ click('Passer à la peau de résonance');measure_head()
  click('Vérifier le fût entier');wait_text('Terminer');shot('centre-final')
  click('Terminer');time.sleep(.5)
  root=dump();assert any('Dernière mesure globale' in s for s in strings(root)),strings(root)

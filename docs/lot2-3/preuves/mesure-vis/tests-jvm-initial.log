@@ -1,0 +1,176 @@
+Downloading https://services.gradle.org/distributions/gradle-8.14.3-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%..............100%
+
+Welcome to Gradle 8.14.3!
+
+Here are the highlights of this release:
+ - Java 24 support
+ - GraalVM Native Image toolchain selection
+ - Enhancements to test reporting
+ - Build Authoring improvements
+
+For more details see https://docs.gradle.org/8.14.3/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+
+> Task :shared:compileKotlinJvm
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/commonMain/kotlin/com/tomtune/audio/CaptureLock.kt:4:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/jvmMain/kotlin/com/tomtune/audio/CaptureLock.kt:2:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:jvmJar
+> Task :shared:compileTestKotlinJvm
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses
+
+> Task :shared:jvmTest FAILED
+
+LugReplayTest[jvm] > samePcmAcrossLot0Lot23BaselineAndCorrection350700AndWeakStrikes[jvm] STANDARD_OUT
+    REPLAY case=350 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=350 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=350 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=700 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=ambiguous350700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00126298229236]
+    REPLAY case=ambiguous350700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00126298229236]
+    REPLAY case=ambiguous350700 version=fixed expected=1 detected=1 missed=0 rejected=[AmbiguousModes] hz=[]
+    REPLAY case=supported350 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported350 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported350 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[700.0010946170377]
+    REPLAY case=supported700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[700.0010946170377]
+    REPLAY case=supported700 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[700.0010946170377]
+    REPLAY case=tenWeak version=lot0 expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenWeak version=lot23baseline expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenWeak version=fixed expected=10 detected=10 missed=0 rejected=[] hz=[350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757]
+    REPLAY case=tenBelowThreshold version=lot0 expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenBelowThreshold version=lot23baseline expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenBelowThreshold version=fixed expected=10 detected=0 missed=10 rejected=[] hz=[]
+
+LugReplayTest[jvm] > samePcmAcrossLot0Lot23BaselineAndCorrection350700AndWeakStrikes[jvm] PASSED
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] STANDARD_OUT
+    WAV impact=1.0s detected=1.005s result=1.32s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=1.9s detected=1.905s result=2.22s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=2.8s detected=2.805s result=3.12s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=3.7s detected=3.705s result=4.02s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=4.6s detected=4.605s result=4.92s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=5.5s detected=5.505s result=5.82s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=6.4s detected=6.405s result=6.72s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=7.3s detected=7.305s result=7.62s Hz=192.00143622934743 errorCents=0.01295020754582655
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantInharmonicTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > callbackChunkingDoesNotChangeResults[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > distantFrequencyIsNotPulledToDisplayed185HzTarget[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > rearmingAfterQuietAllowsAnotherStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > silenceNeverDetected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > detectionPublishedBeforeEnoughDataForEstimate[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > native44100RateIsRespected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > clippingRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantNearOctaveTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > highFrequencyDoesNotAliasIntoAcceptedBand[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > deterministicBroadbandNoiseNeverAccepted[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > ambiguousPersistentModesAreRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > exactOctaveWithoutIndependentModeEvidenceIsInconclusive[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > simpleAndDecayNotSecondStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > noInventedSubharmonicWithoutSupportingPeak[jvm] PASSED
+
+KitPresentationTest[jvm] > loadingClearsPriorFrameAndFailureFallsBackToRequestedKit[jvm] PASSED
+
+KitPresentationTest[jvm] > lateDecodeCannotReplaceCurrentImageOrIdsEvenForSameVisualKey[jvm] PASSED
+
+KitPresentationTest[jvm] > frontPolygonWinsAndTouchesFollowActualFitRectangle[jvm] PASSED
+
+KitWorkflowTest[jvm] > countDiameterAndManualLugsKeepStableDrums[jvm] PASSED
+
+KitWorkflowTest[jvm] > namesCancelEditSelectAndReload[jvm] PASSED
+
+KitWorkflowTest[jvm] > failedSaveRetainsDraftAndDoubleTapWritesOnce[jvm] PASSED
+
+KitWorkflowTest[jvm] > unreadableStoreNeverOpensAnEmptyEditableState[jvm] PASSED
+
+KitWorkflowTest[jvm] > exactFocusAndLetterboxZones[jvm] PASSED
+
+LugLayoutTest[jvm] > invalidSelectionCannotReachNativeRenderer[jvm] PASSED
+
+LugLayoutTest[jvm] > canonicalIndicesAndSymmetry[jvm] PASSED
+
+MeasurementControllerTest[jvm] > overrunIsExplicitAndDoesNotPublishStaleFrequency[jvm] PASSED
+
+MeasurementControllerTest[jvm] > resumeAcceptsFreshStrikeAndIgnoresOldSessionFault[jvm] PASSED
+
+MeasurementControllerTest[jvm] > backgroundAlwaysReleasesCaptureEvenAfterOverrun[jvm] PASSED
+
+MeasurementControllerTest[jvm] > stoppingDiscardsQueuedPcmAndLateCallbacks[jvm] PASSED
+
+LugPresentationTest[jvm] > numbersAreAboveHeadsAndBothTargetsSelectTheSameLugAfterScaling[jvm] PASSED
+
+TuningTest[jvm] > synchronousPermissionFailureStaleRepliesAndAllCaptureIssuesCanResume[jvm] PASSED
+
+TuningTest[jvm] > configurationGuardAndDiameterResetPreserveReferencesOnRename[jvm] PASSED
+
+TuningTest[jvm] > repeatCorrectionAbandonAndBothFinishActionsPreserveTheRightData[jvm] PASSED
+
+TuningTest[jvm] > duplicatesLateEventsManualSelectionAndRejectionsNeverSkipALug[jvm] FAILED
+    java.lang.AssertionError at TuningTest.kt:71
+
+TuningTest[jvm] > diagramHasTheRealLugCountClockwiseWithLogoBetweenTheTopPair[jvm] PASSED
+
+TuningTest[jvm] > quickLongIncoherentSeriesAndMedian[jvm] PASSED
+
+TuningTest[jvm] > exactReferenceOutsideManualSelectorIsRetainedUntilAnExplicitChoice[jvm] PASSED
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] STANDARD_OUT
+    PCM injected complete: floor 18 / 3 lugs, repeat + both heads + 42 Hz center + correction + 120 Hz center; target=65.40639132514966; saved=120.00072026598241
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] PASSED
+
+TuningTest[jvm] > interruptionAndPcmGapRequireExplicitResumeWithEmptySeries[jvm] PASSED
+
+TuningTest[jvm] > stableDraftRefinesThenContradictionReconfirmsWithoutMovingAndRejectedStrikesDoNotCount[jvm] PASSED
+
+TuningTest[jvm] > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence[jvm] STANDARD_OUT
+    PCM lug targetMidi=28: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+    PCM lug targetMidi=60: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+
+TuningTest[jvm] > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence[jvm] PASSED
+
+44 tests completed, 1 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':shared:jvmTest'.
+> There were failing tests. See the report at: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/build/reports/tests/jvmTest/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 2m 59s
+5 actionable tasks: 5 executed

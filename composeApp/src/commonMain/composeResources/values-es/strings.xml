@@ -130,4 +130,9 @@
     <string name="tune_noise">Señal con demasiado ruido</string>
     <string name="tune_ambiguous">Resonancias indistinguibles</string>
     <string name="tune_short">Golpe demasiado corto</string>
+    <string name="tune_next_lug">Siguiente</string>
+    <string name="tune_stable_label">✓ Medición estable</string>
+    <string name="tune_stable">✓ Medición estable · %1$s Hz</string>
+    <string name="tune_previous_stable">Última medición estable · %1$s Hz</string>
+    <string name="tune_detected_previous">Golpe captado · se muestra la lectura anterior</string>
 </resources>

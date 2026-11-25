@@ -92,3 +92,7 @@ Vérifications de la révision :
 - APK pilote installé avec `-r` sur Pixel, certificat identique et snapshot strictement identique avant/après. [Installation](preuves/photo-pilote/installation-pixel.log). Le nouveau SHA-256 remplace celui de la première livraison dans `preuves/apk.sha256`. Le chemin et la commande d’installation restent les mêmes.
 
 **État : validation visuelle du propriétaire en attente sur son Android.** Ce contrôle du pilote n’est pas une nouvelle recette acoustique ni une validation de la résonance ou du centre d’un vrai tom. Aucun push ni PR.
+
+## Correction près d’une vis — 25 novembre 2026
+
+Le retour utilisateur suivant signale des lectures autour de 350–700 Hz et des refrappes fréquentes sur caisse claire 14″. La correction et la validation ciblée sont décrites dans [MESURE-VIS.md](MESURE-VIS.md), qui remplace les anciennes consignes d’avancement automatique et de recette. Les deux peaux avancent désormais uniquement avec « Suivant ». Le nouvel essai physique de dix coups n’a pas encore été observé ; aucun résultat injecté ou d’émulateur n’est présenté comme acoustique.

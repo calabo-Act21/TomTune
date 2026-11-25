@@ -45,78 +45,83 @@ fun DrumMeasurements(drum: Drum) {
 @Composable
 fun TuningScreen(s: TuningState, controller: TuningController,
     headVisual: @Composable (TuningState, (Int) -> Unit) -> Unit = { state, select -> LugDiagram(state, select) }) {
-    Column(Modifier.fillMaxSize().padding(horizontal = 16.dp).verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        TextButton(onClick = controller::requestAbandon, enabled = !s.saving) { Text("← " + stringResource(Res.string.tune_back_drum)) }
-        Text(drumLabel(s.drum), style = MaterialTheme.typography.titleLarge)
-        when (s.stage) {
-            TuningStage.TARGET -> {
-                Text(stringResource(Res.string.tune_global_target), style = MaterialTheme.typography.headlineSmall)
-                var expanded by remember { mutableStateOf(false) }
-                Box {
-                    OutlinedButton(onClick = { expanded = true }, modifier = Modifier.fillMaxWidth()) { Text(pitchLabel(s.targetHz) + " ▾") }
-                    DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
-                        (28..60).forEach { midi -> DropdownMenuItem(text = { Text(pitchLabel(midiHz(midi))) },
-                            onClick = { expanded = false; controller.chooseMidi(midi) }) }
+    Column(Modifier.fillMaxSize().padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            TextButton(onClick = controller::requestAbandon, enabled = !s.saving) { Text("← " + stringResource(Res.string.tune_back_drum)) }
+            Text(drumLabel(s.drum), style = MaterialTheme.typography.titleLarge)
+            when (s.stage) {
+                TuningStage.TARGET -> {
+                    Text(stringResource(Res.string.tune_global_target), style = MaterialTheme.typography.headlineSmall)
+                    var expanded by remember { mutableStateOf(false) }
+                    Box {
+                        OutlinedButton(onClick = { expanded = true }, modifier = Modifier.fillMaxWidth()) { Text(pitchLabel(s.targetHz) + " ▾") }
+                        DropdownMenu(expanded, onDismissRequest = { expanded = false }) {
+                            (28..60).forEach { midi -> DropdownMenuItem(text = { Text(pitchLabel(midiHz(midi))) },
+                                onClick = { expanded = false; controller.chooseMidi(midi) }) }
+                        }
                     }
+                    Text(stringResource(if (s.fromReference) Res.string.tune_source_reference else if (s.targetOrigin == TargetOrigin.SUGGESTED)
+                        Res.string.tune_source_suggestion else Res.string.tune_source_manual))
+                    Text(stringResource(Res.string.tune_profile))
+                    Text(stringResource(Res.string.tune_setup_help))
+                    Button(onClick = controller::start, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_begin_batter)) }
                 }
-                Text(stringResource(if (s.fromReference) Res.string.tune_source_reference else if (s.targetOrigin == TargetOrigin.SUGGESTED)
-                    Res.string.tune_source_suggestion else Res.string.tune_source_manual))
-                Text(stringResource(Res.string.tune_profile))
-                Text(stringResource(Res.string.tune_setup_help))
-                Button(onClick = controller::start, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_begin_batter)) }
-            }
-            TuningStage.LUGS, TuningStage.ADVICE -> {
-                Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter else Res.string.tune_resonant), style = MaterialTheme.typography.headlineSmall)
-                Text(stringResource(Res.string.tune_pass, s.pass))
-                Text(stringResource(Res.string.tune_local_target, formatHz(s.localTarget)))
-                headVisual(s, controller::selectLug)
-                if (s.stage == TuningStage.LUGS) Text(stringResource(Res.string.tune_active_lug, s.lug + 1, s.drum.lugs!!),
-                    style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-                Text(stringResource(if (s.stage == TuningStage.ADVICE) Res.string.tune_advice_help else
-                    if (s.head == Head.BATTER) Res.string.tune_batter_help else Res.string.tune_resonant_help))
-                Text(stringResource(Res.string.tune_progress, s.measurements.size, s.drum.lugs!!))
-                if (s.stage == TuningStage.LUGS) {
+                TuningStage.LUGS, TuningStage.ADVICE -> {
+                    Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_batter else Res.string.tune_resonant), style = MaterialTheme.typography.headlineSmall)
+                    Text(stringResource(Res.string.tune_pass, s.pass))
+                    Text(stringResource(Res.string.tune_local_target, formatHz(s.localTarget)))
+                    headVisual(s, controller::selectLug)
+                    if (s.stage == TuningStage.LUGS) Text(stringResource(Res.string.tune_active_lug, s.lug + 1, s.drum.lugs!!),
+                        style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                    Text(stringResource(if (s.stage == TuningStage.ADVICE) Res.string.tune_advice_help else
+                        if (s.head == Head.BATTER) Res.string.tune_batter_help else Res.string.tune_resonant_help))
+                    Text(stringResource(Res.string.tune_progress, s.measurements.size, s.drum.lugs!!))
+                    if (s.stage == TuningStage.ADVICE) {
+                        s.measurements.toSortedMap().forEach { (index, hz) ->
+                            val a = advice(hz, s.localTarget, s.profile.localToleranceCents)
+                            Text(stringResource(Res.string.tune_lug_value, index + 1, formatHz(hz)) + " · " + adviceLabel(a), color = adviceColor(a))
+                        }
+                        Button(onClick = controller::repeatHead, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_repeat_head)) }
+                        OutlinedButton(onClick = controller::nextHead, modifier = Modifier.fillMaxWidth()) {
+                            Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_next_resonant else Res.string.tune_next_center))
+                        }
+                    }
+                    s.lastConfirmed?.let { (index, hz) -> Text(stringResource(Res.string.tune_confirmed_lug, index + 1, formatHz(hz)),
+                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
+                }
+                TuningStage.CENTER -> {
+                    Text(stringResource(Res.string.tune_next_center), style = MaterialTheme.typography.headlineSmall)
+                    Text(stringResource(Res.string.tune_center_help))
+                    Text(stringResource(Res.string.tune_global_target) + " · " + pitchLabel(s.targetHz))
                     CaptureFeedback(s, controller)
-                } else {
-                    s.measurements.toSortedMap().forEach { (index, hz) ->
-                        val a = advice(hz, s.localTarget, s.profile.localToleranceCents)
-                        Text(stringResource(Res.string.tune_lug_value, index + 1, formatHz(hz)) + " · " + adviceLabel(a), color = adviceColor(a))
-                    }
-                    Button(onClick = controller::repeatHead, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_repeat_head)) }
-                    OutlinedButton(onClick = controller::nextHead, modifier = Modifier.fillMaxWidth()) {
-                        Text(stringResource(if (s.head == Head.BATTER) Res.string.tune_next_resonant else Res.string.tune_next_center))
-                    }
-                }
-                s.lastConfirmed?.let { (index, hz) -> Text(stringResource(Res.string.tune_confirmed_lug, index + 1, formatHz(hz)),
-                    modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
-            }
-            TuningStage.CENTER -> {
-                Text(stringResource(Res.string.tune_next_center), style = MaterialTheme.typography.headlineSmall)
-                Text(stringResource(Res.string.tune_center_help))
-                Text(stringResource(Res.string.tune_global_target) + " · " + pitchLabel(s.targetHz))
-                CaptureFeedback(s, controller)
-                val hz = s.centerHz
-                if (hz != null) {
-                    Text(pitchLabel(hz), style = MaterialTheme.typography.headlineMedium)
-                    val reference = s.drum.reference
-                    Text(stringResource(if (reference?.hz == s.targetHz) Res.string.tune_delta_common else Res.string.tune_delta_target,
-                        formatHz(cents(hz, s.targetHz))))
-                    if (reference == null) Text(stringResource(Res.string.tune_no_reference))
-                    else if (reference.hz != s.targetHz) Text(stringResource(Res.string.tune_delta_reference, formatHz(cents(hz, reference.hz))))
-                    if (s.needsCorrection) Text(stringResource(Res.string.tune_correction_help))
-                    OutlinedButton(onClick = controller::remeasureCenter, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_remeasure)) }
-                    if (s.needsCorrection) OutlinedButton(onClick = controller::correct, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_correct)) }
-                    if (s.writeFailed) Text(stringResource(Res.string.kit_write_error), color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-                    Button(onClick = { controller.finish(false) }, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_finish)) }
-                    OutlinedButton(onClick = { controller.finish(true) }, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) {
-                        Text(stringResource(Res.string.tune_finish_reference) + "\n" + pitchLabel(s.targetHz))
+                    val hz = s.centerHz
+                    if (hz != null) {
+                        Text(pitchLabel(hz), style = MaterialTheme.typography.headlineMedium)
+                        val reference = s.drum.reference
+                        Text(stringResource(if (reference?.hz == s.targetHz) Res.string.tune_delta_common else Res.string.tune_delta_target,
+                            formatHz(cents(hz, s.targetHz))))
+                        if (reference == null) Text(stringResource(Res.string.tune_no_reference))
+                        else if (reference.hz != s.targetHz) Text(stringResource(Res.string.tune_delta_reference, formatHz(cents(hz, reference.hz))))
+                        if (s.needsCorrection) Text(stringResource(Res.string.tune_correction_help))
+                        OutlinedButton(onClick = controller::remeasureCenter, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_remeasure)) }
+                        if (s.needsCorrection) OutlinedButton(onClick = controller::correct, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_correct)) }
+                        if (s.writeFailed) Text(stringResource(Res.string.kit_write_error), color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+                        Button(onClick = { controller.finish(false) }, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_finish)) }
+                        OutlinedButton(onClick = { controller.finish(true) }, enabled = !s.saving, modifier = Modifier.fillMaxWidth()) {
+                            Text(stringResource(Res.string.tune_finish_reference) + "\n" + pitchLabel(s.targetHz))
+                        }
                     }
                 }
             }
+            Spacer(Modifier.height(16.dp))
         }
-        Spacer(Modifier.height(16.dp))
+        if (s.stage == TuningStage.LUGS) {
+            // Keep the live reading and explicit action visible while the drum/guide scrolls.
+            CaptureFeedback(s, controller)
+            Button(onClick = controller::nextLug, enabled = s.readyForNext && s.listening && !s.abandonDialog,
+                modifier = Modifier.fillMaxWidth()) { Text(stringResource(Res.string.tune_next_lug)) }
+        }
     }
     if (s.abandonDialog) AlertDialog(onDismissRequest = controller::cancelAbandon,
         title = { Text(stringResource(Res.string.tune_abandon_title)) }, text = { Text(stringResource(Res.string.tune_abandon_body)) },
@@ -137,18 +142,22 @@ private fun CaptureFeedback(s: TuningState, controller: TuningController) {
                 CaptureIssue.Overrun -> Res.string.overrun
                 null -> when(s.feedback) {
                     Feedback.WAITING -> Res.string.waiting
-                    Feedback.DETECTED -> Res.string.detected
+                    Feedback.DETECTED -> if (s.provisionalHz != null) Res.string.tune_detected_previous else Res.string.detected
                     Feedback.PROVISIONAL -> Res.string.provisional
                     Feedback.REJECTED -> Res.string.rejected
                     Feedback.UNSTABLE -> Res.string.tune_unstable
-                    Feedback.CONFIRMED -> Res.string.tune_confirmed
+                    Feedback.CONFIRMED -> if (s.stage == TuningStage.LUGS) Res.string.tune_stable_label else Res.string.tune_confirmed
                 }
             }))
             if (s.provisionalHz != null) {
-                Text(if (s.stage == TuningStage.CENTER) pitchLabel(s.provisionalHz!!) else "${formatHz(s.provisionalHz!!)} Hz", style = MaterialTheme.typography.headlineSmall)
+                Text(if (s.stage == TuningStage.CENTER) pitchLabel(s.provisionalHz!!) else "${formatHz(s.provisionalHz!!)} Hz", style = MaterialTheme.typography.displaySmall)
                 Text(stringResource(Res.string.tune_delta_target, formatHz(cents(s.provisionalHz!!,
                     if (s.stage == TuningStage.CENTER) s.targetHz else s.localTarget))))
                 Text(stringResource(Res.string.tune_series, s.seriesCount))
+            }
+            if (s.stage == TuningStage.LUGS && s.stableHz != null) {
+                Text(stringResource(if (s.readyForNext) Res.string.tune_stable else Res.string.tune_previous_stable,
+                    formatHz(s.stableHz!!)), style = MaterialTheme.typography.titleMedium)
             }
             if (s.feedback == Feedback.REJECTED) {
                 s.rejection?.let { reason -> Text(stringResource(when (reason) {

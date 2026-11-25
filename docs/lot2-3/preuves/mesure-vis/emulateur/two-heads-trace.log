@@ -1,0 +1,163 @@
+--------- beginning of main
+         1795634441.561  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634441.681  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=1 pcmSeconds=0.105
+         1795634442.165  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=1 pcmSeconds=0.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634444.243  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=2 pcmSeconds=2.105
+         1795634444.641  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=2 pcmSeconds=2.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634446.986  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=3 pcmSeconds=4.105
+         1795634448.511  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=3 pcmSeconds=4.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634448.511  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=3 hz=350.00127810506757 count=3
+         1795634450.716  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=4 pcmSeconds=6.105
+         1795634451.119  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=4 pcmSeconds=6.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634451.120  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=4 hz=350.00127810506757 count=4
+         1795634453.306  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=5 pcmSeconds=8.105
+         1795634453.696  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=5 pcmSeconds=8.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634453.696  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=5 hz=350.00127810506757 count=5
+         1795634456.363  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=6 pcmSeconds=10.105
+         1795634456.729  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=6 pcmSeconds=10.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634456.729  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=6 hz=350.00127810506757 count=5
+         1795634458.739  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=7 pcmSeconds=12.105
+         1795634459.124  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=7 pcmSeconds=12.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634459.124  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=7 hz=350.00127810506757 count=5
+         1795634461.184  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=8 pcmSeconds=14.105
+         1795634461.561  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=8 pcmSeconds=14.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634461.561  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=8 hz=350.00127810506757 count=5
+         1795634463.581  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=9 pcmSeconds=16.105
+         1795634463.958  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=9 pcmSeconds=16.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634463.958  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=9 hz=350.00127810506757 count=5
+         1795634465.982  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=10 pcmSeconds=18.105
+         1795634466.365  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=10 pcmSeconds=18.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634466.365  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=10 hz=350.00127810506757 count=5
+         1795634468.390  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=11 pcmSeconds=20.105
+         1795634468.769  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Rejected strike=11 pcmSeconds=20.42 reason=AmbiguousModes count=5
+         1795634470.829  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=12 pcmSeconds=22.105
+         1795634471.191  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=12 pcmSeconds=22.42 hz=700.0010954589254 confidence=0.9478771280265791
+         1795634471.191  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 SeriesReset reason=incompatible previousCount=5 hz=700.0010954589254
+         1795634473.243  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=13 pcmSeconds=24.105
+         1795634473.585  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=13 pcmSeconds=24.42 hz=700.0010954589254 confidence=0.9478771280265791
+         1795634475.574  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=14 pcmSeconds=26.105
+         1795634475.959  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=14 pcmSeconds=26.42 hz=700.0010954589254 confidence=0.9478771280265791
+         1795634475.960  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=14 hz=700.0010954589254 count=3
+         1795634478.037  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=15 pcmSeconds=28.105
+         1795634478.392  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=15 pcmSeconds=28.42 hz=700.0010954589254 confidence=0.9478771280265791
+         1795634478.392  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=15 hz=700.0010954589254 count=4
+         1795634480.209  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Next hz=700.0010954589254
+         1795634480.209  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=-1 head=BATTER pass=1 lug=1 SeriesReset reason=context_or_capture count=4
+         1795634480.210  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634480.449  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=1 pcmSeconds=0.105
+         1795634480.831  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=1 pcmSeconds=0.42 hz=350.00127810506757 confidence=0.9508190642553731
+         1795634482.528  7301  7301 I TomTuneTrace: LUG run=491708702734 input=injected session=1 generation=-1 head=BATTER pass=1 lug=2 SeriesReset reason=context_or_capture count=1
+         1795634493.496  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634493.607  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=1 pcmSeconds=0.105
+         1795634494.007  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=1 pcmSeconds=0.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634494.801  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=2 pcmSeconds=1.105
+         1795634495.173  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=2 pcmSeconds=1.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634496.095  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=3 pcmSeconds=2.105
+         1795634496.451  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=3 pcmSeconds=2.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634496.451  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=3 hz=110.12525637493286 count=3
+         1795634497.284  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=4 pcmSeconds=3.105
+         1795634497.667  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=4 pcmSeconds=3.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634497.667  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=4 hz=110.12525637493286 count=4
+         1795634498.484  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=5 pcmSeconds=4.105
+         1795634498.852  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=5 pcmSeconds=4.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634498.853  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=5 hz=110.12525637493286 count=5
+         1795634499.665  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Detected strike=6 pcmSeconds=5.105
+         1795634500.043  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Estimate strike=6 pcmSeconds=5.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634500.043  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Confirmed strike=6 hz=110.12525637493286 count=5
+         1795634500.399  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=3 head=BATTER pass=1 lug=1 Next hz=110.12525637493286
+         1795634500.400  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=BATTER pass=1 lug=1 SeriesReset reason=context_or_capture count=5
+         1795634500.400  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634500.570  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=1 pcmSeconds=0.105
+         1795634500.938  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=1 pcmSeconds=0.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634501.778  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=2 pcmSeconds=1.105
+         1795634502.152  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=2 pcmSeconds=1.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634503.103  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=3 pcmSeconds=2.105
+         1795634503.481  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=3 pcmSeconds=2.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634503.481  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Confirmed strike=3 hz=110.12525637493286 count=3
+         1795634504.301  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=4 pcmSeconds=3.105
+         1795634504.671  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=4 pcmSeconds=3.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634504.671  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Confirmed strike=4 hz=110.12525637493286 count=4
+         1795634505.508  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=5 pcmSeconds=4.105
+         1795634505.885  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=5 pcmSeconds=4.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634505.885  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Confirmed strike=5 hz=110.12525637493286 count=5
+         1795634506.720  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Detected strike=6 pcmSeconds=5.105
+         1795634507.098  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Estimate strike=6 pcmSeconds=5.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634507.098  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Confirmed strike=6 hz=110.12525637493286 count=5
+         1795634507.472  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=6 head=BATTER pass=1 lug=2 Next hz=110.12525637493286
+         1795634507.473  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=BATTER pass=1 lug=2 SeriesReset reason=context_or_capture count=5
+         1795634507.473  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634507.612  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=1 pcmSeconds=0.105
+         1795634507.982  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=1 pcmSeconds=0.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634508.843  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=2 pcmSeconds=1.105
+         1795634509.215  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=2 pcmSeconds=1.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634510.102  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=3 pcmSeconds=2.105
+         1795634510.490  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=3 pcmSeconds=2.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634510.490  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Confirmed strike=3 hz=110.12525637493286 count=3
+         1795634511.345  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=4 pcmSeconds=3.105
+         1795634511.725  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=4 pcmSeconds=3.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634511.725  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Confirmed strike=4 hz=110.12525637493286 count=4
+         1795634512.550  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=5 pcmSeconds=4.105
+         1795634512.936  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=5 pcmSeconds=4.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634512.937  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Confirmed strike=5 hz=110.12525637493286 count=5
+         1795634513.762  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Detected strike=6 pcmSeconds=5.105
+         1795634514.142  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Estimate strike=6 pcmSeconds=5.42 hz=110.12525637493286 confidence=0.9481903707024968
+         1795634514.142  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Confirmed strike=6 hz=110.12525637493286 count=5
+         1795634514.415  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=9 head=BATTER pass=1 lug=3 Next hz=110.12525637493286
+         1795634514.415  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=BATTER pass=1 lug=3 SeriesReset reason=context_or_capture count=5
+         1795634518.475  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634518.593  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=1 pcmSeconds=0.105
+         1795634518.971  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=1 pcmSeconds=0.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634519.783  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=2 pcmSeconds=1.105
+         1795634520.149  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=2 pcmSeconds=1.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634521.052  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=3 pcmSeconds=2.105
+         1795634521.421  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=3 pcmSeconds=2.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634521.421  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Confirmed strike=3 hz=135.81941463100978 count=3
+         1795634522.289  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=4 pcmSeconds=3.105
+         1795634522.680  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=4 pcmSeconds=3.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634522.680  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Confirmed strike=4 hz=135.81941463100978 count=4
+         1795634523.501  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=5 pcmSeconds=4.105
+         1795634523.881  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=5 pcmSeconds=4.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634523.881  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Confirmed strike=5 hz=135.81941463100978 count=5
+         1795634524.719  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Detected strike=6 pcmSeconds=5.105
+         1795634525.105  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Estimate strike=6 pcmSeconds=5.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634525.105  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Confirmed strike=6 hz=135.81941463100978 count=5
+         1795634525.352  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=13 head=RESONANT pass=1 lug=1 Next hz=135.81941463100978
+         1795634525.353  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=RESONANT pass=1 lug=1 SeriesReset reason=context_or_capture count=5
+         1795634525.353  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634525.526  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=1 pcmSeconds=0.105
+         1795634525.907  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=1 pcmSeconds=0.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634526.759  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=2 pcmSeconds=1.105
+         1795634527.145  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=2 pcmSeconds=1.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634528.062  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=3 pcmSeconds=2.105
+         1795634528.429  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=3 pcmSeconds=2.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634528.429  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Confirmed strike=3 hz=135.81941463100978 count=3
+         1795634529.266  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=4 pcmSeconds=3.105
+         1795634529.651  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=4 pcmSeconds=3.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634529.651  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Confirmed strike=4 hz=135.81941463100978 count=4
+         1795634530.471  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=5 pcmSeconds=4.105
+         1795634530.857  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=5 pcmSeconds=4.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634530.857  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Confirmed strike=5 hz=135.81941463100978 count=5
+         1795634531.671  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Detected strike=6 pcmSeconds=5.105
+         1795634532.046  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Estimate strike=6 pcmSeconds=5.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634532.046  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Confirmed strike=6 hz=135.81941463100978 count=5
+         1795634532.319  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=16 head=RESONANT pass=1 lug=2 Next hz=135.81941463100978
+         1795634532.320  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=RESONANT pass=1 lug=2 SeriesReset reason=context_or_capture count=5
+         1795634532.320  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 CaptureStart minHz=55.0 maxHz=900.0 onsetRms=0.01
+         1795634532.467  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=1 pcmSeconds=0.105
+         1795634532.830  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=1 pcmSeconds=0.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634533.713  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=2 pcmSeconds=1.105
+         1795634534.084  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=2 pcmSeconds=1.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634534.988  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=3 pcmSeconds=2.105
+         1795634535.373  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=3 pcmSeconds=2.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634535.373  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Confirmed strike=3 hz=135.81941463100978 count=3
+         1795634536.223  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=4 pcmSeconds=3.105
+         1795634536.599  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=4 pcmSeconds=3.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634536.599  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Confirmed strike=4 hz=135.81941463100978 count=4
+         1795634537.436  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=5 pcmSeconds=4.105
+         1795634537.821  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=5 pcmSeconds=4.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634537.821  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Confirmed strike=5 hz=135.81941463100978 count=5
+         1795634538.649  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Detected strike=6 pcmSeconds=5.105
+         1795634539.031  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Estimate strike=6 pcmSeconds=5.42 hz=135.81941463100978 confidence=0.9466057042029464
+         1795634539.031  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Confirmed strike=6 hz=135.81941463100978 count=5
+         1795634539.220  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=19 head=RESONANT pass=1 lug=3 Next hz=135.81941463100978
+         1795634539.220  7862  7862 I TomTuneTrace: LUG run=543780869175 input=injected session=1 generation=-1 head=RESONANT pass=1 lug=3 SeriesReset reason=context_or_capture count=5
