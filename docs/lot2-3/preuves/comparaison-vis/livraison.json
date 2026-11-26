@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "78ccc89806ebd899be4c5296818c2226c60d9c5b",
+  "worktreeDirty": false,
+  "apkPath": "composeApp/build/outputs/apk/debug/composeApp-debug.apk",
+  "sha256": "d52725c1067ae03aa886e52b28737bbffcaf15ab00f4b7c3b0c64bd6d428fe0a",
+  "sizeBytes": 161902585,
+  "branch": "codex/lot2-3-android",
+  "baseTestedApkCommit": "f19bcbb5e3ec1f1b1981ed29d056d379674c7b57",
+  "reportStartCommit": "7750a2253eddec857cc786d15dc168aaf731bf8f",
+  "physicalPixelSession": "not_started_awaiting_user_go_ahead",
+  "pcmPersisted": false,
+  "deliveryCount": 1
+}

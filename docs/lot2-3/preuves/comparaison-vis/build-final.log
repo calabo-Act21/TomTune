@@ -1,0 +1,383 @@
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:jvmProcessResources NO-SOURCE
+> Task :shared:processJvmMainResources SKIPPED
+> Task :shared:jvmTestProcessResources NO-SOURCE
+> Task :shared:processJvmTestResources SKIPPED
+> Task :shared:preBuild UP-TO-DATE
+> Task :shared:preDebugBuild UP-TO-DATE
+> Task :shared:generateDebugResValues UP-TO-DATE
+> Task :shared:generateDebugResources UP-TO-DATE
+> Task :shared:packageDebugResources UP-TO-DATE
+> Task :shared:parseDebugLocalResources UP-TO-DATE
+> Task :shared:generateDebugRFile UP-TO-DATE
+> Task :shared:javaPreCompileDebug UP-TO-DATE
+> Task :shared:preDebugUnitTestBuild UP-TO-DATE
+> Task :shared:generateDebugUnitTestStubRFile UP-TO-DATE
+> Task :shared:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :composeApp:kmpPartiallyResolvedDependenciesChecker
+> Task :composeApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:convertXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidMain NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidMain NO-SOURCE
+> Task :composeApp:convertXmlValueResourcesForCommonMain UP-TO-DATE
+> Task :composeApp:copyNonXmlValueResourcesForCommonMain NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonMain UP-TO-DATE
+> Task :composeApp:generateResourceAccessorsForCommonMain UP-TO-DATE
+> Task :composeApp:generateActualResourceCollectorsForAndroidMain UP-TO-DATE
+> Task :composeApp:generateComposeResClass UP-TO-DATE
+> Task :composeApp:generateExpectResourceCollectorsForCommonMain UP-TO-DATE
+> Task :composeApp:convertXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidDebug NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidDebug NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidDebug NO-SOURCE
+> Task :composeApp:prepareBuildIdentity
+> Task :composeApp:prepareKitAssets UP-TO-DATE
+> Task :composeApp:preBuild
+> Task :composeApp:preDebugBuild
+> Task :shared:writeDebugAarMetadata UP-TO-DATE
+> Task :composeApp:checkDebugAarMetadata UP-TO-DATE
+> Task :composeApp:generateDebugResValues UP-TO-DATE
+> Task :composeApp:mapDebugSourceSetPaths UP-TO-DATE
+> Task :composeApp:generateDebugResources UP-TO-DATE
+> Task :composeApp:mergeDebugResources UP-TO-DATE
+> Task :composeApp:packageDebugResources UP-TO-DATE
+> Task :composeApp:parseDebugLocalResources UP-TO-DATE
+> Task :composeApp:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :composeApp:extractDeepLinksDebug UP-TO-DATE
+> Task :shared:extractDeepLinksDebug UP-TO-DATE
+> Task :shared:processDebugManifest UP-TO-DATE
+> Task :composeApp:processDebugMainManifest UP-TO-DATE
+> Task :composeApp:processDebugManifest UP-TO-DATE
+> Task :composeApp:processDebugManifestForPackage UP-TO-DATE
+> Task :shared:compileDebugLibraryResources UP-TO-DATE
+> Task :composeApp:processDebugResources UP-TO-DATE
+> Task :composeApp:javaPreCompileDebug UP-TO-DATE
+> Task :composeApp:convertXmlValueResourcesForAndroidUnitTest NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidUnitTest NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidUnitTest NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidUnitTest NO-SOURCE
+> Task :composeApp:convertXmlValueResourcesForAndroidUnitTestDebug NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForAndroidUnitTestDebug NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForAndroidUnitTestDebug NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForAndroidUnitTestDebug NO-SOURCE
+> Task :composeApp:convertXmlValueResourcesForCommonTest NO-SOURCE
+> Task :composeApp:copyNonXmlValueResourcesForCommonTest NO-SOURCE
+> Task :composeApp:prepareComposeResourcesTaskForCommonTest NO-SOURCE
+> Task :composeApp:generateResourceAccessorsForCommonTest NO-SOURCE
+> Task :composeApp:preDebugUnitTestBuild
+> Task :composeApp:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :composeApp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :composeApp:mergeDebugShaders UP-TO-DATE
+> Task :composeApp:compileDebugShaders NO-SOURCE
+> Task :composeApp:copyDebugComposeResourcesToAndroidAssets UP-TO-DATE
+> Task :composeApp:debugAssetsCopyForAGP NO-SOURCE
+> Task :composeApp:generateDebugAssets UP-TO-DATE
+> Task :shared:mergeDebugShaders UP-TO-DATE
+> Task :shared:compileDebugShaders NO-SOURCE
+> Task :shared:debugAssetsCopyForAGP NO-SOURCE
+> Task :shared:generateDebugAssets UP-TO-DATE
+> Task :shared:mergeDebugAssets UP-TO-DATE
+> Task :composeApp:mergeDebugAssets
+> Task :composeApp:desugarDebugFileDependencies UP-TO-DATE
+> Task :composeApp:compressDebugAssets
+> Task :composeApp:checkDebugDuplicateClasses UP-TO-DATE
+> Task :composeApp:mergeExtDexDebug UP-TO-DATE
+> Task :composeApp:mergeDebugJniLibFolders UP-TO-DATE
+> Task :shared:mergeDebugJniLibFolders UP-TO-DATE
+> Task :shared:mergeDebugNativeLibs NO-SOURCE
+> Task :shared:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :composeApp:mergeDebugNativeLibs UP-TO-DATE
+> Task :composeApp:stripDebugDebugSymbols UP-TO-DATE
+> Task :composeApp:validateSigningDebug UP-TO-DATE
+> Task :composeApp:writeDebugAppMetadata UP-TO-DATE
+> Task :composeApp:writeDebugSigningConfigVersions UP-TO-DATE
+
+> Task :shared:compileKotlinJvm
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/commonMain/kotlin/com/tomtune/audio/CaptureLock.kt:4:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/jvmMain/kotlin/com/tomtune/audio/CaptureLock.kt:2:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:compileJvmMainJava NO-SOURCE
+> Task :shared:jvmMainClasses
+> Task :shared:jvmJar
+> Task :shared:compileTestKotlinJvm UP-TO-DATE
+> Task :shared:compileJvmTestJava NO-SOURCE
+> Task :shared:jvmTestClasses UP-TO-DATE
+
+> Task :shared:compileDebugKotlinAndroid
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/androidMain/kotlin/com/tomtune/audio/CaptureLock.kt:2:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///Users/camlaborde/Workspace/TomTune/TomTune/shared/src/commonMain/kotlin/com/tomtune/audio/CaptureLock.kt:4:10 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:jvmTest
+
+LugReplayTest[jvm] > localNative48000KeepsHighModeAndRejectsAmbiguityAndDetectsWeakStrike[jvm] PASSED
+
+LugReplayTest[jvm] > localSensitivityStillRejectsNoiseClippingAndSilence[jvm] PASSED
+
+LugReplayTest[jvm] > samePcmAcrossLot0Lot23BaselineAndCorrection350700AndWeakStrikes[jvm] STANDARD_OUT
+    REPLAY case=350 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=350 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=350 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[350.00127810037276]
+    REPLAY case=700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=700 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[700.0010954594032]
+    REPLAY case=ambiguous350700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00126298229236]
+    REPLAY case=ambiguous350700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00126298229236]
+    REPLAY case=ambiguous350700 version=fixed expected=1 detected=1 missed=0 rejected=[AmbiguousModes] hz=[]
+    REPLAY case=supported350 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported350 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported350 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[350.00127668699764]
+    REPLAY case=supported700 version=lot0 expected=1 detected=1 missed=0 rejected=[] hz=[350.00109945703196]
+    REPLAY case=supported700 version=lot23baseline expected=1 detected=1 missed=0 rejected=[] hz=[350.00109945703196]
+    REPLAY case=supported700 version=fixed expected=1 detected=1 missed=0 rejected=[] hz=[700.0010929621925]
+    REPLAY case=tenWeak version=lot0 expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenWeak version=lot23baseline expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenWeak version=fixed expected=10 detected=10 missed=0 rejected=[] hz=[350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757, 350.00127810506757]
+    REPLAY case=tenBelowThreshold version=lot0 expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenBelowThreshold version=lot23baseline expected=10 detected=0 missed=10 rejected=[] hz=[]
+    REPLAY case=tenBelowThreshold version=fixed expected=10 detected=0 missed=10 rejected=[] hz=[]
+
+LugReplayTest[jvm] > samePcmAcrossLot0Lot23BaselineAndCorrection350700AndWeakStrikes[jvm] PASSED
+
+ModeComparisonTest[jvm] > historicalParametersMatchFrozenLot0Exactly[jvm] PASSED
+
+ModeComparisonTest[jvm] > resetAndDiscontinuityDoNotBridgeCaptures[jvm] PASSED
+
+ModeComparisonTest[jvm] > harmonicChoiceAlsoMatchesFrozenLot0AndComparisonDoesNotBiasProduct[jvm] PASSED
+
+ModeComparisonTest[jvm] > samePcmNativeAndPairedAt48000And8000[jvm] STANDARD_OUT
+    COMPARISON injected rate=48000 impacts=20 currentDetected=20 estimates=16 rejected=4 maxBlockMs=24.169708
+    COMPARISON injected rate=8000 impacts=20 currentDetected=20 estimates=16 rejected=4 maxBlockMs=8.706292
+
+ModeComparisonTest[jvm] > samePcmNativeAndPairedAt48000And8000[jvm] PASSED
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] STANDARD_OUT
+    WAV impact=1.0s detected=1.005s result=1.32s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=1.9s detected=1.905s result=2.22s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=2.8s detected=2.805s result=3.12s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=3.7s detected=3.705s result=4.02s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=4.6s detected=4.605s result=4.92s Hz=178.00096720499008 errorCents=0.009407043044712004
+    WAV impact=5.5s detected=5.505s result=5.82s Hz=192.00143622934743 errorCents=0.01295020754582655
+    WAV impact=6.4s detected=6.405s result=6.72s Hz=184.99852824022 errorCents=-0.013772815018002324
+    WAV impact=7.3s detected=7.305s result=7.62s Hz=192.00143622934743 errorCents=0.01295020754582655
+
+ReferenceWavTest[jvm] > eightAnnotatedImpactsUseTheStreamingAnalyzer[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantInharmonicTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > exactOctaveHasResolvedLowerPeriod[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > callbackChunkingDoesNotChangeResults[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > distantFrequencyIsNotPulledToDisplayed185HzTarget[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > rearmingAfterQuietAllowsAnotherStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > silenceNeverDetected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > detectionPublishedBeforeEnoughDataForEstimate[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > native44100RateIsRespected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > clippingRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > dominantNearOctaveTransient[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > highFrequencyDoesNotAliasIntoAcceptedBand[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > deterministicBroadbandNoiseNeverAccepted[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > ambiguousPersistentModesAreRejected[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > simpleAndDecayNotSecondStrike[jvm] PASSED
+
+TomStrikeAnalyzerTest[jvm] > noInventedSubharmonicWithoutSupportingPeak[jvm] PASSED
+
+KitPresentationTest[jvm] > loadingClearsPriorFrameAndFailureFallsBackToRequestedKit[jvm] PASSED
+
+KitPresentationTest[jvm] > lateDecodeCannotReplaceCurrentImageOrIdsEvenForSameVisualKey[jvm] PASSED
+
+KitPresentationTest[jvm] > frontPolygonWinsAndTouchesFollowActualFitRectangle[jvm] PASSED
+
+KitWorkflowTest[jvm] > countDiameterAndManualLugsKeepStableDrums[jvm] PASSED
+
+KitWorkflowTest[jvm] > namesCancelEditSelectAndReload[jvm] PASSED
+
+KitWorkflowTest[jvm] > failedSaveRetainsDraftAndDoubleTapWritesOnce[jvm] PASSED
+
+KitWorkflowTest[jvm] > unreadableStoreNeverOpensAnEmptyEditableState[jvm] PASSED
+
+KitWorkflowTest[jvm] > exactFocusAndLetterboxZones[jvm] PASSED
+
+LugLayoutTest[jvm] > invalidSelectionCannotReachNativeRenderer[jvm] PASSED
+
+LugLayoutTest[jvm] > canonicalIndicesAndSymmetry[jvm] PASSED
+
+MeasurementControllerTest[jvm] > overrunIsExplicitAndDoesNotPublishStaleFrequency[jvm] PASSED
+
+MeasurementControllerTest[jvm] > resumeAcceptsFreshStrikeAndIgnoresOldSessionFault[jvm] PASSED
+
+MeasurementControllerTest[jvm] > backgroundAlwaysReleasesCaptureEvenAfterOverrun[jvm] PASSED
+
+MeasurementControllerTest[jvm] > stoppingDiscardsQueuedPcmAndLateCallbacks[jvm] PASSED
+
+LugPresentationTest[jvm] > numbersAreAboveHeadsAndBothTargetsSelectTheSameLugAfterScaling[jvm] PASSED
+
+TuningTest[jvm] > synchronousPermissionFailureStaleRepliesAndAllCaptureIssuesCanResume[jvm] PASSED
+
+TuningTest[jvm] > configurationGuardAndDiameterResetPreserveReferencesOnRename[jvm] PASSED
+
+TuningTest[jvm] > repeatCorrectionAbandonAndBothFinishActionsPreserveTheRightData[jvm] PASSED
+
+TuningTest[jvm] > duplicatesLateEventsManualSelectionAndRejectionsNeverSkipALug[jvm] PASSED
+
+TuningTest[jvm] > diagramHasTheRealLugCountClockwiseWithLogoBetweenTheTopPair[jvm] PASSED
+
+TuningTest[jvm] > quickLongIncoherentSeriesAndMedian[jvm] PASSED
+
+TuningTest[jvm] > exactReferenceOutsideManualSelectorIsRetainedUntilAnExplicitChoice[jvm] PASSED
+
+TuningTest[jvm] > debugBlockResetKeepsSameLugAndReferenceButInvalidatesStableDraftAndLateEvents[jvm] PASSED
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] STANDARD_OUT
+    PCM injected complete: floor 18 / 3 lugs, repeat + both heads + 42 Hz center + correction + 120 Hz center; target=65.40639132514966; saved=120.00072026598241
+
+TuningTest[jvm] > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget[jvm] PASSED
+
+TuningTest[jvm] > interruptionAndPcmGapRequireExplicitResumeWithEmptySeries[jvm] PASSED
+
+TuningTest[jvm] > stableDraftRefinesThenContradictionReconfirmsWithoutMovingAndRejectedStrikesDoNotCount[jvm] PASSED
+
+TuningTest[jvm] > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence[jvm] STANDARD_OUT
+    PCM lug targetMidi=28: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+    PCM lug targetMidi=60: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+
+TuningTest[jvm] > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence[jvm] PASSED
+
+> Task :shared:compileDebugJavaWithJavac NO-SOURCE
+> Task :shared:processDebugJavaRes UP-TO-DATE
+> Task :shared:bundleLibRuntimeToJarDebug
+> Task :shared:bundleLibCompileToJarDebug
+> Task :shared:bundleLibRuntimeToDirDebug
+> Task :shared:compileDebugUnitTestKotlinAndroid UP-TO-DATE
+> Task :shared:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :shared:processDebugUnitTestJavaRes UP-TO-DATE
+
+> Task :shared:testDebugUnitTest
+
+TomStrikeAnalyzerTest > dominantInharmonicTransient PASSED
+
+TomStrikeAnalyzerTest > exactOctaveHasResolvedLowerPeriod PASSED
+
+TomStrikeAnalyzerTest > callbackChunkingDoesNotChangeResults PASSED
+
+TomStrikeAnalyzerTest > distantFrequencyIsNotPulledToDisplayed185HzTarget PASSED
+
+TomStrikeAnalyzerTest > rearmingAfterQuietAllowsAnotherStrike PASSED
+
+TomStrikeAnalyzerTest > silenceNeverDetected PASSED
+
+TomStrikeAnalyzerTest > detectionPublishedBeforeEnoughDataForEstimate PASSED
+
+TomStrikeAnalyzerTest > native44100RateIsRespected PASSED
+
+TomStrikeAnalyzerTest > clippingRejected PASSED
+
+TomStrikeAnalyzerTest > dominantNearOctaveTransient PASSED
+
+TomStrikeAnalyzerTest > highFrequencyDoesNotAliasIntoAcceptedBand PASSED
+
+TomStrikeAnalyzerTest > startingOrResettingDuringDecayWaitsForQuietBeforeNextStrike PASSED
+
+TomStrikeAnalyzerTest > deterministicBroadbandNoiseNeverAccepted PASSED
+
+TomStrikeAnalyzerTest > ambiguousPersistentModesAreRejected PASSED
+
+TomStrikeAnalyzerTest > simpleAndDecayNotSecondStrike PASSED
+
+TomStrikeAnalyzerTest > noInventedSubharmonicWithoutSupportingPeak PASSED
+
+KitPresentationTest > loadingClearsPriorFrameAndFailureFallsBackToRequestedKit PASSED
+
+KitPresentationTest > lateDecodeCannotReplaceCurrentImageOrIdsEvenForSameVisualKey PASSED
+
+KitPresentationTest > frontPolygonWinsAndTouchesFollowActualFitRectangle PASSED
+
+KitWorkflowTest > countDiameterAndManualLugsKeepStableDrums PASSED
+
+KitWorkflowTest > namesCancelEditSelectAndReload PASSED
+
+KitWorkflowTest > failedSaveRetainsDraftAndDoubleTapWritesOnce PASSED
+
+KitWorkflowTest > unreadableStoreNeverOpensAnEmptyEditableState PASSED
+
+KitWorkflowTest > exactFocusAndLetterboxZones PASSED
+
+LugLayoutTest > invalidSelectionCannotReachNativeRenderer PASSED
+
+LugLayoutTest > canonicalIndicesAndSymmetry PASSED
+
+MeasurementControllerTest > overrunIsExplicitAndDoesNotPublishStaleFrequency PASSED
+
+MeasurementControllerTest > resumeAcceptsFreshStrikeAndIgnoresOldSessionFault PASSED
+
+MeasurementControllerTest > backgroundAlwaysReleasesCaptureEvenAfterOverrun PASSED
+
+MeasurementControllerTest > stoppingDiscardsQueuedPcmAndLateCallbacks PASSED
+
+LugPresentationTest > numbersAreAboveHeadsAndBothTargetsSelectTheSameLugAfterScaling PASSED
+
+TuningTest > synchronousPermissionFailureStaleRepliesAndAllCaptureIssuesCanResume PASSED
+
+TuningTest > configurationGuardAndDiameterResetPreserveReferencesOnRename PASSED
+
+TuningTest > repeatCorrectionAbandonAndBothFinishActionsPreserveTheRightData PASSED
+
+TuningTest > duplicatesLateEventsManualSelectionAndRejectionsNeverSkipALug PASSED
+
+TuningTest > diagramHasTheRealLugCountClockwiseWithLogoBetweenTheTopPair PASSED
+
+TuningTest > quickLongIncoherentSeriesAndMedian PASSED
+
+TuningTest > exactReferenceOutsideManualSelectorIsRetainedUntilAnExplicitChoice PASSED
+
+TuningTest > debugBlockResetKeepsSameLugAndReferenceButInvalidatesStableDraftAndLateEvents PASSED
+
+TuningTest > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget STANDARD_OUT
+    PCM injected complete: floor 18 / 3 lugs, repeat + both heads + 42 Hz center + correction + 120 Hz center; target=65.40639132514966; saved=120.00072026598241
+
+TuningTest > completeInjectedPcmJourneyIncludingLowCenterAndFarFromTarget PASSED
+
+TuningTest > interruptionAndPcmGapRequireExplicitResumeWithEmptySeries PASSED
+
+TuningTest > stableDraftRefinesThenContradictionReconfirmsWithoutMovingAndRejectedStrikesDoNotCount PASSED
+
+TuningTest > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence STANDARD_OUT
+    PCM lug targetMidi=28: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+    PCM lug targetMidi=60: ten weak=10 detected/0 rejected; stable on #3; ambiguous350700 rejected; stronger700 stable after 3; no advancement before Next
+
+TuningTest > tenWeakInjectedStrikesThenStrongerOctaveOnSameLugWithTargetIndependence PASSED
+
+> Task :composeApp:compileDebugKotlinAndroid UP-TO-DATE
+> Task :composeApp:compileDebugJavaWithJavac NO-SOURCE
+> Task :composeApp:bundleDebugClassesToRuntimeJar UP-TO-DATE
+> Task :composeApp:bundleDebugClassesToCompileJar UP-TO-DATE
+> Task :composeApp:compileDebugUnitTestKotlinAndroid UP-TO-DATE
+> Task :composeApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :composeApp:processDebugJavaRes UP-TO-DATE
+> Task :composeApp:processDebugUnitTestJavaRes UP-TO-DATE
+> Task :composeApp:testDebugUnitTest
+> Task :composeApp:dexBuilderDebug UP-TO-DATE
+> Task :composeApp:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :composeApp:mergeDebugJavaResource UP-TO-DATE
+> Task :composeApp:mergeProjectDexDebug UP-TO-DATE
+> Task :composeApp:mergeLibDexDebug
+> Task :composeApp:packageDebug
+> Task :composeApp:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :composeApp:assembleDebug
+
+BUILD SUCCESSFUL in 8s
+80 actionable tasks: 16 executed, 64 up-to-date

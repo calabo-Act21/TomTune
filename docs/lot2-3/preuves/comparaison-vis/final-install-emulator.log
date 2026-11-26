@@ -1,0 +1,6 @@
+Emulator only: emulator-5554
+API=36
+install -r: Success
+installedBaseApkSha256=d52725c1067ae03aa886e52b28737bbffcaf15ab00f4b7c3b0c64bd6d428fe0a
+Matches delivered APK: true
+Pixel: not accessed
