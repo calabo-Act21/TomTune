@@ -23,6 +23,7 @@ import java.util.UUID
 class MainActivity : ComponentActivity() {
     private lateinit var model: KitModel
     private var permissionToken: Long? = null
+    private var debugReceiver: android.content.BroadcastReceiver? = null
     private val permission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         val token = permissionToken
         permissionToken = null
@@ -36,8 +37,26 @@ class MainActivity : ComponentActivity() {
         model = ViewModelProvider(this, object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = KitModel(applicationContext,
-                applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0 && intent.getBooleanExtra("tomtune.injectedPcm", false), intent.getBooleanExtra("tomtune.lugProbe", false)) as T
+                applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0 && intent.getBooleanExtra("tomtune.injectedPcm", false), intent.getBooleanExtra("tomtune.lugProbe", false), intent.getBooleanExtra("tomtune.modeProbe", false)) as T
         })[KitModel::class.java]
+        if (applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0) {
+            val receiver = object : android.content.BroadcastReceiver() {
+                override fun onReceive(context: android.content.Context, intent: android.content.Intent) {
+                    val command = intent.getStringExtra("command") ?: return
+                    if (command == "reset") model.tuning.debugResetSeries()
+                    if (command in listOf("reset", "cue", "begin", "end", "observed")) {
+                        // Bound/allow-list tokens; never accept file paths, PCM or arbitrary log payloads.
+                        val block = intent.getStringExtra("block")?.takeIf { it in listOf("light", "firm", "injected") } ?: "unknown"
+                        val ordinal = intent.getIntExtra("ordinal", 0).coerceIn(0, 10)
+                        model.tuning.debugMarker("command=$command block=$block ordinal=$ordinal monotonicNanos=${System.nanoTime()} epochMillis=${System.currentTimeMillis()}")
+                    }
+                }
+            }
+            debugReceiver = receiver
+            val filter = android.content.IntentFilter("com.tomtune.app.DEBUG_LUG")
+            if (android.os.Build.VERSION.SDK_INT >= 33) registerReceiver(receiver, filter, android.content.Context.RECEIVER_EXPORTED)
+            else registerReceiver(receiver, filter)
+        }
         model.source.request = { token ->
             if (permissionToken == null) { permissionToken = token; permission.launch(Manifest.permission.RECORD_AUDIO) }
             else model.source.permissionResult(token, false)
@@ -54,12 +73,13 @@ class MainActivity : ComponentActivity() {
         }
     }
     override fun onStop() { model.tuning.interrupt(); super.onStop() }
-    override fun onDestroy() { model.source.request = null; super.onDestroy() }
+    override fun onDestroy() { debugReceiver?.let { unregisterReceiver(it) }; debugReceiver = null; model.source.request = null; super.onDestroy() }
 }
 
 /** A permission reply can only release the sink for the exact request that opened it. */
 private class PermissionPcmSource(private val context: android.content.Context) : PcmSource {
-    private val microphone = AndroidPcmSource(context)
+    var onClock: ((Int, Long) -> Unit)? = null
+    private val microphone = AndroidPcmSource(context) { rate, origin -> onClock?.invoke(rate, origin) }
     var request: ((Long) -> Unit)? = null
     private var serial = 0L
     private var pending: Pair<Long, PcmSink>? = null
@@ -80,7 +100,7 @@ private class PermissionPcmSource(private val context: android.content.Context) 
     override fun stop() { serial++; pending = null; microphone.stop() }
 }
 
-private class KitModel(context: android.content.Context, val injectedPcm: Boolean, lugProbe: Boolean) : ViewModel() {
+private class KitModel(context: android.content.Context, val injectedPcm: Boolean, lugProbe: Boolean, modeProbe: Boolean) : ViewModel() {
     private val traceRun = System.nanoTime()
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val catalogue = readVisualCatalogue(context)
@@ -88,13 +108,17 @@ private class KitModel(context: android.content.Context, val injectedPcm: Boolea
     val source = PermissionPcmSource(context)
     val tuning: TuningController
     init {
-        val input = if (injectedPcm) DiagnosticPcmSource(scope, { diagnosticFrequency() }, lugProbe) else source
+        val input = if (injectedPcm) DiagnosticPcmSource(scope, { diagnosticFrequency() }, lugProbe, modeProbe) else source
         tuning = TuningController(input, scope, { session, reference ->
             controller.finishTuning(session, reference, System.currentTimeMillis())
-        }, trace = { detail ->
+        }, diagnosticComparison = context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0,
+            trace = { detail ->
             if (context.applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0)
                 android.util.Log.i("TomTuneTrace", "LUG run=$traceRun input=${if (injectedPcm) "injected" else "microphone"} $detail")
         })
+        source.onClock = { rate, origin ->
+            tuning.debugMarker("CLOCK rate=$rate originMonotonicNanos=$origin monotonicNanos=${System.nanoTime()} epochMillis=${System.currentTimeMillis()}")
+        }
     }
     private fun diagnosticFrequency(): Double {
         val s = tuning.state.value ?: return 185.0

@@ -100,6 +100,30 @@ class TuningTest {
         c.dispose()
     }
 
+    @Test fun debugBlockResetKeepsSameLugAndReferenceButInvalidatesStableDraftAndLateEvents() = runTest {
+        val source = Source(); val trace = mutableListOf<String>(); var saves = 0
+        val c = TuningController(source, backgroundScope, { _, _ -> saves++; true },
+            StandardTestDispatcher(testScheduler), trace::add, diagnosticComparison = true)
+        c.open(kit(), drum); c.start(); confirm(c, 491.0)
+        assertTrue(c.state.value!!.readyForNext)
+        val old = c.captureGeneration
+        c.debugResetSeries()
+        val s = c.state.value!!
+        assertTrue(source.running); assertTrue(c.captureGeneration > old)
+        assertEquals(0, s.lug); assertEquals(Head.BATTER, s.head)
+        assertNull(s.stableHz); assertNull(s.provisionalHz); assertEquals(0, s.seriesCount)
+        assertFalse(s.readyForNext); assertTrue(s.measurements.isEmpty())
+        assertEquals(drum.reference, s.drum.reference)
+        repeat(3) { hit(c, 699.0, old) }
+        c.nextLug(); assertEquals(0, c.state.value!!.lug)
+        assertEquals(0, c.state.value!!.seriesCount); assertEquals(0, saves)
+        assertTrue(trace.any { "DebugReset reason=operator" in it })
+        assertTrue(trace.any { "UI readyForNext=false stableHz=null" in it })
+        confirm(c, 491.0); assertTrue(c.state.value!!.readyForNext)
+        c.nextLug(); assertEquals(1, c.state.value!!.lug)
+        c.dispose()
+    }
+
     @Test fun stableDraftRefinesThenContradictionReconfirmsWithoutMovingAndRejectedStrikesDoNotCount() = runTest {
         val source = Source(); val trace = mutableListOf<String>()
         val c = TuningController(source, backgroundScope, { _, _ -> true }, StandardTestDispatcher(testScheduler), trace::add)

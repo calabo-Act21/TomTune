@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/camlaborde/Workspace/TomTune/TomTune/tools/verify_lug_measurement_android.py", line 54, in <module>
+    ui.click('Floor tom 16″ · 3 vis par peau', True)
+  File "/Users/camlaborde/Workspace/TomTune/TomTune/tools/verify_lot23_emulator.py", line 22, in click
+    raise AssertionError((label,strings(root)))
+AssertionError: ('Floor tom 16″ · 3 vis par peau', ['Injected PCM · microphone disabled', 'TomTune', 'Active kit: PCM diagnostic', 'PCM diagnostic', ' ▾', 'Kit menu', '☰', 'Floor tom 16″ · 3 lugs per head', 'Snare drum 14″', 'Bass drum 22″', 'Tap a drum to open its details.'])

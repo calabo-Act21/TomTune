@@ -17,7 +17,10 @@ data class AnalysisParameters(
 )
 
 /** Streaming mono analyzer; call from one analysis worker, never the render thread. No target bias. */
-class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisParameters()) : StrikeAnalyzer {
+class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisParameters(),
+    private val diagnostic: ((ImpactDiagnostic) -> Unit)? = null,
+    private val onset: ((OnsetDiagnostic) -> Unit)? = null,
+) : StrikeAnalyzer {
     private var rate = 0
     private var nextFrame = 0L
     private var id = 0L
@@ -53,6 +56,8 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
                     id++; onsetFrame = nextFrame - frame.size; lastOnset = onsetFrame
                     pending = ArrayList<Float>().also { it.addAll(frame) }
                     armed = false
+                    onset?.invoke(OnsetDiagnostic(id, onsetFrame, rate, rms,
+                        frame.maxOf { abs(it.toDouble()) }, noise, envelope))
                     events.add(StrikeEvent.Detected(id, nextFrame.toDouble() / rate))
                 }
                 if (rms < parameters.onsetRms && pending == null) noise = noise * 0.97 + rms * 0.03
@@ -76,18 +81,55 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
     }
 
     private data class Peak(val hz: Double, val power: Double)
-    private data class Spectrum(val peaks: List<Peak>, val concentration: Double)
+    private data class Spectrum(val peaks: List<Peak>, val concentration: Double, val observed: List<Peak> = peaks)
+    /** Debug comparison only: identical capture boundary for all configurations, no onset detector. */
+    internal fun evaluateImpact(samples: List<Float>, sampleRate: Int, startFrame: Long, strikeId: Long): StrikeEvent {
+        rate = sampleRate; onsetFrame = startFrame; id = strikeId
+        return estimate(samples, (startFrame + samples.size).toDouble() / sampleRate)
+    }
+
     private fun estimate(samples: List<Float>, time: Double): StrikeEvent {
-        fun reject(reason: RejectionReason) = StrikeEvent.Rejected(id, time, reason)
-        if (samples.count { abs(it) >= parameters.clippingLevel }.toDouble() / samples.size > parameters.clippingFraction) return reject(RejectionReason.Clipped)
-        val windows = listOf(0.020, 0.084, 0.148).map { spectrum(samples, it) }
-        if (windows.any { it.peaks.isEmpty() || it.concentration < 0.45 }) return reject(RejectionReason.Noise)
-        val first = windows.first().peaks
-        val tracks = first.mapNotNull { peak ->
+        val clipped = samples.count { abs(it) >= parameters.clippingLevel }.toDouble() / samples.size
+        // Diagnostics also inspect clipped/noisy windows so a rejection does not erase the evidence.
+        if (diagnostic == null && clipped > parameters.clippingFraction)
+            return StrikeEvent.Rejected(id, time, RejectionReason.Clipped)
+        val starts = listOf(0.020, 0.084, 0.148)
+        val windows = starts.map { spectrum(samples, it) }
+        val tracks = windows.first().peaks.mapNotNull { peak ->
             val matches = windows.map { window -> window.peaks.minByOrNull { abs(1200 * log2(it.hz / peak.hz)) } }
             if (matches.any { it == null || abs(1200 * log2(it.hz / peak.hz)) > 35 }) null
             else matches.filterNotNull()
         }.filter { track -> track.last().power >= windows.last().peaks.maxOf { it.power } * 0.035 }
+        var rule = "single_persistent"
+        var advantage: Double? = null
+        fun complete(event: StrikeEvent): StrikeEvent {
+            diagnostic?.let { emit ->
+                // Union across windows, including modes absent at the start or lost during decay.
+                val seeds = mutableListOf<Double>()
+                windows.flatMap { it.observed }.forEach { p ->
+                    if (seeds.none { abs(1200 * log2(it / p.hz)) <= 35 }) seeds.add(p.hz)
+                }
+                val attack = samples.take((rate * .020).toInt())
+                emit(ImpactDiagnostic(id, onsetFrame, rate,
+                    sqrt(attack.sumOf { it.toDouble() * it } / attack.size.coerceAtLeast(1)),
+                    attack.maxOfOrNull { abs(it.toDouble()) } ?: 0.0, clipped,
+                    windows.mapIndexed { index, w -> DiagnosticWindow(starts[index], w.concentration,
+                        w.observed.map { p -> DiagnosticPeak(p.hz, p.power,
+                            10 * log10(p.power / w.observed.maxOf { it.power }), p in w.peaks) }) },
+                    seeds.map { hz ->
+                        val matches = windows.map { w -> w.observed.minByOrNull { abs(1200 * log2(it.hz / hz)) }
+                            ?.takeIf { abs(1200 * log2(it.hz / hz)) <= 35 } }
+                        val first = matches.first()?.power
+                        DiagnosticTrack(hz, matches.map { it?.hz }, matches.map { it?.power },
+                            matches.map { p -> if (p != null && first != null) 10 * log10(p.power / first) else null },
+                            tracks.any { abs(1200 * log2(it.first().hz / hz)) <= 35 })
+                    }, rule, advantage, event))
+            }
+            return event
+        }
+        fun reject(reason: RejectionReason): StrikeEvent { rule = "reject_$reason"; return complete(StrikeEvent.Rejected(id, time, reason)) }
+        if (clipped > parameters.clippingFraction) return reject(RejectionReason.Clipped)
+        if (windows.any { it.peaks.isEmpty() || it.concentration < 0.45 }) return reject(RejectionReason.Noise)
         if (tracks.isEmpty()) return reject(RejectionReason.Noise)
         val byLatePower = tracks.sortedByDescending { it.last().power }
         var winner = byLatePower.first()
@@ -98,22 +140,22 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
                 abs(1200 * log2(ratio / ratio.roundToInt().coerceAtLeast(1))) < 20
             }
             if (!parameters.requireDecayEvidenceForOctaves && harmonicFamily) {
-                winner = lower // retain lot 0 behavior for gestures outside this local correction
+                rule = "historical_harmonic_lower"
+                winner = lower
             } else {
-                // Octave-related peaks are competing modes too. A resolved lower peak alone
-                // does not establish that the upper mode is its harmonic. Require independent
-                // decay evidence in either direction; otherwise this strike is inconclusive.
                 val persistence = byLatePower.sortedByDescending { it.last().power / it.first().power }
                 val best = persistence[0]
                 val other = persistence[1]
-                val advantage = (best.last().power / best.first().power) / (other.last().power / other.first().power)
-                if (advantage < 2.5) return reject(RejectionReason.AmbiguousModes)
+                val ratio = (best.last().power / best.first().power) / (other.last().power / other.first().power)
+                advantage = ratio
+                if (ratio < 2.5) return reject(RejectionReason.AmbiguousModes)
+                rule = "decay_advantage"
                 winner = best
             }
         }
         val frequencies = winner.map { it.hz }.sorted()
         val hz = frequencies[frequencies.size / 2]
-        return StrikeEvent.Estimate(id, time, hz, windows.minOf { it.concentration }.coerceIn(0.0, 1.0))
+        return complete(StrikeEvent.Estimate(id, time, hz, windows.minOf { it.concentration }.coerceIn(0.0, 1.0)))
     }
 
     private fun spectrum(samples: List<Float>, start: Double): Spectrum {
@@ -151,16 +193,22 @@ class TomStrikeAnalyzer(private val parameters: AnalysisParameters = AnalysisPar
         val hi = (parameters.maxHz * size / 8000).toInt().coerceAtMost(power.size - 2)
         val maximum = (lo..hi).maxOf { power[it] }
         val local = (lo..hi).filter { power[it] > power[it - 1] && power[it] >= power[it + 1] && power[it] > maximum * 0.035 }
-        val peaks = local.sortedByDescending { power[it] }.take(6).map { bin ->
+        fun peaksAt(bins: List<Int>) = bins.map { bin ->
             val left = ln(power[bin - 1].coerceAtLeast(1e-30)); val middle = ln(power[bin].coerceAtLeast(1e-30)); val right = ln(power[bin + 1].coerceAtLeast(1e-30))
             val shift = (0.5 * (left - right) / (left - 2 * middle + right)).coerceIn(-0.5, 0.5)
             Peak((bin + shift) * 8000 / size, power[bin])
         }
+        val peaks = peaksAt(local.sortedByDescending { power[it] }.take(6))
+        // Debug-only lower floor reveals peaks discarded by production's -14.56 dB cutoff.
+        // It does not feed concentration, eligibility, frequency choice or stability.
+        val observed = if (diagnostic == null) peaks else peaksAt((lo..hi).filter {
+            power[it] > power[it - 1] && power[it] >= power[it + 1] && power[it] > maximum * .001
+        }.sortedByDescending { power[it] }.take(12))
         val covered = BooleanArray(power.size)
         local.sortedByDescending { power[it] }.take(6).forEach { bin -> for (j in (bin - 4).coerceAtLeast(0)..(bin + 4).coerceAtMost(power.lastIndex)) covered[j] = true }
         val total = power.sum()
         val concentration = power.indices.filter { covered[it] }.sumOf { power[it] } / total.coerceAtLeast(1e-20)
-        return Spectrum(peaks, concentration)
+        return Spectrum(peaks, concentration, observed)
     }
 
     private fun fft(re: DoubleArray, im: DoubleArray) {

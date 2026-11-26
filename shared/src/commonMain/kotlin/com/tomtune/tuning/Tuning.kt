@@ -82,8 +82,18 @@ class TuningController(
     private val save: suspend (TuningState, Boolean) -> Boolean,
     analysisDispatcher: CoroutineDispatcher = Dispatchers.Default,
     private val trace: (String) -> Unit = {},
+    diagnosticComparison: Boolean = false,
 ) {
     private val mutable = MutableStateFlow<TuningState?>(null)
+    private fun update(value: TuningState?) {
+        val old = mutable.value
+        if (old?.readyForNext != value?.readyForNext || old?.stableHz != value?.stableHz ||
+            old?.feedback != value?.feedback || old?.seriesCount != value?.seriesCount || old?.listening != value?.listening)
+            trace("session=${value?.sessionId ?: old?.sessionId} generation=$generation UI " +
+                "readyForNext=${value?.readyForNext ?: false} stableHz=${value?.stableHz} " +
+                "feedback=${value?.feedback} count=${value?.seriesCount} listening=${value?.listening ?: false}")
+        mutable.value = value
+    }
     val state = mutable.asStateFlow()
     private var serial = 0L
     private var generation = -1L
@@ -91,17 +101,19 @@ class TuningController(
     private val series = StrikeSeries()
     private val pending = mutableSetOf<Long>()
     private var lastDetected = Long.MIN_VALUE
-    private val measurement = MeasurementController(source::stop, analysisDispatcher) { id, event ->
+    private val measurement = MeasurementController(source::stop, analysisDispatcher,
+        diagnosticTrace = if (diagnosticComparison) { id, detail -> trace("generation=$id $detail") } else null) { id, event ->
         scope.launch { acceptEvent(id, event) }
     }
     init {
         scope.launch {
             measurement.state.collect { m ->
                 if (m.issue != null && mutable.value?.listening == true && m.generation == generation + 1) {
+                    log("CaptureIssue reason=${m.issue}")
                     measurement.releaseAfterIssue()
                     resetSeries()
-                    mutable.value = mutable.value?.copy(listening = false, issue = m.issue,
-                        feedback = Feedback.WAITING, provisionalHz = null, seriesCount = 0, readyForNext = false)
+                    update(mutable.value?.copy(listening = false, issue = m.issue,
+                        feedback = Feedback.WAITING, provisionalHz = null, seriesCount = 0, readyForNext = false))
                 }
             }
         }
@@ -110,18 +122,18 @@ class TuningController(
         if (mutable.value?.saving == true) return
         require(drum.family.isTom && drum.lugs in 3..12)
         stop()
-        mutable.value = TuningState(++serial, kit.id, drum, drum.reference?.hz ?: suggestedHz(drum.diameter),
-            drum.reference?.origin ?: TargetOrigin.SUGGESTED, drum.reference != null)
+        update(TuningState(++serial, kit.id, drum, drum.reference?.hz ?: suggestedHz(drum.diameter),
+            drum.reference?.origin ?: TargetOrigin.SUGGESTED, drum.reference != null))
     }
     fun chooseMidi(midi: Int) {
         val s = mutable.value ?: return
         if (s.stage == TuningStage.TARGET && midi in 28..60)
-            mutable.value = s.copy(targetHz = midiHz(midi), targetOrigin = TargetOrigin.MANUAL, fromReference = false)
+            update(s.copy(targetHz = midiHz(midi), targetOrigin = TargetOrigin.MANUAL, fromReference = false))
     }
     fun start() {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.TARGET) return
-        mutable.value = s.copy(stage = TuningStage.LUGS)
+        update(s.copy(stage = TuningStage.LUGS))
         arm()
     }
     private fun resetSeries() {
@@ -132,13 +144,16 @@ class TuningController(
         val s = mutable.value ?: return
         trace("session=${s.sessionId} generation=$generation head=${s.head} pass=${s.pass} lug=${s.lug + 1} $detail")
     }
-    private fun stop() { generation = -1; measurement.stop(); resetSeries() }
+    private fun stop() {
+        if (generation >= 0) log("CaptureStop pending=${pending.size} lastDetected=$lastDetected")
+        resetSeries(); generation = -1; measurement.stop()
+    }
     private fun arm() {
         val s = mutable.value ?: return
         if (s.saving || s.abandonDialog || s.stage !in listOf(TuningStage.LUGS, TuningStage.CENTER) || s.centerHz != null) return
         resetSeries()
-        mutable.value = s.copy(listening = true, issue = null, feedback = Feedback.WAITING,
-            provisionalHz = null, seriesCount = 0, rejection = null, readyForNext = false)
+        update(s.copy(listening = true, issue = null, feedback = Feedback.WAITING,
+            provisionalHz = null, seriesCount = 0, rejection = null, readyForNext = false))
         val params = if (s.stage == TuningStage.CENTER) AnalysisParameters(minHz = 35.0, maxHz = 550.0)
             else lugAnalysisParameters()
         generation = measurement.start(params, source::start)
@@ -154,12 +169,12 @@ class TuningController(
                 lastDetected = event.strikeId
                 pending.add(event.strikeId)
                 log("Detected strike=${event.strikeId} pcmSeconds=${event.timeSeconds}")
-                mutable.value = s.copy(feedback = Feedback.DETECTED, rejection = null)
+                update(s.copy(feedback = Feedback.DETECTED, rejection = null))
             }
             is StrikeEvent.Rejected -> {
                 if (!pending.remove(event.strikeId)) return
                 log("Rejected strike=${event.strikeId} pcmSeconds=${event.timeSeconds} reason=${event.reason} count=${series.count}")
-                mutable.value = s.copy(feedback = Feedback.REJECTED, rejection = event.reason, provisionalHz = null)
+                update(s.copy(feedback = Feedback.REJECTED, rejection = event.reason, provisionalHz = null))
             }
             is StrikeEvent.Estimate -> {
                 if (!pending.remove(event.strikeId) || !event.frequencyHz.isFinite() || event.frequencyHz <= 0) return
@@ -168,25 +183,37 @@ class TuningController(
                 val confirmed = series.add(event.frequencyHz)
                 if (series.unstable) log("SeriesReset reason=incompatible previousCount=$previousCount hz=${event.frequencyHz}")
                 if (confirmed == null) {
-                    mutable.value = s.copy(feedback = if (series.unstable) Feedback.UNSTABLE else Feedback.PROVISIONAL,
-                        provisionalHz = event.frequencyHz, seriesCount = series.count, rejection = null, readyForNext = false)
+                    update(s.copy(feedback = if (series.unstable) Feedback.UNSTABLE else Feedback.PROVISIONAL,
+                        provisionalHz = event.frequencyHz, seriesCount = series.count, rejection = null, readyForNext = false))
                     return
                 }
                 val countInSeries = series.count
                 log("Confirmed strike=${event.strikeId} hz=$confirmed count=$countInSeries")
                 if (s.stage == TuningStage.CENTER) {
                     stop()
-                    mutable.value = s.copy(centerHz = confirmed, listening = false, feedback = Feedback.CONFIRMED,
-                        provisionalHz = null, seriesCount = countInSeries)
+                    update(s.copy(centerHz = confirmed, listening = false, feedback = Feedback.CONFIRMED,
+                        provisionalHz = null, seriesCount = countInSeries))
                 } else {
                     // Confirmation is a live draft for this lug. Only Next commits and advances.
-                    mutable.value = s.copy(stableHz = confirmed, readyForNext = true,
+                    update(s.copy(stableHz = confirmed, readyForNext = true,
                         feedback = Feedback.CONFIRMED, provisionalHz = event.frequencyHz,
-                        seriesCount = countInSeries, rejection = null)
+                        seriesCount = countInSeries, rejection = null))
                 }
             }
         }
     }
+    /** Host exposes these only in a debuggable Android build. No measurement is committed. */
+    fun debugResetSeries() {
+        val s = mutable.value ?: return
+        if (s.stage != TuningStage.LUGS || !s.listening || s.abandonDialog) return
+        log("DebugReset reason=operator")
+        stop()
+        update(s.copy(stableHz = null, readyForNext = false, listening = false,
+            feedback = Feedback.WAITING, provisionalHz = null, seriesCount = 0))
+        arm()
+    }
+    fun debugMarker(detail: String) { log("MARK $detail") }
+
     fun nextLug() {
         val s = mutable.value ?: return
         val confirmed = s.stableHz ?: return
@@ -195,73 +222,73 @@ class TuningController(
         stop() // invalidate pending callbacks before changing the step
         val results = s.measurements + (s.lug to confirmed)
         val next = s.lug + 1
-        mutable.value = s.copy(measurements = results, lastConfirmed = s.lug to confirmed,
+        update(s.copy(measurements = results, lastConfirmed = s.lug to confirmed,
             stableHz = null, readyForNext = false, listening = false,
             feedback = Feedback.WAITING, provisionalHz = null, seriesCount = 0,
             stage = if (results.size == s.drum.lugs) TuningStage.ADVICE else TuningStage.LUGS,
-            lug = next % s.drum.lugs!!)
+            lug = next % s.drum.lugs!!))
         if (mutable.value?.stage == TuningStage.LUGS) arm()
     }
     fun selectLug(index: Int) {
         val s = mutable.value ?: return
         if (s.saving || s.abandonDialog || s.stage !in listOf(TuningStage.LUGS, TuningStage.ADVICE) || index !in 0 until s.drum.lugs!!) return
         stop()
-        mutable.value = s.copy(stage = TuningStage.LUGS, lug = index, listening = false,
-            stableHz = s.measurements[index], readyForNext = false)
+        update(s.copy(stage = TuningStage.LUGS, lug = index, listening = false,
+            stableHz = s.measurements[index], readyForNext = false))
         arm()
     }
     fun repeatHead() {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.ADVICE) return
         stop()
-        mutable.value = s.copy(stage = TuningStage.LUGS, pass = s.pass + 1, lug = 0,
-            measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, listening = false)
+        update(s.copy(stage = TuningStage.LUGS, pass = s.pass + 1, lug = 0,
+            measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, listening = false))
         arm()
     }
     fun nextHead() {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.ADVICE) return
         stop()
-        mutable.value = s.copy(stage = if (s.head == Head.BATTER) TuningStage.LUGS else TuningStage.CENTER,
-            head = Head.RESONANT, pass = 1, lug = 0, measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, listening = false)
+        update(s.copy(stage = if (s.head == Head.BATTER) TuningStage.LUGS else TuningStage.CENTER,
+            head = Head.RESONANT, pass = 1, lug = 0, measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, listening = false))
         arm()
     }
     fun remeasureCenter() {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.CENTER || s.saving) return
-        stop(); mutable.value = s.copy(centerHz = null, listening = false); arm()
+        stop(); update(s.copy(centerHz = null, listening = false)); arm()
     }
     fun correct() {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.CENTER || s.centerHz == null || s.saving) return
         stop()
-        mutable.value = s.copy(stage = TuningStage.LUGS, head = Head.BATTER, pass = 1, lug = 0,
-            measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, centerHz = null, listening = false)
+        update(s.copy(stage = TuningStage.LUGS, head = Head.BATTER, pass = 1, lug = 0,
+            measurements = emptyMap(), lastConfirmed = null, stableHz = null, readyForNext = false, centerHz = null, listening = false))
         arm()
     }
     fun interrupt() {
         val s = mutable.value ?: return
         if (!s.listening) return
         stop()
-        mutable.value = s.copy(listening = false, issue = CaptureIssue.Interrupted, feedback = Feedback.WAITING,
-            provisionalHz = null, seriesCount = 0, readyForNext = false)
+        update(s.copy(listening = false, issue = CaptureIssue.Interrupted, feedback = Feedback.WAITING,
+            provisionalHz = null, seriesCount = 0, readyForNext = false))
     }
     fun resume() { if (mutable.value?.listening == false) arm() }
     fun requestAbandon() {
         val s = mutable.value ?: return
         if (s.saving) return
         interrupt()
-        mutable.value = mutable.value?.copy(abandonDialog = true)
+        update(mutable.value?.copy(abandonDialog = true))
     }
-    fun cancelAbandon() { mutable.value = mutable.value?.copy(abandonDialog = false) }
-    fun abandon() { if (mutable.value?.saving == true) return; stop(); mutable.value = null }
+    fun cancelAbandon() { update(mutable.value?.copy(abandonDialog = false)) }
+    fun abandon() { if (mutable.value?.saving == true) return; stop(); update(null) }
     fun finish(withReference: Boolean) {
         val s = mutable.value ?: return
         if (s.stage != TuningStage.CENTER || s.centerHz == null || s.saving || s.abandonDialog) return
-        stop(); mutable.value = s.copy(saving = true, listening = false, writeFailed = false)
+        stop(); update(s.copy(saving = true, listening = false, writeFailed = false))
         scope.launch {
-            if (save(s, withReference)) mutable.value = null
-            else mutable.value = s.copy(saving = false, listening = false, writeFailed = true)
+            if (save(s, withReference)) update(null)
+            else update(s.copy(saving = false, listening = false, writeFailed = true))
         }
     }
     fun dispose() { measurement.dispose() }

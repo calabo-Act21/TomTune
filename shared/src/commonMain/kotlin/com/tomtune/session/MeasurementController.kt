@@ -2,6 +2,7 @@ package com.tomtune.session
 
 import com.tomtune.audio.TomStrikeAnalyzer
 import com.tomtune.audio.AnalysisParameters
+import com.tomtune.audio.LugDiagnosticComparison
 import com.tomtune.contracts.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -14,6 +15,7 @@ data class MeasurementState(val listening: Boolean = false, val event: StrikeEve
 class MeasurementController(
     private val stopCapture: () -> Unit,
     analysisDispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val diagnosticTrace: ((Long, String) -> Unit)? = null,
     private val onEvent: (Long, StrikeEvent) -> Unit = { _, _ -> },
 ) {
     private data class Work(val generation: Long, val block: PcmBlock, val parameters: AnalysisParameters)
@@ -23,14 +25,18 @@ class MeasurementController(
     private val scope = CoroutineScope(SupervisorJob() + analysisDispatcher)
     init {
         scope.launch {
-            var analyzer = TomStrikeAnalyzer()
+            var analyzer: StrikeAnalyzer = TomStrikeAnalyzer()
             var nextFrame: Long? = null
             var rate = 0
             var current = -1L
             for (work in queue) {
                 if (!isActiveSession(work.generation)) continue
                 if (current != work.generation) {
-                    analyzer = TomStrikeAnalyzer(work.parameters); current = work.generation; nextFrame = null
+                    analyzer = if (diagnosticTrace != null && work.parameters.requireDecayEvidenceForOctaves)
+                        LugDiagnosticComparison { detail ->
+                            if (isActiveSession(work.generation)) diagnosticTrace.invoke(work.generation, detail)
+                        } else TomStrikeAnalyzer(work.parameters)
+                    current = work.generation; nextFrame = null
                 }
                 if (nextFrame != null && (nextFrame != work.block.startFrame || rate != work.block.sampleRate)) {
                     publish(work.generation) { MeasurementState(issue = CaptureIssue.Overrun, generation = work.generation + 1) }

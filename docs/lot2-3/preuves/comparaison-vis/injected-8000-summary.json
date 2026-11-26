@@ -1,0 +1,1977 @@
+{
+  "physical_stroke_count": "requires operator annotations; never inferred",
+  "totals": {
+    "lot0": {
+      "native_detected": 17,
+      "paired_accepted": 12,
+      "paired_rejections": {
+        "Noise": 4,
+        "AmbiguousModes": 4
+      }
+    },
+    "current": {
+      "native_detected": 20,
+      "paired_accepted": 16,
+      "paired_rejections": {
+        "AmbiguousModes": 4
+      }
+    },
+    "band80_700": {
+      "native_detected": 20,
+      "paired_accepted": 12,
+      "paired_rejections": {
+        "Noise": 4,
+        "AmbiguousModes": 4
+      }
+    }
+  },
+  "impacts": [
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 1,
+      "frame": 1600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": null,
+        "current": 1600,
+        "band80_700": 1600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "1",
+          "frame": "1600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482349846",
+          "confidence": "0.923367159170681"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "1",
+          "frame": "1600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482349846",
+          "confidence": "0.923367159170681"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "1",
+          "frame": "1600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482349846",
+          "confidence": "0.923367159170681"
+        }
+      },
+      "native": {
+        "lot0": null,
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "1",
+          "nativeStrike": "1",
+          "frame": "1600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482349846",
+          "confidence": "0.923367159170681"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "1",
+          "nativeStrike": "1",
+          "frame": "1600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482349846",
+          "confidence": "0.923367159170681"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 2,
+      "frame": 17600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": null,
+        "current": 17600,
+        "band80_700": 17600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "2",
+          "frame": "17600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.999396281196",
+          "confidence": "0.9266610808056629"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "2",
+          "frame": "17600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.999396281196",
+          "confidence": "0.9266610808056629"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "2",
+          "frame": "17600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.999396281196",
+          "confidence": "0.9266610808056629"
+        }
+      },
+      "native": {
+        "lot0": null,
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "2",
+          "nativeStrike": "2",
+          "frame": "17600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.999396281196",
+          "confidence": "0.9266610808056629"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "2",
+          "nativeStrike": "2",
+          "frame": "17600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.999396281196",
+          "confidence": "0.9266610808056629"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 3,
+      "frame": 33600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": null,
+        "current": 33600,
+        "band80_700": 33600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "3",
+          "frame": "33600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "3",
+          "frame": "33600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0005051311388",
+          "confidence": "0.9262896771983392"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "3",
+          "frame": "33600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "native": {
+        "lot0": null,
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "3",
+          "nativeStrike": "3",
+          "frame": "33600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0005051311388",
+          "confidence": "0.9262896771983392"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "3",
+          "nativeStrike": "3",
+          "frame": "33600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 4,
+      "frame": 49600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 49600,
+        "current": 49600,
+        "band80_700": 49600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "4",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321132364924",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "4",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000604675199272",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "4",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321132364924",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "4",
+          "nativeStrike": "1",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321132364924",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "4",
+          "nativeStrike": "4",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000604675199272",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "4",
+          "nativeStrike": "4",
+          "frame": "49600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321132364924",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 5,
+      "frame": 65600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 65600,
+        "current": 65600,
+        "band80_700": 65600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "5",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.8999038607447102"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "5",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.9110404433678541"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "5",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.8999038607447102"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "5",
+          "nativeStrike": "2",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.8999038607447102"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "5",
+          "nativeStrike": "5",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.9110404433678541"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "5",
+          "nativeStrike": "5",
+          "frame": "65600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.0011543371729",
+          "confidence": "0.8999038607447102"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 6,
+      "frame": 81600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 81600,
+        "current": 81600,
+        "band80_700": 81600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "6",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.7974304584275914"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "6",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.9353240193892443"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "6",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.7974304584275914"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "6",
+          "nativeStrike": "3",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.7974304584275914"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "6",
+          "nativeStrike": "6",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.9353240193892443"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "6",
+          "nativeStrike": "6",
+          "frame": "81600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.709626805235388",
+          "hz": "491.0011705247387",
+          "confidence": "0.7974304584275914"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 7,
+      "frame": 97600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 97600,
+        "current": 97600,
+        "band80_700": 97600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "7",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.7894391784040108"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "7",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.9234742362588145"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "7",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.7894391784040108"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "7",
+          "nativeStrike": "4",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.7894391784040108"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "7",
+          "nativeStrike": "7",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.9234742362588145"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "7",
+          "nativeStrike": "7",
+          "frame": "97600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632524189",
+          "confidence": "0.7894391784040108"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 8,
+      "frame": 113600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 113600,
+        "current": 113600,
+        "band80_700": 113600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "8",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "8",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "8",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "8",
+          "nativeStrike": "5",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "8",
+          "nativeStrike": "8",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "8",
+          "nativeStrike": "8",
+          "frame": "113600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106333393",
+          "confidence": "0.9234495444522799"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 9,
+      "frame": 129600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 129600,
+        "current": 129600,
+        "band80_700": 129600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "9",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "9",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0007902966453",
+          "confidence": "0.9436500608171917"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "9",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "9",
+          "nativeStrike": "6",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "9",
+          "nativeStrike": "9",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0007902966453",
+          "confidence": "0.9436500608171917"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "9",
+          "nativeStrike": "9",
+          "frame": "129600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 10,
+      "frame": 145600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 145600,
+        "current": 145600,
+        "band80_700": 145600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "10",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.000050498116841",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "10",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000485496795937",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "10",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.000050498116841",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "10",
+          "nativeStrike": "7",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.000050498116841",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "10",
+          "nativeStrike": "10",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000485496795937",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "10",
+          "nativeStrike": "10",
+          "frame": "145600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.000050498116841",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 11,
+      "frame": 161600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 161600,
+        "current": 161600,
+        "band80_700": 161600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "11",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "11",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "11",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "11",
+          "nativeStrike": "8",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "11",
+          "nativeStrike": "11",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "11",
+          "nativeStrike": "11",
+          "frame": "161600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00114482264115",
+          "confidence": "0.9233671600102545"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 12,
+      "frame": 177600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 177600,
+        "current": 177600,
+        "band80_700": 177600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "12",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "12",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "12",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "12",
+          "nativeStrike": "9",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "12",
+          "nativeStrike": "12",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "12",
+          "nativeStrike": "12",
+          "frame": "177600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9993962821184",
+          "confidence": "0.9266610815754573"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 13,
+      "frame": 193600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 193600,
+        "current": 193600,
+        "band80_700": 193600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "13",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "13",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0005051380158",
+          "confidence": "0.9262896767552112"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "13",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "13",
+          "nativeStrike": "10",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "13",
+          "nativeStrike": "13",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0005051380158",
+          "confidence": "0.9262896767552112"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "13",
+          "nativeStrike": "13",
+          "frame": "193600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 14,
+      "frame": 209600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 209600,
+        "current": 209600,
+        "band80_700": 209600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "14",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321068830902",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "14",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000604744673227",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "14",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321068830902",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "14",
+          "nativeStrike": "11",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321068830902",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "14",
+          "nativeStrike": "14",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000604744673227",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "14",
+          "nativeStrike": "14",
+          "frame": "209600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000321068830902",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 15,
+      "frame": 225600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 225600,
+        "current": 225600,
+        "band80_700": 225600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "15",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.8999038598339495"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "15",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.9110404431381456"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "15",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.8999038598339495"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "15",
+          "nativeStrike": "12",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.8999038598339495"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "15",
+          "nativeStrike": "15",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.9110404431381456"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "15",
+          "nativeStrike": "15",
+          "frame": "225600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "491.00115433124273",
+          "confidence": "0.8999038598339495"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 16,
+      "frame": 241600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 241600,
+        "current": 241600,
+        "band80_700": 241600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "16",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.7974304604140078"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "16",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.9353240186891627"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "16",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.7974304604140078"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "16",
+          "nativeStrike": "13",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.7974304604140078"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "16",
+          "nativeStrike": "16",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.9353240186891627"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "16",
+          "nativeStrike": "16",
+          "frame": "241600",
+          "rate": "8000",
+          "rule": "decay_advantage",
+          "advantage": "16.70962673699456",
+          "hz": "491.00117054088616",
+          "confidence": "0.7974304604140078"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 17,
+      "frame": 257600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 257600,
+        "current": 257600,
+        "band80_700": 257600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "17",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.7894391777585361"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "17",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.9234742373573328"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "17",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.7894391777585361"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "17",
+          "nativeStrike": "14",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.7894391777585361"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "17",
+          "nativeStrike": "17",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.9234742373573328"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "17",
+          "nativeStrike": "17",
+          "frame": "257600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9994632550829",
+          "confidence": "0.7894391777585361"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 18,
+      "frame": 273600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 273600,
+        "current": 273600,
+        "band80_700": 273600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "18",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "18",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "18",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "18",
+          "nativeStrike": "15",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "18",
+          "nativeStrike": "18",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "18",
+          "nativeStrike": "18",
+          "frame": "273600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "698.9992106269965",
+          "confidence": "0.9234495454398077"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 19,
+      "frame": 289600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 289600,
+        "current": 289600,
+        "band80_700": 289600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "19",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "19",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0007902928327",
+          "confidence": "0.943650060578106"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "19",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "19",
+          "nativeStrike": "16",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "19",
+          "nativeStrike": "19",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "single_persistent",
+          "advantage": "null",
+          "hz": "801.0007902928327",
+          "confidence": "0.943650060578106"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "19",
+          "nativeStrike": "19",
+          "frame": "289600",
+          "rate": "8000",
+          "rule": "reject_Noise",
+          "advantage": "null",
+          "reason": "Noise"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    },
+    {
+      "run": "injected",
+      "generation": "0",
+      "impact": 20,
+      "frame": 305600,
+      "rate": 8000,
+      "native_detection_frames": {
+        "lot0": 305600,
+        "current": 305600,
+        "band80_700": 305600
+      },
+      "paired": {
+        "lot0": {
+          "phase": "paired",
+          "config": "lot0",
+          "impact": "20",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000504873350133",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "paired",
+          "config": "current",
+          "impact": "20",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000485470502274",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "paired",
+          "config": "band80_700",
+          "impact": "20",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000504873350133",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "native": {
+        "lot0": {
+          "phase": "native",
+          "config": "lot0",
+          "impact": "20",
+          "nativeStrike": "17",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000504873350133",
+          "reason": "AmbiguousModes"
+        },
+        "current": {
+          "phase": "native",
+          "config": "current",
+          "impact": "20",
+          "nativeStrike": "20",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000485470502274",
+          "reason": "AmbiguousModes"
+        },
+        "band80_700": {
+          "phase": "native",
+          "config": "band80_700",
+          "impact": "20",
+          "nativeStrike": "20",
+          "frame": "305600",
+          "rate": "8000",
+          "rule": "reject_AmbiguousModes",
+          "advantage": "1.0000504873350133",
+          "reason": "AmbiguousModes"
+        }
+      },
+      "cue_attribution": "unavailable_without_audio_clock"
+    }
+  ],
+  "clocks": [],
+  "markers": [],
+  "ui_events": [],
+  "cue_window_seconds": [
+    -0.15,
+    1.2
+  ],
+  "window_rows": 351,
+  "mode_rows": 270,
+  "synthetic_blocks": {
+    "low": {
+      "source": "injected",
+      "known_strokes": 10,
+      "configurations": {
+        "lot0": {
+          "native_detected": 7,
+          "accepted": [
+            {
+              "stroke": 5,
+              "hz": 491.0011543371729
+            },
+            {
+              "stroke": 6,
+              "hz": 491.0011705247387
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632524189
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106333393
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 9,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        },
+        "current": {
+          "native_detected": 10,
+          "accepted": [
+            {
+              "stroke": 1,
+              "hz": 491.00114482349846
+            },
+            {
+              "stroke": 2,
+              "hz": 698.999396281196
+            },
+            {
+              "stroke": 3,
+              "hz": 801.0005051311388
+            },
+            {
+              "stroke": 5,
+              "hz": 491.0011543371729
+            },
+            {
+              "stroke": 6,
+              "hz": 491.0011705247387
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632524189
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106333393
+            },
+            {
+              "stroke": 9,
+              "hz": 801.0007902966453
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        },
+        "band80_700": {
+          "native_detected": 10,
+          "accepted": [
+            {
+              "stroke": 1,
+              "hz": 491.00114482349846
+            },
+            {
+              "stroke": 2,
+              "hz": 698.999396281196
+            },
+            {
+              "stroke": 5,
+              "hz": 491.0011543371729
+            },
+            {
+              "stroke": 6,
+              "hz": 491.0011705247387
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632524189
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106333393
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 3,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 9,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        }
+      }
+    },
+    "high": {
+      "source": "injected",
+      "known_strokes": 10,
+      "configurations": {
+        "lot0": {
+          "native_detected": 10,
+          "accepted": [
+            {
+              "stroke": 1,
+              "hz": 491.00114482264115
+            },
+            {
+              "stroke": 2,
+              "hz": 698.9993962821184
+            },
+            {
+              "stroke": 5,
+              "hz": 491.00115433124273
+            },
+            {
+              "stroke": 6,
+              "hz": 491.00117054088616
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632550829
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106269965
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 3,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 9,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        },
+        "current": {
+          "native_detected": 10,
+          "accepted": [
+            {
+              "stroke": 1,
+              "hz": 491.00114482264115
+            },
+            {
+              "stroke": 2,
+              "hz": 698.9993962821184
+            },
+            {
+              "stroke": 3,
+              "hz": 801.0005051380158
+            },
+            {
+              "stroke": 5,
+              "hz": 491.00115433124273
+            },
+            {
+              "stroke": 6,
+              "hz": 491.00117054088616
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632550829
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106269965
+            },
+            {
+              "stroke": 9,
+              "hz": 801.0007902928327
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        },
+        "band80_700": {
+          "native_detected": 10,
+          "accepted": [
+            {
+              "stroke": 1,
+              "hz": 491.00114482264115
+            },
+            {
+              "stroke": 2,
+              "hz": 698.9993962821184
+            },
+            {
+              "stroke": 5,
+              "hz": 491.00115433124273
+            },
+            {
+              "stroke": 6,
+              "hz": 491.00117054088616
+            },
+            {
+              "stroke": 7,
+              "hz": 698.9994632550829
+            },
+            {
+              "stroke": 8,
+              "hz": 698.9992106269965
+            }
+          ],
+          "rejected": [
+            {
+              "stroke": 3,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 4,
+              "reason": "AmbiguousModes"
+            },
+            {
+              "stroke": 9,
+              "reason": "Noise"
+            },
+            {
+              "stroke": 10,
+              "reason": "AmbiguousModes"
+            }
+          ],
+          "first_stable_stroke": null
+        }
+      }
+    }
+  }
+}
