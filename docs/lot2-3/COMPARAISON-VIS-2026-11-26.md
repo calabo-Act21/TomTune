@@ -1,6 +1,8 @@
 # Comparaison près d’une vis — préparation du 26 novembre 2026
 
-**Diagnostic prêt ; aucun nouvel essai sur le Pixel.** À la demande de l’utilisateur, la session physique attend son feu vert. Le bon mode de la caisse claire reste à identifier. Aucun correctif de suivi entre frappes n’est activé dans le produit.
+**Actualisation après préparation :** l’utilisateur a ensuite réalisé un [essai sur son floor tom 14″ / 8 vis, peau de frappe](ESSAI-FLOOR14-2026-11-26.md), avec ce même APK. Cet essai distinct de la caisse claire ne valide pas le critère de répétabilité. Les mentions d’attente ci-dessous décrivent la préparation.
+
+**État de préparation avant essai : diagnostic prêt ; aucun nouvel essai sur le Pixel à cette étape.** À la demande de l’utilisateur, la session physique attend son feu vert. Le bon mode de la caisse claire reste à identifier. Aucun correctif de suivi entre frappes n’est activé dans le produit.
 
 Départ : branche `codex/lot2-3-android`, rapport `7750a22`. L’APK de l’essai précédent provenait de `f19bcbb5e3ec1f1b1981ed29d056d379674c7b57`. Lire aussi [l’essai précédent](ESSAI-PHYSIQUE-2026-11-25.md) : la confirmation ponctuelle à 490,7 Hz à la **9e détection** ne prouve ni neuf coups physiques établis ni la justesse du mode.
 

@@ -7,7 +7,8 @@
   "branch": "codex/lot2-3-android",
   "baseTestedApkCommit": "f19bcbb5e3ec1f1b1981ed29d056d379674c7b57",
   "reportStartCommit": "7750a2253eddec857cc786d15dc168aaf731bf8f",
-  "physicalPixelSession": "not_started_awaiting_user_go_ahead",
+  "physicalPixelSession": "completed_floor14_batter_2026_11_26",
   "pcmPersisted": false,
-  "deliveryCount": 1
+  "deliveryCount": 1,
+  "physicalSessionReport": "docs/lot2-3/ESSAI-FLOOR14-2026-11-26.md"
 }

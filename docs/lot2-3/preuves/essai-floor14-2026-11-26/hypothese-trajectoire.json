@@ -1,0 +1,87 @@
+{
+  "proposalOnly": true,
+  "source": "retrospective metadata, not PCM replay",
+  "acousticModeCorrectness": "open; no independent tuner",
+  "productBehaviorChanged": false,
+  "firmPhysicalMetadataProbe": [
+    {
+      "impact": 1,
+      "fixedAnchorTrajectories": [],
+      "decision": "abstain_need_more",
+      "count": 1,
+      "trajectories": [
+        [
+          139.18728888267523,
+          137.49255100188705,
+          135.31385290407158
+        ]
+      ]
+    },
+    {
+      "impact": 2,
+      "fixedAnchorTrajectories": [],
+      "decision": "abstain_need_more",
+      "count": 2,
+      "trajectories": [
+        [
+          139.32811613609783,
+          137.49814717583735,
+          135.37291002251138
+        ]
+      ]
+    },
+    {
+      "impact": 3,
+      "fixedAnchorTrajectories": [],
+      "decision": "coherent_metadata_only",
+      "lateHz": 135.37291002251138,
+      "count": 3,
+      "trajectories": [
+        [
+          139.98953624651529,
+          137.61737191365322,
+          135.40001495966487
+        ]
+      ]
+    },
+    {
+      "impact": 4,
+      "fixedAnchorTrajectories": [],
+      "decision": "coherent_metadata_only",
+      "lateHz": 135.37291002251138,
+      "count": 4,
+      "trajectories": [
+        [
+          139.13760799163958,
+          137.0306907933219,
+          134.99339365666364
+        ]
+      ]
+    }
+  ],
+  "ambiguous491699801InjectedMetadataControl": {
+    "decision": "abstain_competing",
+    "trajectories": [
+      [
+        491.001307692037,
+        491.00107479052684,
+        491.00112740131436
+      ],
+      [
+        699.0013936005782,
+        698.9971372068519,
+        699.0012109376955
+      ],
+      [
+        800.9978358710672,
+        801.0034795217003,
+        800.9983246764572
+      ]
+    ]
+  },
+  "missingWindowMetadataSimulationControl": {
+    "decision": "abstain_missing",
+    "trajectories": []
+  },
+  "physicalFiveStrokeCriterion": "not met; only four detections for ten declared strokes, third detection follows cue six"
+}

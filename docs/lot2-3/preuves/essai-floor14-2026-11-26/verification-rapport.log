@@ -1,0 +1,8 @@
+Initial strict-onset audit found +5 ms for lot0 on light ID14 (Noise); report corrected.
+PASS light: raw logcat product detected/estimated/rejected/confirmed=(14, 11, 3, 1); three configurations agree on choices; native frame offsets=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 240].
+PASS firm: raw logcat product detected/estimated/rejected/confirmed=(4, 0, 4, 0); three configurations agree on choices; native frame offsets=[0, 0, 0, 0].
+PASS 27 groups total, 9 outside both blocks, no Next, no reported CaptureIssue.
+PASS strong rejection: adequate spectral concentration, dominant drift >35 cents, no Clipped criterion crossed.
+PASS UI: transient enabled Next is traced; disabled at block snapshots and before abandon.
+PASS all local report links; APK SHA-256 unchanged; no Android/audio source changes; new proofs metadata only.
+PASS retrospective hypothesis assertions: wait for consensus; abstain on three competing injected modes and missing-window metadata simulation.

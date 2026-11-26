@@ -1,0 +1,43 @@
+{
+  "instrument": "floor tom",
+  "diameterInches": 14,
+  "lugs": 8,
+  "head": "batter",
+  "device": "Pixel 9 Pro XL",
+  "android": "17",
+  "api": 37,
+  "phoneFixedOnStand": true,
+  "oppositeHeadDamped": true,
+  "sourceCommit": "78ccc89806ebd899be4c5296818c2226c60d9c5b",
+  "installedSha256": "d52725c1067ae03aa886e52b28737bbffcaf15ab00f4b7c3b0c64bd6d428fe0a",
+  "previousInstalledSha256": "b8f82d4cb1ae4791c7e5ebb9474b94a003b4806d1f72233723eab293a956d878",
+  "pcmPersisted": false,
+  "kitSnapshotUnchangedAfterInstall": true,
+  "physicalStrokesStarted": true,
+  "oppositeHeadDamping": "drum resting on drummer stool cushion, user declared",
+  "phoneDistanceFromHeadCmApprox": 10,
+  "configurationDelta": [
+    {
+      "path": "/kits/0/revision",
+      "before": 1,
+      "after": 2
+    },
+    {
+      "path": "/kits/0/drums/3/lugs",
+      "before": 6,
+      "after": 8
+    },
+    {
+      "path": "/kits/0/drums/3/manualLugs",
+      "before": false,
+      "after": true
+    }
+  ],
+  "independentTuner": "not_available_user_corrected",
+  "setupUserDeclared": true,
+  "physicalStrokesOperatorDeclared": {
+    "light": 10,
+    "firm": 10
+  },
+  "microphoneStoppedAfterAbandon": true
+}

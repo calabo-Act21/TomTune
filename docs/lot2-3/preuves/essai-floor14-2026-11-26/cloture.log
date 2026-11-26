@@ -1,0 +1,7 @@
+Same physical lug across both blocks; no Next press in trace.
+At close: Vis 1 sur 8; Next disabled.
+Abandon confirmed in UI.
+Snapshot identical to post-configuration baseline: true.
+No frequency/reference saved.
+Uid mode: RECORD_AUDIO: foreground
+RECORD_AUDIO: allow; time=+2m56s66ms ago; duration=+2m50s906ms

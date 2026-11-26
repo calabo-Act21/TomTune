@@ -1,0 +1,13 @@
+{"block":"firm","broadcastSeconds":0.27314186096191406,"command":"reset","hostAfterEpochSeconds":1795715960.501595,"hostBeforeEpochSeconds":1795715960.2284532,"ordinal":0,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19018316268920898,"command":"begin","hostAfterEpochSeconds":1795715965.696516,"hostBeforeEpochSeconds":1795715965.5063329,"ordinal":0,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19228816032409668,"command":"cue","hostAfterEpochSeconds":1795715965.8904781,"hostBeforeEpochSeconds":1795715965.69819,"ordinal":1,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19076013565063477,"command":"cue","hostAfterEpochSeconds":1795715969.0851851,"hostBeforeEpochSeconds":1795715968.8944249,"ordinal":2,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.1911308765411377,"command":"cue","hostAfterEpochSeconds":1795715972.0851469,"hostBeforeEpochSeconds":1795715971.894016,"ordinal":3,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19260597229003906,"command":"cue","hostAfterEpochSeconds":1795715975.086776,"hostBeforeEpochSeconds":1795715974.89417,"ordinal":4,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.1925501823425293,"command":"cue","hostAfterEpochSeconds":1795715978.0865831,"hostBeforeEpochSeconds":1795715977.894033,"ordinal":5,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19251084327697754,"command":"cue","hostAfterEpochSeconds":1795715981.086571,"hostBeforeEpochSeconds":1795715980.8940601,"ordinal":6,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19254493713378906,"command":"cue","hostAfterEpochSeconds":1795715984.0865779,"hostBeforeEpochSeconds":1795715983.894033,"ordinal":7,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.1911008358001709,"command":"cue","hostAfterEpochSeconds":1795715987.0850968,"hostBeforeEpochSeconds":1795715986.893996,"ordinal":8,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19260978698730469,"command":"cue","hostAfterEpochSeconds":1795715990.086659,"hostBeforeEpochSeconds":1795715989.8940492,"ordinal":9,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19251918792724609,"command":"cue","hostAfterEpochSeconds":1795715993.0865412,"hostBeforeEpochSeconds":1795715992.894022,"ordinal":10,"renderImmediatelyAfterBroadcast":true}
+{"block":"firm","broadcastSeconds":0.19255590438842773,"command":"end","hostAfterEpochSeconds":1795715998.1865559,"hostBeforeEpochSeconds":1795715997.994,"ordinal":0,"renderImmediatelyAfterBroadcast":true}
